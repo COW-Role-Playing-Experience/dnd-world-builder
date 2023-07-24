@@ -30,3 +30,8 @@ repos:
     rev: 0.2.2
     hooks:
     -   id: checkmake
+    # C# and Dotnet linter
+-   repo: https://github.com/jvstein/pre-commit-dotnet-format
+    rev: 'v0.3'
+    hooks:
+    -   id: dotnet-format
