@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnd-world-builder", "dnd-world-builder\dnd-world-builder.csproj", "{F00A3462-5468-48C3-85C4-A51E7E818E58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "map-generator", "map-generator\map-generator.csproj", "{F00A3462-5468-48C3-85C4-A51E7E818E58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
