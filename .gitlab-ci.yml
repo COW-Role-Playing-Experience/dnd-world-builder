@@ -15,9 +15,6 @@
 # https://docs.gitlab.com/ee/development/cicd/templates.html
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
-job:
-  tags:
-    - shell
 
 stages:          # List of stages for jobs, and their order of execution
   - lint
@@ -28,6 +25,8 @@ stages:          # List of stages for jobs, and their order of execution
 build-job:       # This job runs in the build stage, which runs first.
   
   stage: build
+  tags:
+    - shell
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
