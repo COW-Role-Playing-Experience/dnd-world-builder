@@ -1,12 +1,3 @@
-﻿using System;
+﻿// See https://aka.ms/new-console-template for more information
 
-namespace dnd_world_builder
-{
-    internal class Program
-    {
-        public static void Main(string[] args)
-        {
-            Console.WriteLine("test");
-        }
-    }
-}
+Console.WriteLine("Hello, World!");
