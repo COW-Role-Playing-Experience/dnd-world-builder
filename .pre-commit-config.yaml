@@ -2,7 +2,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+    rev: v4.4.0
     hooks:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
@@ -10,7 +10,7 @@ repos:
     -   id: check-merge-conflict
     -   id: check-added-large-files
 -   repo: https://github.com/psf/black
-    rev: 22.10.0
+    rev: 23.7.0
     hooks:
     -   id: black
 -   repo: https://github.com/jorisroovers/gitlint
@@ -23,7 +23,7 @@ repos:
     -   id: markdownlint
     # Linter for the Dockerfile
 -   repo: https://github.com/AleksaC/hadolint-py
-    rev: v2.12.0
+    rev: v2.12.0.2
     hooks:
     -   id: hadolint
 -   repo: https://github.com/mrtazz/checkmake
@@ -31,7 +31,11 @@ repos:
     hooks:
     -   id: checkmake
     # C# and Dotnet linter
--   repo: https://github.com/jvstein/pre-commit-dotnet-format
-    rev: 'v0.3'
+-   repo: local
     hooks:
+    #Use dotnet format already installed on your machine
     -   id: dotnet-format
+        name: dotnet-format
+        language: system
+        entry: dotnet format --include
+        types_or: ["c#", "vb"]
