@@ -30,7 +30,7 @@ lint:
   cache:
     paths:
       - ${PRE_COMMIT-HOME}
-    scripts:
+    script:
       - pre-commit run --all-files
 
 unit-test-job:   # This job runs in the test stage.
