@@ -5,4 +5,4 @@ ignore=body-max-line-length,body-is-missing,body-min-length
 line-length=100
 
 [title-match-regex]
-regex=(Bug|Fix|Feature|Refactor|Style|Test|Docs)+\|(Assets|UIUX|GameEngine|MapMaker|Quality|Networking)+:\s[A-Za-z0-9\s]+
+regex=(Bug|Fix|Feature|Refactor|Style|Test|Docs)+\|(Assets|UIUX|GameEngine|MapMaker|Quality|Networking)+:\s[A-Za-z0-9]+
