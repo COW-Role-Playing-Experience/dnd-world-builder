@@ -22,19 +22,16 @@ stages:          # List of stages for jobs, and their order of execution
   - test
   - deploy
 
-dotnet-format:       # This job runs in the build stage, which runs first.
-  stage: build
-  tags:
-    - shell
-  script:
-    - dotnet format
-
-git-lint:
-  stage: build
-  tags:
-    - shell
-  script:
-    - gitlint
+lint:
+  stage: lint
+  image: $CI_REGISTRY_IMAGE/ci:lint
+  variables:
+    PRE_COMMIT_HOME: ${CI_PROJECT_DIR}/.cache/pre-commit
+  cache:
+    paths:
+      - ${PRE_COMMIT-HOME}
+    scripts:
+      - pre-commit run --all-files
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
