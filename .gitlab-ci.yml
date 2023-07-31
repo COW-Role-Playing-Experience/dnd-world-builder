@@ -29,6 +29,13 @@ dotnet-format:       # This job runs in the build stage, which runs first.
   script:
     - dotnet format
 
+git-lint:
+  stage: build
+  tags:
+    - shell
+  script:
+    - gitlint
+
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   tags:
