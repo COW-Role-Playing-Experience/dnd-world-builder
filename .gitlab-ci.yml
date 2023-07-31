@@ -25,6 +25,8 @@ stages:          # List of stages for jobs, and their order of execution
 lint:
   stage: lint
   image: $CI_REGISTRY_IMAGE/ci:lint
+  tags:
+    - shell
   variables:
     PRE_COMMIT_HOME: ${CI_PROJECT_DIR}/.cache/pre-commit
   cache:
