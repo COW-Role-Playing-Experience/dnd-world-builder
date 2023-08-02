@@ -1,0 +1,8 @@
+[general]
+ignore=body-max-line-length,body-is-missing,body-min-length
+
+[title-max-length]
+line-length=100
+
+[title-match-regex]
+regex=(Bug|Fix|Feature|Refactor|Style|Test|Docs|Merge)+\|(Assets|UIUX|GameEngine|MapMaker|Quality|Networking)+:\s[A-Za-z0-9]+
