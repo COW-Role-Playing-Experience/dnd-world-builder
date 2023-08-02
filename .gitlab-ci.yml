@@ -22,15 +22,18 @@ stages:          # List of stages for jobs, and their order of execution
   - test
   - deploy
 
-build-job:       # This job runs in the build stage, which runs first.
-  
-  stage: build
+lint:
+  stage: lint
+  image: $CI_REGISTRY_IMAGE/ci:lint
   tags:
     - shell
+  variables:
+    PRE_COMMIT_HOME: ${CI_PROJECT_DIR}/.cache/pre-commit
+  cache:
+    paths:
+      - ${PRE_COMMIT-HOME}
   script:
-    - echo "Compiling the code..."
-    - dotnet format
-    - echo "Compile complete."
+    - pre-commit run --all-files
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
