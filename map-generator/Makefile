@@ -2,9 +2,10 @@
 
 .PHONY: all install uninstall build test clean deep-clean
 
+.SILENT: uninstall clean deep-clean
+
 # Performs install and then build in the same command
-all:
-	echo: "Build everything..."
+all: install build
 
 # Installs the required dependencies
 install:
@@ -17,6 +18,7 @@ uninstall:
 # Builds the project files into a exe program
 build:
 	echo "Building project... "
+	dotnet build
 
 test:
 	echo "Test project..."
