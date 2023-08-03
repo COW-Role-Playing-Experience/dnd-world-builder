@@ -8,23 +8,23 @@ all:
 
 # Installs the required dependencies
 install:
-	echo: "Installing dependencies..."
+	echo "Installing dependencies..."
 
 # Uninstalls the required dependencies
 uninstall:
-	echo: "Uninstalling dependencies..."
+	echo "Uninstalling dependencies..."
 
 # Builds the project files into a exe program
 build:
-	echo: "Building project... "
+	echo "Building project... "
 
 test:
-	echo: "Test project..."
+	echo "Test project..."
 
 # Deletes all files from the build folder
 clean:
-	echo: "Deleting build artifacts... "
+	echo "Deleting build artifacts... "
 
 # Deletes the entire build folder
 deep-clean:
-	echo: "Deleting build folder... "
+	echo "Deleting build folder... "
