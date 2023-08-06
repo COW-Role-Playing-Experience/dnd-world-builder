@@ -1,4 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
+using System;
 
-Console.WriteLine("Hello, World!");
-Console.WriteLine("Testing GitLint!!");
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Hello, World!");
+        MapBuilder map = new MapBuilder(5, 5);
+        map.printMap();
+    }
+}
