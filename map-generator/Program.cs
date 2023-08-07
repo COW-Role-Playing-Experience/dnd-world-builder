@@ -5,7 +5,7 @@ class Program
     static void Main()
     {
         Console.WriteLine("Hello, World!");
-        MapBuilder map = new MapBuilder(5, 5);
+        MapBuilder map = new MapBuilder(25, 25);
         map.printMap();
     }
 }
