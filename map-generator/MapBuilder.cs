@@ -1,6 +1,6 @@
 public class MapBuilder
 {
-    private RoomTile[][] tiles;
+    private Dictionary<(int, int), RoomTile> tiles;
     private int xSize;
     private int ySize;
 
@@ -8,34 +8,49 @@ public class MapBuilder
     {
         this.xSize = xSize;
         this.ySize = ySize;
-        this.tiles = null;
+        this.tiles = new Dictionary<(int, int), RoomTile>();
         this.emptyTilesMap();
         System.Console.WriteLine("testing");
+        this.initRoom();
     }
 
     private void emptyTilesMap()
     {
-        RoomTile[][] xTiles = new RoomTile[this.xSize][];
         for (int x = 0; x < this.xSize; x++)
         {
-            RoomTile[] yTiles = new RoomTile[ySize];
             for (int y = 0; y < this.ySize; y++)
             {
-                yTiles[y] = new RoomTile(x, y);
+                RoomTile tile = new RoomTile(x, y, true);
+                tiles.Add((x, y), tile);
             }
-            xTiles[x] = yTiles;
         }
-        this.tiles = xTiles;
+    }
+
+    private void initRoom()
+    {
+        int initX = this.xSize / 2;
+        int initY = this.ySize / 2;
+        RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, this.tiles);
+        this.applyTiles(room.getTiles());
+    }
+
+    private void applyTiles(Dictionary<(int, int), RoomTile> tiles)
+    {
+        foreach (RoomTile tile in tiles.Values)
+        {
+            int x = tile.getX();
+            int y = tile.getY();
+            this.tiles[(x, y)] = tile;
+        }
     }
 
     public void printMap()
     {
         for (int x = 0; x < xSize; x++)
         {
-            RoomTile[] xTiles = this.tiles[x];
             for (int y = 0; y < ySize; y++)
             {
-                RoomTile tile = xTiles[y];
+                RoomTile tile = this.tiles[(x, y)];
                 System.Console.Write(tile.getChar());
             }
             System.Console.WriteLine("");
