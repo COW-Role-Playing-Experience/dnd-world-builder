@@ -1,23 +1,17 @@
 using System.Data;
+using map_generator;
 
 public class RoomTile
 {
     private int x;
     private int y;
     private bool conn;
-    private Dir direction;
+    private Direction direction;
     private bool empty;
 
-    public enum Dir
-    {
-        NORTH,
-        EAST,
-        WEST,
-        SOUTH,
-        NONE
-    }
 
-    public RoomTile(int x, int y, bool isEmpty, bool conn = false, Dir direction = Dir.NONE)
+
+    public RoomTile(int x, int y, bool isEmpty, bool conn = false, Direction direction = Direction.NONE)
     {
         this.x = x;
         this.y = y;
