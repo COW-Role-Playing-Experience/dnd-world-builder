@@ -6,18 +6,16 @@ public class RoomBuilder
     private int ySize;
     private int x;
     private int y;
-    private Dictionary<(int, int), RoomTile> roomTiles;
-    private readonly Dictionary<(int, int), RoomTile> gridTiles;
+    private readonly RoomTile[,] gridTiles;
 
     private bool[] connSides;
 
-    public RoomBuilder(int x, int y, int xSize, int ySize, Dictionary<(int, int), RoomTile> gridTiles)
+    public RoomBuilder(int x, int y, int xSize, int ySize, RoomTile[,] gridTiles)
     {
         this.xSize = xSize;
         this.ySize = ySize;
         this.x = x;
         this.y = y;
-        this.roomTiles = new Dictionary<(int, int), RoomTile>();
         this.gridTiles = gridTiles;
 
         this.initRoomTiles();
@@ -29,16 +27,10 @@ public class RoomBuilder
         {
             for (int j = y; j < y + this.ySize; j++)
             {
-                RoomTile tile = this.gridTiles[(i, j)];
+                RoomTile tile = this.gridTiles[i, j];
                 tile.setEmpty(false);
-                this.roomTiles.Add((i, j), tile);
             }
         }
-    }
-
-    public Dictionary<(int, int), RoomTile> getTiles()
-    {
-        return this.roomTiles;
     }
 
 }
