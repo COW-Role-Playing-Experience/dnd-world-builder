@@ -5,17 +5,15 @@ public class RoomTile
 {
     private int x;
     private int y;
-    private bool conn;
     private Direction direction;
     private bool empty;
 
 
 
-    public RoomTile(int x, int y, bool isEmpty, bool conn = false, Direction direction = Direction.NONE)
+    public RoomTile(int x, int y, bool isEmpty, Direction direction = Direction.NONE)
     {
         this.x = x;
         this.y = y;
-        this.conn = conn;
         this.direction = direction;
         this.empty = isEmpty;
     }
@@ -24,14 +22,9 @@ public class RoomTile
     {
         if (this.empty)
         {
-            return 'O';
+            return '.';
         }
         return 'X';
-    }
-
-    public bool isConn()
-    {
-        return this.conn;
     }
 
     public bool isEmpty()
