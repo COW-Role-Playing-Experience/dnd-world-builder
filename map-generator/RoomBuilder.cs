@@ -25,9 +25,9 @@ public class RoomBuilder
 
     private void initRoomTiles()
     {
-        for (int i = x; i < this.xSize; i++)
+        for (int i = x; i < x + this.xSize; i++)
         {
-            for (int j = y; j < this.ySize; j++)
+            for (int j = y; j < y + this.ySize; j++)
             {
                 RoomTile tile = this.gridTiles[(i, j)];
                 tile.setEmpty(false);
