@@ -38,3 +38,12 @@ repos:
         language: system
         entry: dotnet format --include
         types_or: ["c#", "vb"]
+    # Show the git diff immediately when any one of the pre-commit hooks modifies any files
+-   repo: local
+    hooks:
+    -   id: git-diff
+        name: git diff
+        entry: git diff --exit-code
+        language: system
+        pass_filenames: false
+        always_run: true
