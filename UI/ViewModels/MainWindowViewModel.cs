@@ -1,6 +1,19 @@
-﻿namespace UI.ViewModels;
+﻿using Avalonia.Controls;
+
+namespace UI.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    public string Greeting => "Welcome to Avalonia!";
+    private ViewModelBase _contentViewModel;
+    public MainWindowViewModel()
+    {
+    }
+
+    public ViewModelBase ContentViewModel
+    {
+        get => _contentViewModel;
+
+
+
+    }
 }
