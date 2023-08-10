@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:UI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="UI.Views.HomeScreenView"
+             x:DataType="vm:HomeScreenViewModel">
+
+    <Border BorderThickness="100">
+        <Grid RowDefinitions="Auto, *, Auto">
+            <TextBlock Grid.Row="0" FontSize="80" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="50">World Crucible</TextBlock>
+            <Grid Grid.Row="1" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Spacing="100">
+                    <Button MinHeight="80" MinWidth="80" x:CompileBindings="False"
+                            Command="{Binding $parent[Window].DataContext.CreateView}">
+                        Create View
+                    </Button>
+                    <Button MinHeight="80" MinWidth="80" x:CompileBindings="False"
+                            Command="{Binding $parent[Window].DataContext.DMView} ">
+                        >Host
+                    </Button>
+                    <Button MinHeight="80" MinWidth="80" x:CompileBindings="False"
+                            Command="{Binding $parent[Window].DataContext.PlayerView}">
+                        Join
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
