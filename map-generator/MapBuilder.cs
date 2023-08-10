@@ -36,10 +36,7 @@ public class MapBuilder
         int initX = this.xSize / 2;
         int initY = this.ySize / 2;
         RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, this.tiles, this.rng);
-        room.bakeRoomTiles().generateConn(Direction.NORTH);
-        Connector conn = room.getConnector(Direction.NORTH);
-        RoomBuilder room2 = new RoomBuilder(conn.getX(), conn.getY() - 1, 2, 2, this.tiles, this.rng);
-        room2.bakeRoomTiles();
+        room.generateRoom();
     }
 
     public void printMap()
