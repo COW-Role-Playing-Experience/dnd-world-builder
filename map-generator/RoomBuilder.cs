@@ -26,6 +26,39 @@ public class RoomBuilder
         this.connSides = new bool[4];
     }
 
+    public void generateRoom(){
+        this.bakeRoomTiles();
+        this.generateConn(Direction.NORTH);
+        for(int i = 0; i < 4; i++){
+            if(!this.connSides[i]) continue;
+            Connector connector = this.connectors[i];
+            bool safe = this.checkTilesEmptyOrAvailable(connector.getX(), connector.getY() - 1, 2, 2);
+            if(!safe) continue;
+            RoomBuilder room = new RoomBuilder(connector.getX(), connector.getY() - 1, 2, 2, gridTiles, rng);
+            room.generateRoom();
+        }
+    }
+
+    private bool checkTilesEmptyOrAvailable(int x, int y, int width, int height){
+        int gridWidth = this.gridTiles.GetLength(0);
+        int gridHeight = this.gridTiles.GetLength(1);
+
+        for (int i = x; i < x + width; i++) {
+            for (int j = y; j < y + height; j++) {
+                if (i < 0 || i >= gridWidth || j < 0 || j >= gridHeight) {
+                    return false;
+                } else {
+                    RoomTile tile = this.gridTiles[i, j];
+                    if(!tile.isEmpty()){
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
 
 
     public bool hasConn(Direction direction)
@@ -49,7 +82,7 @@ public class RoomBuilder
     }
 
     // Builder Methods
-    public RoomBuilder bakeRoomTiles()
+    private RoomBuilder bakeRoomTiles()
     {
         for (int i = x; i < x + this.xSize; i++)
         {
@@ -63,7 +96,7 @@ public class RoomBuilder
         return this;
     }
 
-    public RoomBuilder generateConn(Direction direction)
+    private RoomBuilder generateConn(Direction direction)
     {
         switch (direction)
         {
@@ -72,6 +105,7 @@ public class RoomBuilder
                 {
                     int xCoord = this.x + rng.Next(this.xSize);
                     this.connectors[0] = new Connector(xCoord, y - 1);
+                    this.connSides[0] = true;
                 }
                 break;
             case Direction.EAST:
@@ -79,6 +113,7 @@ public class RoomBuilder
                 {
                     int yCoord = this.y + rng.Next(this.ySize);
                     this.connectors[1] = new Connector(x + this.xSize + 1, yCoord);
+                    this.connSides[1] = true;
                 }
                 break;
             case Direction.SOUTH:
@@ -86,6 +121,7 @@ public class RoomBuilder
                 {
                     int xCoord = this.x + rng.Next(this.xSize);
                     this.connectors[2] = new Connector(xCoord, y + this.ySize + 1);
+                    this.connSides[2] = true;
                 }
                 break;
             case Direction.WEST:
@@ -93,6 +129,7 @@ public class RoomBuilder
                 {
                     int yCoord = this.y + rng.Next(this.ySize);
                     this.connectors[3] = new Connector(x - 1, yCoord);
+                    this.connSides[3] = true;
                 }
                 break;
             default:
