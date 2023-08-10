@@ -1,12 +1,13 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using ReactiveUI;
 
 namespace UI.Views;
 
-public partial class MapGenerator : UserControl
+public partial class HomeScreenView : UserControl
 {
-    public MapGenerator()
+    public HomeScreenView()
     {
         InitializeComponent();
     }
