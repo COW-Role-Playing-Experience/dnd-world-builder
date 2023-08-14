@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:UI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="UI.Views.MapGeneratorView"
+             x:DataType="vm:MapGeneratorViewModel">
+
+
+    <Grid ColumnDefinitions="250,Auto" ShowGridLines="True">
+        <Grid RowDefinitions="2*,3*,1*">
+            <StackPanel Grid.Column="0" Grid.Row="0">
+                <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Generate From Seed</Button>
+                <TextBox Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Generate New Seed</Button>
+            </StackPanel>
+            <StackPanel Grid.Column="0" Grid.Row="1">
+                <ComboBox PlaceholderText="Theme" Height="50" Width="250" HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center">
+                    <ComboBoxItem>Dungeon</ComboBoxItem>
+                    <ComboBoxItem>Cave</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom">
+                <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Export</Button>
+                <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        x:CompileBindings="False"
+                        Command="{Binding $parent[Window].DataContext.ReturnHome}">
+                    Back
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Canvas Grid.Column="1"></Canvas>
+
+
+    </Grid>
+</UserControl>
