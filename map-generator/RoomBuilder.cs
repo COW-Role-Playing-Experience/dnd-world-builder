@@ -26,11 +26,13 @@ public class RoomBuilder
         this.connSides = new bool[4];
     }
 
-    public void generateRoom(){
+    public void generateRoom()
+    {
         this.bakeRoomTiles();
         this.generateConn(Direction.SOUTH);
-        for(int i = 0; i < 4; i++){
-            if(!this.connSides[i]) continue;
+        for (int i = 0; i < 4; i++)
+        {
+            if (!this.connSides[i]) continue;
             Connector connector = this.connectors[i];
             RoomTheme roomTheme = connector.getRandomRoomTheme();
             int xPos = connector.getX();
@@ -38,27 +40,49 @@ public class RoomBuilder
             //Height and width minMaxEqual;
             int width = this.rng.Next(roomTheme.getMinSize(), roomTheme.getMaxSize());
             int height = this.rng.Next(roomTheme.getMinSize(), roomTheme.getMaxSize());
+            switch (connector.getDirection())
+            {
+                case Direction.NORTH:
+                    yPos -= height - 1;
+                    break;
+                case Direction.EAST:
+                    xPos -= 1;
+                    break;
+                case Direction.SOUTH:
+                    yPos -= 1;
+                    break;
+                case Direction.WEST:
+                    xPos -= width - 1;
+                    break;
+            }
 
-            bool safe = this.checkTilesEmptyOrAvailable(xPos, yPos  - 1, width, height);
-            if(!safe) continue;
+            bool safe = this.checkTilesEmptyOrAvailable(xPos, yPos, width, height);
+            if (!safe) continue;
 
-            RoomBuilder room = new RoomBuilder(xPos, yPos - 1, width, height, gridTiles, rng);
+            RoomBuilder room = new RoomBuilder(xPos, yPos, width, height, gridTiles, rng);
             room.generateRoom();
         }
     }
 
-    private bool checkTilesEmptyOrAvailable(int x, int y, int width, int height){
+    private bool checkTilesEmptyOrAvailable(int x, int y, int width, int height)
+    {
         int gridWidth = this.gridTiles.GetLength(0);
         int gridHeight = this.gridTiles.GetLength(1);
 
-        for (int i = x; i < x + width; i++) {
-            for (int j = y; j < y + height; j++) {
-                if (i < 0 || i >= gridWidth || j < 0 || j >= gridHeight) {
+        for (int i = x; i < x + width; i++)
+        {
+            for (int j = y; j < y + height; j++)
+            {
+                if (i < 0 || i >= gridWidth || j < 0 || j >= gridHeight)
+                {
                     return false;
-                } else {
+                }
+                else
+                {
                     RoomTile tile = this.gridTiles[i, j];
                     System.Console.WriteLine("" + tile.isEmpty());
-                    if(!tile.isEmpty()){
+                    if (!tile.isEmpty())
+                    {
                         return false;
                     }
                 }
@@ -67,8 +91,6 @@ public class RoomBuilder
 
         return true;
     }
-
-
 
     public bool hasConn(Direction direction)
     {
@@ -117,7 +139,7 @@ public class RoomBuilder
                 if (!connSides[0])
                 {
                     int xCoord = this.x + rng.Next(this.xSize);
-                    this.connectors[0] = new Connector(xCoord, y - 1, 1, themes, this.rng);
+                    this.connectors[0] = new Connector(xCoord, y - 1, 1, direction, themes, this.rng);
                     this.connSides[0] = true;
                 }
                 break;
@@ -125,7 +147,7 @@ public class RoomBuilder
                 if (!connSides[1])
                 {
                     int yCoord = this.y + rng.Next(this.ySize);
-                    this.connectors[1] = new Connector(x + this.xSize + 1, yCoord, 1, themes, this.rng);
+                    this.connectors[1] = new Connector(x + this.xSize + 1, yCoord, 1, direction, themes, this.rng);
                     this.connSides[1] = true;
                 }
                 break;
@@ -133,7 +155,7 @@ public class RoomBuilder
                 if (!connSides[2])
                 {
                     int xCoord = this.x + rng.Next(this.xSize);
-                    this.connectors[2] = new Connector(xCoord, y + this.ySize + 1, 1, themes, this.rng);
+                    this.connectors[2] = new Connector(xCoord, y + this.ySize + 1, 1, direction, themes, this.rng);
                     this.connSides[2] = true;
                 }
                 break;
@@ -141,7 +163,7 @@ public class RoomBuilder
                 if (!connSides[3])
                 {
                     int yCoord = this.y + rng.Next(this.ySize);
-                    this.connectors[3] = new Connector(x - 1, yCoord, 1, themes, this.rng);
+                    this.connectors[3] = new Connector(x - 1, yCoord, 1, direction, themes, this.rng);
                     this.connSides[3] = true;
                 }
                 break;
