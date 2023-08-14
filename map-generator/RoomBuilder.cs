@@ -44,15 +44,19 @@ public class RoomBuilder
             {
                 case Direction.NORTH:
                     yPos -= height - 1;
+                    xPos -= width / 2;
                     break;
                 case Direction.EAST:
                     xPos -= 1;
+                    yPos -= height / 2;
                     break;
                 case Direction.SOUTH:
                     yPos -= 1;
+                    xPos -= width / 2;
                     break;
                 case Direction.WEST:
                     xPos -= width - 1;
+                    yPos -= height / 2;
                     break;
             }
 
