@@ -30,6 +30,9 @@ public class RoomBuilder
     {
         this.bakeRoomTiles();
         this.generateConn(Direction.SOUTH);
+        this.generateConn(Direction.EAST);
+        this.generateConn(Direction.WEST);
+        this.generateConn(Direction.NORTH);
         for (int i = 0; i < 4; i++)
         {
             if (!this.connSides[i]) continue;
@@ -38,8 +41,8 @@ public class RoomBuilder
             int xPos = connector.getX();
             int yPos = connector.getY();
             //Height and width minMaxEqual;
-            int width = this.rng.Next(roomTheme.getMinSize(), roomTheme.getMaxSize());
-            int height = this.rng.Next(roomTheme.getMinSize(), roomTheme.getMaxSize());
+            int width = this.rng.Next(roomTheme.getMinWidth(), roomTheme.getMaxWidth());
+            int height = this.rng.Next(roomTheme.getMinHeight(), roomTheme.getMaxHeight());
             switch (connector.getDirection())
             {
                 case Direction.NORTH:
@@ -47,6 +50,7 @@ public class RoomBuilder
                     xPos -= width / 2;
                     break;
                 case Direction.EAST:
+                    (width, height) = (height, width);
                     xPos -= 1;
                     yPos -= height / 2;
                     break;
@@ -55,6 +59,7 @@ public class RoomBuilder
                     xPos -= width / 2;
                     break;
                 case Direction.WEST:
+                    (width, height) = (height, width);
                     xPos -= width - 1;
                     yPos -= height / 2;
                     break;
@@ -134,8 +139,8 @@ public class RoomBuilder
     private RoomBuilder generateConn(Direction direction)
     {
         RoomTheme[] themes = {
-            new RoomTheme(1, 3, 5, 1, 4, new int[] {1}),
-            new RoomTheme(1, 6, 8, 1, 2, new int[] {1})
+            new RoomTheme(1, 2, 2, 6, 8, 1, 4, new int[] {1}),
+            new RoomTheme(1, 6, 8, 6, 8, 1, 2, new int[] {1})
         };
         switch (direction)
         {

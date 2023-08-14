@@ -1,17 +1,21 @@
 public class RoomTheme
 {
     private int id;
-    private int minSize;
-    private int maxSize;
+    private int minWidth;
+    private int maxWidth;
+    private int minHeight;
+    private int maxHeight;
     private int[] connectorIds;
     private int maxConnectors;
     private int minConnectors;
 
-    public RoomTheme(int id, int minSize, int maxSize, int minConnectors, int maxConnectors, int[] connectorIds)
+    public RoomTheme(int id, int minWidth, int maxWidth, int minHeight, int maxHeight, int minConnectors, int maxConnectors, int[] connectorIds)
     {
         this.id = id;
-        this.minSize = minSize;
-        this.maxSize = maxSize;
+        this.minWidth = minWidth;
+        this.maxWidth = maxWidth;
+        this.minHeight = minHeight;
+        this.maxHeight = maxHeight;
         this.minConnectors = minConnectors;
         this.maxConnectors = maxConnectors;
         this.connectorIds = connectorIds;
@@ -22,14 +26,24 @@ public class RoomTheme
         return this.id;
     }
 
-    public int getMinSize()
+    public int getMinWidth()
     {
-        return this.minSize;
+        return this.minWidth;
     }
 
-    public int getMaxSize()
+    public int getMaxWidth()
     {
-        return this.maxSize;
+        return this.maxWidth;
+    }
+
+    public int getMinHeight()
+    {
+        return this.minHeight;
+    }
+
+    public int getMaxHeight()
+    {
+        return this.maxHeight;
     }
 
     public int getMinConnector()
