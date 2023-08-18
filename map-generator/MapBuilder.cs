@@ -1,41 +1,51 @@
+using map_generator;
+
 public class MapBuilder
 {
-    private RoomTile[][] tiles;
+    private RoomTile[,] tiles;
     private int xSize;
     private int ySize;
+    private Random rng;
 
-    public MapBuilder(int xSize, int ySize)
+    public MapBuilder(int xSize, int ySize, Random rng)
     {
         this.xSize = xSize;
         this.ySize = ySize;
-        this.tiles = null;
+        this.rng = rng;
+        this.tiles = new RoomTile[xSize, ySize];
         this.emptyTilesMap();
         System.Console.WriteLine("testing");
+        this.initRoom();
     }
 
     private void emptyTilesMap()
     {
-        RoomTile[][] xTiles = new RoomTile[this.xSize][];
         for (int x = 0; x < this.xSize; x++)
         {
-            RoomTile[] yTiles = new RoomTile[ySize];
             for (int y = 0; y < this.ySize; y++)
             {
-                yTiles[y] = new RoomTile(x, y);
+                RoomTile tile = new RoomTile(x, y, true);
+                tiles[x, y] = tile;
             }
-            xTiles[x] = yTiles;
         }
-        this.tiles = xTiles;
+    }
+
+    private void initRoom()
+    {
+        // TEST GENERATION
+        int initX = this.xSize / 2;
+        int initY = this.ySize / 2;
+        RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, this.tiles, this.rng);
+        room.generateRoom();
     }
 
     public void printMap()
     {
-        for (int x = 0; x < xSize; x++)
+        for (int y = 0; y < ySize; y++)
         {
-            RoomTile[] xTiles = this.tiles[x];
-            for (int y = 0; y < ySize; y++)
+            for (int x = 0; x < xSize; x++)
             {
-                RoomTile tile = xTiles[y];
+                RoomTile tile = this.tiles[x, y];
                 System.Console.Write(tile.getChar());
             }
             System.Console.WriteLine("");
