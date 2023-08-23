@@ -7,9 +7,25 @@
              x:Class="UI.Views.DMView"
              x:DataType="vm:DMViewModel">
 
-    <Button MinHeight="80" MinWidth="80" x:CompileBindings="False"
-            Command="{Binding $parent[Window].DataContext.ReturnHome}">
-        Back
-    </Button>
+    <StackPanel>
+        <Grid Background="Orange" Height="50" ColumnDefinitions="Auto, * , Auto">
+            <Label Grid.Column="0" Width="300" FontSize="40"> Map Generator</Label>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="25" HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <Button Width="50" Height="50" Background="Blue"></Button>
+                <Button Width="50" Height="50" Background="Blue"></Button>
+                <Button Width="50" Height="50" Background="Blue"></Button>
+                <Button Width="50" Height="50" Background="Blue"></Button>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="25" HorizontalAlignment="Right" Width="300"
+                        FlowDirection="RightToLeft">
+                <Button Width="50" Height="50" Background="Green"></Button>
+            </StackPanel>
+
+
+        </Grid>
+    </StackPanel>
+
 
 </UserControl>
