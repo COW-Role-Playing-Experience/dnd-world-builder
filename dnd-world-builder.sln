@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "map-generator", "map-generator\map-generator.csproj", "{9C45A21F-6CB1-477F-AEBB-1D36F78592B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{194CF639-A2AE-49D3-970D-F82591CE4431}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{9C45A21F-6CB1-477F-AEBB-1D36F78592B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C45A21F-6CB1-477F-AEBB-1D36F78592B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C45A21F-6CB1-477F-AEBB-1D36F78592B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{194CF639-A2AE-49D3-970D-F82591CE4431}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{194CF639-A2AE-49D3-970D-F82591CE4431}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{194CF639-A2AE-49D3-970D-F82591CE4431}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{194CF639-A2AE-49D3-970D-F82591CE4431}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
