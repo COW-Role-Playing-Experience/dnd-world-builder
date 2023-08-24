@@ -17,7 +17,7 @@
     "maxWidth": 2,
     "minHeight": 5,
     "maxHeight": 7,
-    "connectoIds": [
+    "connectorIds": [
       1,2,3,4,5
     ],
     "minConnectors": 1,
