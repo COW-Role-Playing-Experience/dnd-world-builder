@@ -87,7 +87,6 @@ public class RoomBuilder
                 else
                 {
                     RoomTile tile = this.gridTiles[i, j];
-                    System.Console.WriteLine("" + tile.isEmpty());
                     if (!tile.isEmpty())
                     {
                         return false;

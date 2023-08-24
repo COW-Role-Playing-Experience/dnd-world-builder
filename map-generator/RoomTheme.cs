@@ -6,6 +6,6 @@ public record RoomTheme
     public required int minHeight { get; init; }
     public required int maxHeight { get; init; }
     public required int[] connectorIds { get; init; }
-    public required int maxConnectors { get; init; }
     public required int minConnectors { get; init; }
+    public required int maxConnectors { get; init; }
 }
