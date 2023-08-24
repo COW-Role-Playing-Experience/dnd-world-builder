@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "minWidth": 3,
+    "maxWidth": 5,
+    "minHeight": 4,
+    "maxHeight": 5,
+    "connectorIds": [
+      1
+    ],
+    "minConnectors": 1,
+    "maxConnectors": 1
+  },
+  {
+    "id": 1,
+    "minWidth": 2,
+    "maxWidth": 2,
+    "minHeight": 5,
+    "maxHeight": 7,
+    "connectoIds": [
+      1,2,3,4,5
+    ],
+    "minConnectors": 1,
+    "maxConnectors": 1
+  }
+]
