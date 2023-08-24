@@ -2,30 +2,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:styling="https://github.com/avaloniaui"
              xmlns:vm="using:UI.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="UI.Views.DMView"
              x:DataType="vm:DMViewModel">
 
-    <StackPanel>
-        <Grid Background="Orange" Height="50" ColumnDefinitions="Auto, * , Auto">
-            <Label Grid.Column="0" Width="300" FontSize="40"> Map Generator</Label>
 
+
+    <Grid>
+        <Canvas Background="#C0C0C0"> </Canvas>
+        <Grid Height="50" ColumnDefinitions="Auto, * , Auto" Row="0" VerticalAlignment="Top" Margin="20">
+            <Label Grid.Column="0" Width="300" FontSize="40"> Map Generator</Label>
             <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="25" HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                <Button Width="50" Height="50" Background="Blue"></Button>
-                <Button Width="50" Height="50" Background="Blue"></Button>
-                <Button Width="50" Height="50" Background="Blue"></Button>
-                <Button Width="50" Height="50" Background="Blue"></Button>
+                <Button Classes="green" ></Button>
+                <Button Classes="green" ></Button>
+                <Button Classes="green" ></Button>
+                <Button Classes="green" ></Button>
             </StackPanel>
-            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="25" HorizontalAlignment="Right" Width="300"
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="25" HorizontalAlignment="Right"
+                        Width="300"
                         FlowDirection="RightToLeft">
-                <Button Width="50" Height="50" Background="Green"></Button>
+                <Button Width="50" Height="50" Background="#006494" HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center" x:CompileBindings="False"
+                        Command="{Binding $parent[Window].DataContext.ReturnHome} ">
+                    Back
+                </Button>
+                <Button Width="50" Height="50" Background="#006494" HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center">
+                    UI
+                </Button>
             </StackPanel>
-
-
         </Grid>
-    </StackPanel>
+        <Grid VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                <Button Width="35" Height="35" BorderThickness="2" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">+</Button>
+                <Button Width="35" Height="35" BorderThickness="2" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">-</Button>
+                <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">100%</Label>
 
-
+            </StackPanel>
+        </Grid>
+    </Grid>
 </UserControl>
