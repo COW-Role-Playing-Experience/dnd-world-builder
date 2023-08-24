@@ -1,3 +1,4 @@
+using System.Text.Json;
 using map_generator;
 
 public class MapBuilder
@@ -6,6 +7,8 @@ public class MapBuilder
     private int xSize;
     private int ySize;
     private Random rng;
+    private RoomTheme[] roomThemes;
+    private Connector[] connectors;
 
     public MapBuilder(int xSize, int ySize, Random rng)
     {
@@ -39,7 +42,7 @@ public class MapBuilder
         room.generateRoom();
     }
 
-    public void printMap()
+    public MapBuilder printMap()
     {
         for (int y = 0; y < ySize; y++)
         {
@@ -50,5 +53,16 @@ public class MapBuilder
             }
             System.Console.WriteLine("");
         }
+
+        return this;
+    }
+
+    public MapBuilder setTheme(string filePath)
+    {
+        string rawRooms = File.ReadAllText(filePath + "rooms.json");
+
+        this.roomThemes = JsonSerializer.Deserialize<RoomTheme[]>(rawRooms);
+
+        return this;
     }
 }
