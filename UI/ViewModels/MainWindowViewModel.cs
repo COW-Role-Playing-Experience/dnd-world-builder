@@ -34,7 +34,7 @@ public class MainWindowViewModel : ViewModelBase
     }
     public void DMView()
     {
-        Current = new DMViewModel();
+        Current = new DmViewModel();
     }
 
     public void PlayerView()
