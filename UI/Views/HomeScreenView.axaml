@@ -12,17 +12,23 @@
             <TextBlock Grid.Row="0" FontSize="80" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="50">World Crucible</TextBlock>
             <Grid Grid.Row="1" HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Spacing="100">
+
+                    <!-- Button to Create Map -->
                     <Button MinHeight="80" MinWidth="80" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.CreateView}">
-                        Create View
+                        Create New Map
                     </Button>
+
+                    <!-- Button to Host Game -->
                     <Button MinHeight="80" MinWidth="80" x:CompileBindings="False"
-                            Command="{Binding $parent[Window].DataContext.DMView} ">
-                        >Host
+                            Command="{Binding $parent[Window].DataContext.DmView} ">
+                        Host Game
                     </Button>
+
+                    <!-- Button to Join Game -->
                     <Button MinHeight="80" MinWidth="80" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.PlayerView}">
-                        Join
+                        Join Game
                     </Button>
                 </StackPanel>
             </Grid>
