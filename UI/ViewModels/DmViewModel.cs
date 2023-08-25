@@ -1,8 +1,14 @@
+using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Reactive;
+using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
+using Avalonia.Platform.Storage;
 using ReactiveUI;
 
 namespace UI.ViewModels;
@@ -10,9 +16,9 @@ namespace UI.ViewModels;
 public class DmViewModel : ViewModelBase
 {
     private bool isUIVisible = true;
-    private bool isAddVisable = false;
+    private bool isAddVisable;
     private double uiButtonOpacity = 1.0;
-    private int circleCount = 0;
+    private int circleCount;
     private int ObservableCircleCount => observableCircleCount.Value;
 
     private readonly ObservableAsPropertyHelper<int> observableCircleCount;
@@ -46,7 +52,7 @@ public class DmViewModel : ViewModelBase
     {
         ToggleUiVisibility = ReactiveCommand.Create(ToggleUiToggleButton);
         ToggleAddVisibility = ReactiveCommand.Create(ToggleAddButton);
-        AddCircleCommand = ReactiveCommand.Create(AddCircle);
+        AddCircleCommand = ReactiveCommand.CreateFromTask(AddCircleAsync);
 
         observableCircleCount = this
             .WhenAnyValue(vm => vm.circleCount)
@@ -65,22 +71,77 @@ public class DmViewModel : ViewModelBase
         IsAddVisible ^= true;
     }
 
-
-
-    private void AddCircle()
+    private async Task AddCircleAsync()
     {
-        circleCount++;
+        var mainWindow = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+        Debug.Assert(mainWindow != null, nameof(mainWindow) + " != null");
 
-        var circle = new Ellipse
+        var storageProvider = mainWindow.StorageProvider;
+        if (storageProvider.CanOpen)
         {
-            Width = 40,
-            Height = 40,
-            Fill = Brushes.LightGray,
-            Stroke = Brushes.Black,
-            StrokeThickness = 1,
-            Margin = new Thickness(5.0),
-        };
+            var options = new FilePickerOpenOptions()
+            {
+                AllowMultiple = false
+            };
+            var files = await storageProvider.OpenFilePickerAsync(options);
 
-        CirclesCollection.Add(circle);
+            if (files is { Count: > 0 })
+            {
+                var selectedFile = files[0];
+                var selectedFilePath = selectedFile.TryGetLocalPath() ?? selectedFile.Name;
+
+                var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                const string appFolderName = ".worldcrucible";
+                const string tokensFolderName = "Tokens";
+
+                var appFolderPath = documentsDirectory + "/" + appFolderName;
+                var tokensFolderPath = appFolderPath + "/" + tokensFolderName;
+
+                if (!Directory.Exists(tokensFolderPath))
+                {
+                    try
+                    {
+                        Directory.CreateDirectory(tokensFolderPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error creating directory: {ex.Message}");
+                    }
+                }
+
+                if (File.Exists(selectedFilePath) && Directory.Exists(tokensFolderPath))
+                {
+                    var selectedFileName = selectedFilePath[(selectedFilePath.LastIndexOfAny(new[] { '/', '\\' }) + 1)..];
+                    var newFilePath = tokensFolderPath + "/" + selectedFileName;
+
+                    try
+                    {
+                        File.Copy(selectedFilePath, newFilePath, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error copying file: {ex.Message}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+
+                circleCount++;
+                var circle = new Ellipse
+                {
+                    Width = 40,
+                    Height = 40,
+                    Fill = Brushes.LightGray,
+                    Stroke = Brushes.Black,
+                    StrokeThickness = 1,
+                    Margin = new Thickness(5.0),
+                };
+
+                CirclesCollection.Add(circle);
+            }
+        }
     }
+
 }
