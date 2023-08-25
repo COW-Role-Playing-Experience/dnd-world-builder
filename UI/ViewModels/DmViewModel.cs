@@ -1,14 +1,12 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.IO;
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Controls.Shapes;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
@@ -17,64 +15,73 @@ using Path = System.IO.Path;
 
 namespace UI.ViewModels;
 
+/// <summary>
+/// ViewModel for the DmView.
+/// </summary>
 public class DmViewModel : ViewModelBase
 {
-    private bool isUIVisible = true;
-    private bool isAddVisable;
-    private double uiButtonOpacity = 1.0;
-    private int circleCount;
-    private int ObservableCircleCount => observableCircleCount.Value;
+    // Private fields for UI state and token count.
+    private bool _isUiVisible = true;
+    private bool _isAddVisible;
+    private double _uiButtonOpacity = 1.0;
+    private int _tokenCount = 0;
+    private int ObservableTokenCount => _observableTokenCount.Value;
 
-    private readonly ObservableAsPropertyHelper<int> observableCircleCount;
-    public ObservableCollection<Border> CirclesCollection { get; } = new ObservableCollection<Border>();
+    private readonly ObservableAsPropertyHelper<int> _observableTokenCount;
 
+    // Collection to store token borders.
+    public ObservableCollection<Border> TokensCollection { get; } = new ObservableCollection<Border>();
 
+    // Properties for UI bindings.
     public bool IsUiVisible
     {
-        get => isUIVisible;
-        set => this.RaiseAndSetIfChanged(ref isUIVisible, value);
+        get => _isUiVisible;
+        set => this.RaiseAndSetIfChanged(ref _isUiVisible, value);
     }
 
     public bool IsAddVisible
     {
-        get => isAddVisable;
-        set => this.RaiseAndSetIfChanged(ref isAddVisable, value);
+        get => _isAddVisible;
+        set => this.RaiseAndSetIfChanged(ref _isAddVisible, value);
     }
 
     public double UiButtonOpacity
     {
-        get => uiButtonOpacity;
-        set => this.RaiseAndSetIfChanged(ref uiButtonOpacity, value);
+        get => _uiButtonOpacity;
+        set => this.RaiseAndSetIfChanged(ref _uiButtonOpacity, value);
     }
 
+    // Commands for UI actions.
     public ReactiveCommand<Unit, Unit> ToggleUiVisibility { get; }
     public ReactiveCommand<Unit, Unit> ToggleAddVisibility { get; }
-
-    public ReactiveCommand<Unit, Unit> AddCircleCommand { get; }
+    public ReactiveCommand<Unit, Unit> AddTokenCommand { get; }
 
     public DmViewModel()
     {
         ToggleUiVisibility = ReactiveCommand.Create(ToggleUiToggleButton);
         ToggleAddVisibility = ReactiveCommand.Create(ToggleAddButton);
-        AddCircleCommand = ReactiveCommand.CreateFromTask(AddCircleAsync);
+        AddTokenCommand = ReactiveCommand.CreateFromTask(AddTokenAsync);
 
-        observableCircleCount = this
-            .WhenAnyValue(vm => vm.circleCount)
-            .ToProperty(this, vm => vm.ObservableCircleCount);
+        _observableTokenCount = this
+            .WhenAnyValue(vm => vm._tokenCount)
+            .ToProperty(this, vm => vm.ObservableTokenCount);
     }
 
+    // Toggles the visibility of the UI.
     private void ToggleUiToggleButton()
     {
         IsUiVisible ^= true;
         UiButtonOpacity = IsUiVisible ? 1.0 : 0.5;
     }
 
+    // Toggles the visibility of the Add overlay.
     private void ToggleAddButton()
     {
         IsAddVisible ^= true;
     }
 
-    private async Task AddCircleAsync()
+    // Adds a token to the collection.
+    private async Task AddTokenAsync()
     {
         var mainWindow = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)
             ?.MainWindow;
@@ -131,12 +138,6 @@ public class DmViewModel : ViewModelBase
 
                     var bitmap = new Bitmap(newFilePath);
 
-                    var image = new Image
-                    {
-                        Source = bitmap,
-                        Stretch = Stretch.UniformToFill
-                    };
-
                     var border = new Border
                     {
                         Width = 40,
@@ -149,7 +150,7 @@ public class DmViewModel : ViewModelBase
                     };
 
 
-                    CirclesCollection.Add(border);
+                    TokensCollection.Add(border);
                 }
                 else
                 {
