@@ -1,5 +1,8 @@
+using System;
+using System.Drawing.Printing;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 
 namespace UI.Views;

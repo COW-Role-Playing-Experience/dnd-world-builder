@@ -3,7 +3,8 @@
              x:Class="UI.App"
              xmlns:local="using:UI"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
         <local:ViewLocator/>
@@ -13,4 +14,6 @@
         <FluentTheme />
         <StyleInclude Source="/Styles.axaml"/>
     </Application.Styles>
+
+
 </Application>
