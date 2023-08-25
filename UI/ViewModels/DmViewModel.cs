@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia;
@@ -61,6 +62,7 @@ public class DmViewModel : ViewModelBase
         ToggleUiVisibility = ReactiveCommand.Create(ToggleUiToggleButton);
         ToggleAddVisibility = ReactiveCommand.Create(ToggleAddButton);
         AddTokenCommand = ReactiveCommand.CreateFromTask(AddTokenAsync);
+        LoadExistingImages();
 
         _observableTokenCount = this
             .WhenAnyValue(vm => vm._tokenCount)
@@ -80,7 +82,7 @@ public class DmViewModel : ViewModelBase
         IsAddVisible ^= true;
     }
 
-    // Adds a token to the collection.
+    // Adds a token to the TokensCollection.
     private async Task AddTokenAsync()
     {
         var mainWindow = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)
@@ -157,6 +159,44 @@ public class DmViewModel : ViewModelBase
                     Console.WriteLine("Failed");
                 }
             }
+        }
+    }
+    // Loads existing images from the tokens folder and adds them to the TokensCollection.
+
+    private void LoadExistingImages()
+    {
+        // Define the path to the tokens folder currently in documents, should probably change.
+        var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        const string appFolderName = ".worldcrucible";
+        const string tokensFolderName = "Tokens";
+
+        var tokensFolderPath = Path.Combine(documentsDirectory, appFolderName, tokensFolderName);
+
+        // Check if the tokens folder exists.
+        if (!Directory.Exists(tokensFolderPath)) return;
+
+        // Retrieve all image files from the tokens folder.
+        var imageFiles = Directory.GetFiles(tokensFolderPath, "*.*", SearchOption.TopDirectoryOnly)
+            .Where(s => s.EndsWith(".png") || s.EndsWith(".jpg") || s.EndsWith(".jpeg") || s.EndsWith(".bmp") || s.EndsWith(".gif"));
+
+        foreach (var imageFilePath in imageFiles)
+        {
+            // Create a bitmap from the image file.
+            var bitmap = new Bitmap(imageFilePath);
+
+            // Create a bordered representation of the image.
+            var border = new Border
+            {
+                Width = 40,
+                Height = 40,
+                BorderBrush = Brushes.Black,
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(20),
+                Background = new ImageBrush(bitmap),
+                ClipToBounds = true
+            };
+
+            TokensCollection.Add(border);
         }
     }
 }
