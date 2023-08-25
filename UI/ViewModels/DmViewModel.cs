@@ -1,15 +1,19 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.IO;
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using ReactiveUI;
+using Path = System.IO.Path;
 
 namespace UI.ViewModels;
 
@@ -22,7 +26,7 @@ public class DmViewModel : ViewModelBase
     private int ObservableCircleCount => observableCircleCount.Value;
 
     private readonly ObservableAsPropertyHelper<int> observableCircleCount;
-    public ObservableCollection<Ellipse> CirclesCollection { get; } = new ObservableCollection<Ellipse>();
+    public ObservableCollection<Border> CirclesCollection { get; } = new ObservableCollection<Border>();
 
 
     public bool IsUiVisible
@@ -59,7 +63,6 @@ public class DmViewModel : ViewModelBase
             .ToProperty(this, vm => vm.ObservableCircleCount);
     }
 
-
     private void ToggleUiToggleButton()
     {
         IsUiVisible ^= true;
@@ -73,7 +76,8 @@ public class DmViewModel : ViewModelBase
 
     private async Task AddCircleAsync()
     {
-        var mainWindow = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+        var mainWindow = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)
+            ?.MainWindow;
         Debug.Assert(mainWindow != null, nameof(mainWindow) + " != null");
 
         var storageProvider = mainWindow.StorageProvider;
@@ -94,8 +98,9 @@ public class DmViewModel : ViewModelBase
                 const string appFolderName = ".worldcrucible";
                 const string tokensFolderName = "Tokens";
 
-                var appFolderPath = documentsDirectory + "/" + appFolderName;
-                var tokensFolderPath = appFolderPath + "/" + tokensFolderName;
+                var appFolderPath = Path.Combine(documentsDirectory, appFolderName);
+                var tokensFolderPath = Path.Combine(appFolderPath, tokensFolderName);
+
 
                 if (!Directory.Exists(tokensFolderPath))
                 {
@@ -111,7 +116,8 @@ public class DmViewModel : ViewModelBase
 
                 if (File.Exists(selectedFilePath) && Directory.Exists(tokensFolderPath))
                 {
-                    var selectedFileName = selectedFilePath[(selectedFilePath.LastIndexOfAny(new[] { '/', '\\' }) + 1)..];
+                    var selectedFileName =
+                        selectedFilePath[(selectedFilePath.LastIndexOfAny(new[] { '/', '\\' }) + 1)..];
                     var newFilePath = tokensFolderPath + "/" + selectedFileName;
 
                     try
@@ -122,26 +128,34 @@ public class DmViewModel : ViewModelBase
                     {
                         Console.WriteLine($"Error copying file: {ex.Message}");
                     }
+
+                    var bitmap = new Bitmap(newFilePath);
+
+                    var image = new Image
+                    {
+                        Source = bitmap,
+                        Stretch = Stretch.UniformToFill
+                    };
+
+                    var border = new Border
+                    {
+                        Width = 40,
+                        Height = 40,
+                        BorderBrush = Brushes.Black,
+                        BorderThickness = new Thickness(1),
+                        CornerRadius = new CornerRadius(20),
+                        Background = new ImageBrush(bitmap),
+                        ClipToBounds = true
+                    };
+
+
+                    CirclesCollection.Add(border);
                 }
                 else
                 {
                     Console.WriteLine("Failed");
                 }
-
-                circleCount++;
-                var circle = new Ellipse
-                {
-                    Width = 40,
-                    Height = 40,
-                    Fill = Brushes.LightGray,
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 1,
-                    Margin = new Thickness(5.0),
-                };
-
-                CirclesCollection.Add(circle);
             }
         }
     }
-
 }
