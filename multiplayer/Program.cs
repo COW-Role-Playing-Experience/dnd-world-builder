@@ -3,28 +3,32 @@ using System.Threading;
 
 class Multiplayer
 {
-    static void server()
+    static readonly int PORT = 20500;
+
+    static readonly List<Task> tasks = new();
+
+    static void StartServer()
     {
         Console.WriteLine("Starting mock server");
-        Server s = new();
-        s.runServer();
+        Task serverTask = Task.Factory.StartNew(() => Server.RunServer(PORT));
+        tasks.Add(serverTask);
     }
 
-    static void client()
+    static void StartClients()
     {
         Console.WriteLine("Starting up 3 new client instances");
         for (int i = 0; i < 3; i++)
         {
-            Client c = new();
-            c.runClient();
+            Task clientTask = Task.Factory.StartNew(() => Client.RunClient(PORT));
+            tasks.Add(clientTask);
         }
     }
 
-    static void Main(string[] args)
+    static void Main()
     {
-        Task task1 = Task.Factory.StartNew(() => server());
-        Task task2 = Task.Factory.StartNew(() => client());
-        Task.WaitAll(task1, task2);
+        StartServer();
+        StartClients();
+        Task.WaitAll(tasks.ToArray());
 
     }
 }

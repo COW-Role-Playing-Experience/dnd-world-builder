@@ -4,16 +4,17 @@ using LiteNetLib.Utils;
 
 public class Server
 {
-    public void runServer()
+    static readonly int MAX_CONNECTIONS = 10;
+    public static void RunServer(int port)
     {
         Console.WriteLine("Running server");
-        EventBasedNetListener listener = new EventBasedNetListener();
-        NetManager server = new NetManager(listener);
-        server.Start(20500 /* port */);
+        EventBasedNetListener listener = new();
+        NetManager server = new(listener);
+        server.Start(port);
 
         listener.ConnectionRequestEvent += request =>
         {
-            if (server.ConnectedPeersCount < 10 /* max connections */)
+            if (server.ConnectedPeersCount < MAX_CONNECTIONS)
                 request.AcceptIfKey("SomeConnectionKey");
             else
                 request.Reject();
@@ -22,12 +23,12 @@ public class Server
         listener.PeerConnectedEvent += peer =>
         {
             Console.WriteLine("We got connection: {0}", peer.EndPoint); // Show peer ip
-            NetDataWriter writer = new NetDataWriter();                 // Create writer class
+            NetDataWriter writer = new();                               // Create writer class
             writer.Put("Hello client!");                                // Put some string
-            peer.Send(writer, DeliveryMethod.ReliableOrdered);             // Send with reliability
+            peer.Send(writer, DeliveryMethod.ReliableOrdered);          // Send with reliability
         };
 
-        for (int i = 0; i < 1800; i++)
+        for (int i = 0; i < 700; i++)
         {
             server.PollEvents();
             Thread.Sleep(15);

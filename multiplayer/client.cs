@@ -4,13 +4,13 @@ using LiteNetLib.Utils;
 
 public class Client
 {
-    public void runClient()
+    public static void RunClient(int port)
     {
         Console.WriteLine("Running client");
-        EventBasedNetListener listener = new EventBasedNetListener();
-        NetManager client = new NetManager(listener);
+        EventBasedNetListener listener = new();
+        NetManager client = new(listener);
         client.Start();
-        client.Connect("localhost" /* host ip or name */, 20500 /* port */, "SomeConnectionKey" /* text key or NetDataWriter */);
+        client.Connect("localhost", port, "SomeConnectionKey" /* text key or NetDataWriter */);
         listener.NetworkReceiveEvent += (fromPeer, dataReader, deliveryMethod, channel) =>
         {
             Console.WriteLine("We got: {0}", dataReader.GetString(100 /* max length of string */));
