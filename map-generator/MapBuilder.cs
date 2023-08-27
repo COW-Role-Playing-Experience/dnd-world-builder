@@ -36,7 +36,7 @@ public class MapBuilder
         // TEST GENERATION
         int initX = this.xSize / 2;
         int initY = this.ySize / 2;
-        RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, Direction.NONE, this.roomThemes[5], this.tiles, this.rng, this.roomThemes, this.connectors);
+        RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, Direction.NONE, this.roomThemes[5], this);
         room.generateMap();
         return this;
     }
@@ -57,5 +57,34 @@ public class MapBuilder
         Console.WriteLine(connectors[0]);
 
         return this;
+    }
+
+    public RoomTheme[] getRoomThemes()
+    {
+        return this.roomThemes;
+    }
+
+    public Connector[] getConnectors()
+    {
+        return this.connectors;
+    }
+
+    public Random getRNG()
+    {
+        return this.rng;
+    }
+
+    public RoomTile[,] getTiles()
+    {
+        return this.tiles;
+    }
+    public int getHeight()
+    {
+        return ySize;
+    }
+
+    public int getWidth()
+    {
+        return xSize;
     }
 }
