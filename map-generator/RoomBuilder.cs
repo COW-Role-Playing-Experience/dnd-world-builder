@@ -31,7 +31,7 @@ public class RoomBuilder
         this.connectorIds = roomTheme.connectorIds;
         this.connectorCount = rng.Next(roomTheme.minConnectors, roomTheme.maxConnectors);
         this.roomConnectors = new Connector[4];
-        Array.Fill(this.connectors, Connector.Empty);
+        Array.Fill(this.roomConnectors, Connector.Empty);
         this.connSides = new bool[4];
     }
 
@@ -41,7 +41,7 @@ public class RoomBuilder
         for (int i = 0; i < 4; i++)
         {
             if (!this.connSides[i]) continue;
-            Connector connector = this.connectors[i];
+            Connector connector = this.roomConnectors[i];
             RoomTheme roomTheme = connector.getRandomRoomTheme(this.themes, this.rng);
             int xPos = this.x + rng.Next(Convert.ToInt32(-(connector.padding * 2 - 1) * this.xSize)) + Convert.ToInt32(connector.padding * this.xSize);
             int yPos = this.y - 1;
@@ -150,19 +150,19 @@ public class RoomBuilder
             switch (direction)
             {
                 case Direction.NORTH:
-                    this.connectors[0] = connectors[this.connectorIds[count]];
+                    this.roomConnectors[0] = connectors[this.connectorIds[count]];
                     this.connSides[0] = true;
                     break;
                 case Direction.EAST:
-                    this.connectors[1] = connectors[this.connectorIds[count]];
+                    this.roomConnectors[1] = connectors[this.connectorIds[count]];
                     this.connSides[1] = true;
                     break;
                 case Direction.SOUTH:
-                    this.connectors[2] = connectors[this.connectorIds[count]];
+                    this.roomConnectors[2] = connectors[this.connectorIds[count]];
                     this.connSides[2] = true;
                     break;
                 case Direction.WEST:
-                    this.connectors[3] = connectors[this.connectorIds[count]];
+                    this.roomConnectors[3] = connectors[this.connectorIds[count]];
                     this.connSides[3] = true;
                     break;
                 default:

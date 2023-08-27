@@ -2,7 +2,7 @@
   {
     "id": 0,
     "padding": 0.8,
-    "themes": [
+    "themeIds": [
       0,1
     ],
     "themeChances": [
@@ -12,7 +12,7 @@
   {
     "id": 1,
     "padding": 0.8,
-    "themes": [
+    "themeIds": [
       0,1
     ],
     "themeChances": [

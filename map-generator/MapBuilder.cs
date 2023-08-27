@@ -66,6 +66,9 @@ public class MapBuilder
 
         this.connectors = JsonSerializer.Deserialize<Connector[]>(rawConnectors);
 
+        Console.WriteLine(roomThemes[0]);
+        Console.WriteLine(connectors[0]);
+
         return this;
     }
 }
