@@ -2,25 +2,41 @@
   {
     "id": 0,
     "minWidth": 3,
-    "maxWidth": 5,
-    "minHeight": 4,
-    "maxHeight": 5,
-    "connectorIds": [
-      0,1
-    ],
+    "maxWidth": 6,
+    "minHeight": 3,
+    "maxHeight": 6,
+    "connectorIds": [0, 1, 2, 3],
     "minConnectors": 2,
-    "maxConnectors": 2
+    "maxConnectors": 4
   },
   {
     "id": 1,
-    "minWidth": 2,
-    "maxWidth": 2,
-    "minHeight": 10,
-    "maxHeight": 12,
-    "connectorIds": [
-      0
-    ],
+    "minWidth": 3,
+    "maxWidth": 5,
+    "minHeight": 3,
+    "maxHeight": 5,
+    "connectorIds": [0, 1, 2, 3],
     "minConnectors": 1,
-    "maxConnectors": 1
+    "maxConnectors": 4
+  },
+  {
+    "id": 2,
+    "minWidth": 2,
+    "maxWidth": 4,
+    "minHeight": 2,
+    "maxHeight": 4,
+    "connectorIds": [0, 1],
+    "minConnectors": 1,
+    "maxConnectors": 2
+  },
+  {
+    "id": 3,
+    "minWidth": 2,
+    "maxWidth": 4,
+    "minHeight": 2,
+    "maxHeight": 4,
+    "connectorIds": [0, 1],
+    "minConnectors": 1,
+    "maxConnectors": 2
   }
 ]
