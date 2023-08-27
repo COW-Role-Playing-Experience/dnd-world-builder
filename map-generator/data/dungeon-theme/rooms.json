@@ -6,21 +6,21 @@
     "minHeight": 4,
     "maxHeight": 5,
     "connectorIds": [
-      0,0,0,0
+      0,1
     ],
-    "minConnectors": 4,
-    "maxConnectors": 4
+    "minConnectors": 2,
+    "maxConnectors": 2
   },
   {
     "id": 1,
     "minWidth": 2,
     "maxWidth": 2,
-    "minHeight": 5,
-    "maxHeight": 7,
+    "minHeight": 10,
+    "maxHeight": 12,
     "connectorIds": [
-      0,0
+      0
     ],
-    "minConnectors": 2,
-    "maxConnectors": 2
+    "minConnectors": 1,
+    "maxConnectors": 1
   }
 ]
