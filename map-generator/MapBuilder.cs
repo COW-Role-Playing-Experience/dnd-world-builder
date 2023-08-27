@@ -43,6 +43,20 @@ public class MapBuilder
 
 
 
+    public MapBuilder printMap()
+    {
+        for (int y = 0; y < this.ySize; y++)
+        {
+            for (int x = 0; x < this.xSize; x++)
+            {
+                RoomTile tile = this.tiles[x, y];
+                System.Console.Write(tile.getChar());
+            }
+            System.Console.WriteLine("");
+        }
+        return this;
+    }
+
     public MapBuilder setTheme(string filePath)
     {
         string rawRooms = File.ReadAllText(filePath + "rooms.json");
@@ -77,14 +91,5 @@ public class MapBuilder
     public RoomTile[,] getTiles()
     {
         return this.tiles;
-    }
-    public int getHeight()
-    {
-        return ySize;
-    }
-
-    public int getWidth()
-    {
-        return xSize;
     }
 }
