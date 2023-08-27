@@ -15,6 +15,7 @@ public class RoomBuilder
     private readonly MapBuilder mapBuilder;
     private Random rng;
     private Direction prevDirection;
+    private Direction failedDirection;
     private bool isRegen;
     private int[] connectorIds;
     private int connectorCount;
@@ -33,6 +34,7 @@ public class RoomBuilder
         this.connectors = mapBuilder.getConnectors();
         this.mapBuilder = mapBuilder;
         this.prevDirection = prevDirection;
+        this.failedDirection = Direction.NONE;
         this.isRegen = false;
         this.connectorIds = roomTheme.connectorIds;
         this.connectorCount = rng.Next(roomTheme.minConnectors, roomTheme.maxConnectors);
@@ -55,6 +57,7 @@ public class RoomBuilder
         this.bakeRoomTiles().generateConns();
         Console.Clear();
         mapBuilder.printMap();
+        List<RoomBuilder> rooms = new List<RoomBuilder>();
         for (int i = 0; i < 4; i++)
         {
             if (!this.connSides[i]) continue;
@@ -105,12 +108,20 @@ public class RoomBuilder
             {
                 if (isRegen) continue;
                 this.isRegen = true;
+                this.failedDirection = (Direction)i;
+                builderBuffer.Enqueue(this);
                 generateRooms(builderBuffer);
                 return;
             }
 
+
             RoomBuilder room = new RoomBuilder(xPos, yPos, width, height, prevDir,
                 roomTheme, this.mapBuilder);
+            rooms.Add(room);
+        }
+
+        foreach (RoomBuilder room in rooms.OrderBy(a => rng.Next()))
+        {
             builderBuffer.Enqueue(room);
         }
     }
@@ -216,6 +227,14 @@ public class RoomBuilder
         {
             availableSides.Remove(this.prevDirection + 2 % 4);
         }
+
+        if (this.failedDirection != Direction.NONE)
+        {
+            availableSides.Remove(this.failedDirection);
+            count = count > 1 ? 2 : 1;
+        }
+
+        availableSides = availableSides.OrderBy(a => rng.Next()).ToList();
         while (chosenSides.Count < count)
         {
             int index = rng.Next(0, availableSides.Count);
