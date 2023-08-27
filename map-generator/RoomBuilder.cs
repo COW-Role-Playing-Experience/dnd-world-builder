@@ -54,7 +54,7 @@ public class RoomBuilder
     {
         this.bakeRoomTiles().generateConns();
         Console.Clear();
-        this.printMap();
+        mapBuilder.printMap();
         System.Threading.Thread.Sleep(100);
         for (int i = 0; i < 4; i++)
         {
@@ -231,17 +231,6 @@ public class RoomBuilder
         return chosenSides;
     }
 
-    public void printMap()
-    {
-        for (int y = 0; y < 40; y++)
-        {
-            for (int x = 0; x < 200; x++)
-            {
-                RoomTile tile = this.gridTiles[x, y];
-                System.Console.Write(tile.getChar());
-            }
-            System.Console.WriteLine("");
-        }
-    }
+
 
 }
