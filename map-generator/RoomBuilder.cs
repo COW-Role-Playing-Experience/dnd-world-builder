@@ -43,34 +43,47 @@ public class RoomBuilder
             if (!this.connSides[i]) continue;
             Connector connector = this.roomConnectors[i];
             RoomTheme roomTheme = connector.getRandomRoomTheme(this.themes, this.rng);
-            int xPos = this.x + rng.Next(Convert.ToInt32(-(connector.padding * 2 - 1) * this.xSize)) + Convert.ToInt32(connector.padding * this.xSize);
-            int yPos = this.y - 1;
+            int xPos;
+            int yPos;
+            if (i % 2 == 0)
+            {
+                xPos = this.x + rng.Next(Convert.ToInt32(connector.padding * this.xSize)) +
+                           Convert.ToInt32(-(connector.padding - 1) / 2 * this.xSize);
+                yPos = this.y;
+            }
+            else
+            {
+                xPos = this.x;
+                yPos = this.y + rng.Next(Convert.ToInt32(connector.padding * this.ySize)) +
+                       Convert.ToInt32(-(connector.padding - 1) / 2 * this.ySize);
+            }
 
             int width = this.rng.Next(roomTheme.minWidth, roomTheme.maxWidth);
             int height = this.rng.Next(roomTheme.minHeight, roomTheme.maxHeight);
             switch (i)
             {
                 case 0:
-                    yPos -= height - 1;
+                    yPos -= height;
                     xPos -= width / 2;
                     break;
                 case 1:
                     (width, height) = (height, width);
-                    xPos -= 1;
+                    xPos -= width;
                     yPos -= height / 2;
                     break;
                 case 2:
-                    yPos -= 1;
+                    yPos += this.ySize;
                     xPos -= width / 2;
                     break;
                 case 3:
                     (width, height) = (height, width);
-                    xPos -= width - 1;
+                    xPos += this.xSize;
                     yPos -= height / 2;
                     break;
             }
 
             bool safe = this.checkTilesEmptyOrAvailable(xPos, yPos, width, height);
+            if (!safe) Console.WriteLine(i);
             if (!safe) continue;
 
             RoomBuilder room = new RoomBuilder(xPos, yPos, width, height,
