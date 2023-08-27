@@ -37,24 +37,11 @@ public class MapBuilder
         int initX = this.xSize / 2;
         int initY = this.ySize / 2;
         RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, this.roomThemes[0], this.tiles, this.rng, this.roomThemes, this.connectors);
-        room.generateRoom();
+        room.generateMap();
         return this;
     }
 
-    public MapBuilder printMap()
-    {
-        for (int y = 0; y < ySize; y++)
-        {
-            for (int x = 0; x < xSize; x++)
-            {
-                RoomTile tile = this.tiles[x, y];
-                System.Console.Write(tile.getChar());
-            }
-            System.Console.WriteLine("");
-        }
 
-        return this;
-    }
 
     public MapBuilder setTheme(string filePath)
     {

@@ -35,9 +35,21 @@ public class RoomBuilder
         this.connSides = new bool[4];
     }
 
-    public void generateRoom()
+    public void generateMap()
+    {
+        Queue<RoomBuilder> builderBuffer = new Queue<RoomBuilder>();
+        generateRooms(builderBuffer);
+        while (builderBuffer.Count != 0)
+        {
+            builderBuffer.Dequeue().generateRooms(builderBuffer);
+        }
+    }
+    public void generateRooms(Queue<RoomBuilder> builderBuffer)
     {
         this.bakeRoomTiles().generateConns();
+        Console.Clear();
+        this.printMap();
+        System.Threading.Thread.Sleep(100);
         for (int i = 0; i < 4; i++)
         {
             if (!this.connSides[i]) continue;
@@ -68,7 +80,7 @@ public class RoomBuilder
                     break;
                 case 1:
                     (width, height) = (height, width);
-                    xPos -= width;
+                    xPos += this.xSize;
                     yPos -= height / 2;
                     break;
                 case 2:
@@ -77,18 +89,17 @@ public class RoomBuilder
                     break;
                 case 3:
                     (width, height) = (height, width);
-                    xPos += this.xSize;
+                    xPos -= width;
                     yPos -= height / 2;
                     break;
             }
 
             bool safe = this.checkTilesEmptyOrAvailable(xPos, yPos, width, height);
-            if (!safe) Console.WriteLine(i);
             if (!safe) continue;
 
             RoomBuilder room = new RoomBuilder(xPos, yPos, width, height,
                 roomTheme, this.gridTiles, this.rng, this.themes, this.connectors);
-            room.generateRoom();
+            builderBuffer.Enqueue(room);
         }
     }
 
@@ -195,12 +206,26 @@ public class RoomBuilder
 
         while (chosenSides.Count < count)
         {
-            int index = rng.Next(availableSides.Count);
+            int index = rng.Next(0, availableSides.Count);
+            Console.WriteLine(index);
             chosenSides.Add(availableSides[index]);
             availableSides.RemoveAt(index);
         }
 
         return chosenSides;
+    }
+
+    public void printMap()
+    {
+        for (int y = 0; y < 50; y++)
+        {
+            for (int x = 0; x < 50; x++)
+            {
+                RoomTile tile = this.gridTiles[x, y];
+                System.Console.Write(tile.getChar());
+            }
+            System.Console.WriteLine("");
+        }
     }
 
 }
