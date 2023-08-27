@@ -36,7 +36,7 @@ public class MapBuilder
         // TEST GENERATION
         int initX = this.xSize / 2;
         int initY = this.ySize / 2;
-        RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, Direction.NONE, this.roomThemes[0], this.tiles, this.rng, this.roomThemes, this.connectors);
+        RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, Direction.NONE, this.roomThemes[5], this.tiles, this.rng, this.roomThemes, this.connectors);
         room.generateMap();
         return this;
     }

@@ -14,6 +14,7 @@ public class RoomBuilder
     private readonly Connector[] connectors;
     private Random rng;
     private Direction prevDirection;
+    private bool isRegen;
     private int[] connectorIds;
     private int connectorCount;
     private bool[] connSides;
@@ -30,6 +31,7 @@ public class RoomBuilder
         this.themes = themes;
         this.connectors = connectors;
         this.prevDirection = prevDirection;
+        this.isRegen = false;
         this.connectorIds = roomTheme.connectorIds;
         this.connectorCount = rng.Next(roomTheme.minConnectors, roomTheme.maxConnectors);
         this.roomConnectors = new Connector[4];
@@ -98,7 +100,13 @@ public class RoomBuilder
             }
 
             bool safe = this.checkTilesEmptyOrAvailable(xPos, yPos, width, height);
-            if (!safe) continue;
+            if (!safe)
+            {
+                if (isRegen) continue;
+                this.isRegen = true;
+                generateRooms(builderBuffer);
+                return;
+            }
 
             RoomBuilder room = new RoomBuilder(xPos, yPos, width, height, prevDir,
                 roomTheme, this.gridTiles, this.rng, this.themes, this.connectors);
@@ -223,9 +231,9 @@ public class RoomBuilder
 
     public void printMap()
     {
-        for (int y = 0; y < 50; y++)
+        for (int y = 0; y < 40; y++)
         {
-            for (int x = 0; x < 50; x++)
+            for (int x = 0; x < 200; x++)
             {
                 RoomTile tile = this.gridTiles[x, y];
                 System.Console.Write(tile.getChar());
