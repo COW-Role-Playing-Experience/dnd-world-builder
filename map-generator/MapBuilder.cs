@@ -9,12 +9,14 @@ public class MapBuilder
     private Random rng;
     private RoomTheme[] roomThemes;
     private Connector[] connectors;
+    private double expectedPopulation;
 
-    public MapBuilder(int xSize, int ySize, Random rng)
+    public MapBuilder(int xSize, int ySize, Random rng, double expectedPopulation)
     {
         this.xSize = xSize;
         this.ySize = ySize;
         this.rng = rng;
+        this.expectedPopulation = expectedPopulation % 1;
         this.tiles = new RoomTile[xSize, ySize];
         this.emptyTilesMap();
     }
@@ -34,8 +36,8 @@ public class MapBuilder
     public MapBuilder initRoom()
     {
         // TEST GENERATION
-        int initX = this.xSize / 2;
-        int initY = this.ySize / 2;
+        int initX = this.xSize / 2 - 3;
+        int initY = this.ySize / 2 - 3;
         RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, Direction.NONE, this.roomThemes[5], this);
         room.generateMap();
         return this;
@@ -91,6 +93,22 @@ public class MapBuilder
         }
 
         return cloneTiles;
+    }
+
+    public bool populationGreaterThanExpected()
+    {
+        int count = 0;
+        int required = Convert.ToInt32(xSize * ySize * expectedPopulation);
+        for (int x = 0; x < this.xSize; x++)
+        {
+            for (int y = 0; y < this.ySize; y++)
+            {
+                if (!tiles[x, y].isEmpty()) count++;
+                if (count > required) return true;
+            }
+        }
+
+        return false;
     }
 
     public MapBuilder printMap()

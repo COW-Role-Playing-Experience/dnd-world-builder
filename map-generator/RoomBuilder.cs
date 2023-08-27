@@ -55,7 +55,6 @@ public class RoomBuilder
         this.bakeRoomTiles().generateConns();
         Console.Clear();
         mapBuilder.printMap();
-        System.Threading.Thread.Sleep(100);
         for (int i = 0; i < 4; i++)
         {
             if (!this.connSides[i]) continue;
@@ -129,13 +128,10 @@ public class RoomBuilder
                 {
                     return false;
                 }
-                else
+                RoomTile tile = this.gridTiles[i, j];
+                if (!tile.isEmpty())
                 {
-                    RoomTile tile = this.gridTiles[i, j];
-                    if (!tile.isEmpty())
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
         }
