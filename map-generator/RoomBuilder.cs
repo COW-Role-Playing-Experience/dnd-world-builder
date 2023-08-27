@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using System.Security.Cryptography;
 using map_generator;
 
 public class RoomBuilder
@@ -9,11 +10,15 @@ public class RoomBuilder
     private int x;
     private int y;
     private readonly RoomTile[,] gridTiles;
+    private readonly RoomTheme[] themes;
+    private readonly Connector[] connectors;
     private Random rng;
+    private int[] connectorIds;
+    private int connectorCount;
     private bool[] connSides;
-    private Connector[] connectors;
+    private Connector[] roomConnectors;
 
-    public RoomBuilder(int x, int y, int xSize, int ySize, RoomTile[,] gridTiles, Random rng)
+    public RoomBuilder(int x, int y, int xSize, int ySize, RoomTheme roomTheme, RoomTile[,] gridTiles, Random rng, RoomTheme[] themes, Connector[] connectors)
     {
         this.xSize = xSize;
         this.ySize = ySize;
@@ -21,42 +26,44 @@ public class RoomBuilder
         this.y = y;
         this.gridTiles = gridTiles;
         this.rng = rng;
-        this.connectors = new Connector[4];
+        this.themes = themes;
+        this.connectors = connectors;
+        this.connectorIds = roomTheme.connectorIds;
+        this.connectorCount = rng.Next(roomTheme.minConnectors, roomTheme.maxConnectors);
+        this.roomConnectors = new Connector[4];
         Array.Fill(this.connectors, Connector.Empty);
         this.connSides = new bool[4];
     }
 
     public void generateRoom()
     {
-        this.bakeRoomTiles().generateConn(Direction.SOUTH).generateConn(Direction.EAST);
-        this.generateConn(Direction.WEST);
-        this.generateConn(Direction.NORTH);
+        this.bakeRoomTiles().generateConns();
         for (int i = 0; i < 4; i++)
         {
             if (!this.connSides[i]) continue;
             Connector connector = this.connectors[i];
-            RoomTheme roomTheme = connector.getRandomRoomTheme();
-            int xPos = connector.getX();
-            int yPos = connector.getY();
-            //Height and width minMaxEqual;
+            RoomTheme roomTheme = connector.getRandomRoomTheme(this.themes, this.rng);
+            int xPos = this.x + rng.Next(Convert.ToInt32(-(connector.padding * 2 - 1) * this.xSize)) + Convert.ToInt32(connector.padding * this.xSize);
+            int yPos = this.y - 1;
+
             int width = this.rng.Next(roomTheme.minWidth, roomTheme.maxWidth);
             int height = this.rng.Next(roomTheme.minHeight, roomTheme.maxHeight);
-            switch (connector.getDirection())
+            switch (i)
             {
-                case Direction.NORTH:
+                case 0:
                     yPos -= height - 1;
                     xPos -= width / 2;
                     break;
-                case Direction.EAST:
+                case 1:
                     (width, height) = (height, width);
                     xPos -= 1;
                     yPos -= height / 2;
                     break;
-                case Direction.SOUTH:
+                case 2:
                     yPos -= 1;
                     xPos -= width / 2;
                     break;
-                case Direction.WEST:
+                case 3:
                     (width, height) = (height, width);
                     xPos -= width - 1;
                     yPos -= height / 2;
@@ -66,7 +73,8 @@ public class RoomBuilder
             bool safe = this.checkTilesEmptyOrAvailable(xPos, yPos, width, height);
             if (!safe) continue;
 
-            RoomBuilder room = new RoomBuilder(xPos, yPos, width, height, gridTiles, rng);
+            RoomBuilder room = new RoomBuilder(xPos, yPos, width, height,
+                roomTheme, this.gridTiles, this.rng, this.themes, this.connectors);
             room.generateRoom();
         }
     }
@@ -133,71 +141,53 @@ public class RoomBuilder
         return this;
     }
 
-    private RoomBuilder generateConn(Direction direction)
+    private RoomBuilder generateConns()
     {
-        RoomTheme[] themes = {
-            new RoomTheme
-            {
-                id = 1,
-                minWidth = 2,
-                maxWidth = 2,
-                minHeight = 6,
-                maxHeight = 8,
-                connectorIds = new[] {1},
-                maxConnectors = 4,
-                minConnectors = 1
-            },
-            new RoomTheme
-            {
-                id = 1,
-                minWidth = 6,
-                maxWidth = 8,
-                minHeight = 6,
-                maxHeight = 8,
-                connectorIds = new[] {1},
-                maxConnectors = 2,
-                minConnectors = 1
-            }
-        };
-        switch (direction)
+        List<Direction> directions = randomSides(this.connectorCount);
+        int count = 0;
+        foreach (Direction direction in directions)
         {
-            case Direction.NORTH:
-                if (!connSides[0])
-                {
-                    int xCoord = this.x + rng.Next(this.xSize);
-                    this.connectors[0] = new Connector(xCoord, y - 1, 1, direction, themes, this.rng);
+            switch (direction)
+            {
+                case Direction.NORTH:
+                    this.connectors[0] = connectors[this.connectorIds[count]];
                     this.connSides[0] = true;
-                }
-                break;
-            case Direction.EAST:
-                if (!connSides[1])
-                {
-                    int yCoord = this.y + rng.Next(this.ySize);
-                    this.connectors[1] = new Connector(x + this.xSize + 1, yCoord, 1, direction, themes, this.rng);
+                    break;
+                case Direction.EAST:
+                    this.connectors[1] = connectors[this.connectorIds[count]];
                     this.connSides[1] = true;
-                }
-                break;
-            case Direction.SOUTH:
-                if (!connSides[2])
-                {
-                    int xCoord = this.x + rng.Next(this.xSize);
-                    this.connectors[2] = new Connector(xCoord, y + this.ySize + 1, 1, direction, themes, this.rng);
+                    break;
+                case Direction.SOUTH:
+                    this.connectors[2] = connectors[this.connectorIds[count]];
                     this.connSides[2] = true;
-                }
-                break;
-            case Direction.WEST:
-                if (!connSides[3])
-                {
-                    int yCoord = this.y + rng.Next(this.ySize);
-                    this.connectors[3] = new Connector(x - 1, yCoord, 1, direction, themes, this.rng);
+                    break;
+                case Direction.WEST:
+                    this.connectors[3] = connectors[this.connectorIds[count]];
                     this.connSides[3] = true;
-                }
-                break;
-            default:
-                throw new ArgumentException("Direction value does not correspond " +
-                                            "with a valid side of this room", "direction");
+                    break;
+                default:
+                    throw new ArgumentException("Direction value does not correspond " +
+                                                "with a valid side of this room", "direction");
+            }
+            count++;
         }
+
         return this;
+    }
+
+    private List<Direction> randomSides(int count)
+    {
+        List<Direction> availableSides = new List<Direction> { Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST };
+        List<Direction> chosenSides = new List<Direction>();
+
+        while (chosenSides.Count < count)
+        {
+            int index = rng.Next(availableSides.Count);
+            chosenSides.Add(availableSides[index]);
+            availableSides.RemoveAt(index);
+        }
+
+        return chosenSides;
     }
 
 }
