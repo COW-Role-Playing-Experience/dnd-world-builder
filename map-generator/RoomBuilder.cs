@@ -12,6 +12,7 @@ public class RoomBuilder
     private readonly RoomTile[,] gridTiles;
     private readonly RoomTheme[] themes;
     private readonly Connector[] connectors;
+    private readonly MapBuilder mapBuilder;
     private Random rng;
     private Direction prevDirection;
     private bool isRegen;
@@ -20,16 +21,17 @@ public class RoomBuilder
     private bool[] connSides;
     private Connector[] roomConnectors;
 
-    public RoomBuilder(int x, int y, int xSize, int ySize, Direction prevDirection, RoomTheme roomTheme, RoomTile[,] gridTiles, Random rng, RoomTheme[] themes, Connector[] connectors)
+    public RoomBuilder(int x, int y, int xSize, int ySize, Direction prevDirection, RoomTheme roomTheme, MapBuilder mapBuilder)
     {
         this.xSize = xSize;
         this.ySize = ySize;
         this.x = x;
         this.y = y;
-        this.gridTiles = gridTiles;
-        this.rng = rng;
-        this.themes = themes;
-        this.connectors = connectors;
+        this.gridTiles = mapBuilder.getTiles();
+        this.rng = mapBuilder.getRNG();
+        this.themes = mapBuilder.getRoomThemes();
+        this.connectors = mapBuilder.getConnectors();
+        this.mapBuilder = mapBuilder;
         this.prevDirection = prevDirection;
         this.isRegen = false;
         this.connectorIds = roomTheme.connectorIds;
@@ -109,7 +111,7 @@ public class RoomBuilder
             }
 
             RoomBuilder room = new RoomBuilder(xPos, yPos, width, height, prevDir,
-                roomTheme, this.gridTiles, this.rng, this.themes, this.connectors);
+                roomTheme, this.mapBuilder);
             builderBuffer.Enqueue(room);
         }
     }
