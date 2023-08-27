@@ -13,12 +13,13 @@ public class RoomBuilder
     private readonly RoomTheme[] themes;
     private readonly Connector[] connectors;
     private Random rng;
+    private Direction prevDirection;
     private int[] connectorIds;
     private int connectorCount;
     private bool[] connSides;
     private Connector[] roomConnectors;
 
-    public RoomBuilder(int x, int y, int xSize, int ySize, RoomTheme roomTheme, RoomTile[,] gridTiles, Random rng, RoomTheme[] themes, Connector[] connectors)
+    public RoomBuilder(int x, int y, int xSize, int ySize, Direction prevDirection, RoomTheme roomTheme, RoomTile[,] gridTiles, Random rng, RoomTheme[] themes, Connector[] connectors)
     {
         this.xSize = xSize;
         this.ySize = ySize;
@@ -28,6 +29,7 @@ public class RoomBuilder
         this.rng = rng;
         this.themes = themes;
         this.connectors = connectors;
+        this.prevDirection = prevDirection;
         this.connectorIds = roomTheme.connectorIds;
         this.connectorCount = rng.Next(roomTheme.minConnectors, roomTheme.maxConnectors);
         this.roomConnectors = new Connector[4];
@@ -72,6 +74,7 @@ public class RoomBuilder
 
             int width = this.rng.Next(roomTheme.minWidth, roomTheme.maxWidth);
             int height = this.rng.Next(roomTheme.minHeight, roomTheme.maxHeight);
+            Direction prevDir = (Direction)i;
             switch (i)
             {
                 case 0:
@@ -97,7 +100,7 @@ public class RoomBuilder
             bool safe = this.checkTilesEmptyOrAvailable(xPos, yPos, width, height);
             if (!safe) continue;
 
-            RoomBuilder room = new RoomBuilder(xPos, yPos, width, height,
+            RoomBuilder room = new RoomBuilder(xPos, yPos, width, height, prevDir,
                 roomTheme, this.gridTiles, this.rng, this.themes, this.connectors);
             builderBuffer.Enqueue(room);
         }
@@ -203,7 +206,10 @@ public class RoomBuilder
     {
         List<Direction> availableSides = new List<Direction> { Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST };
         List<Direction> chosenSides = new List<Direction>();
-
+        if (this.prevDirection != Direction.NONE)
+        {
+            availableSides.Remove(this.prevDirection + 2 % 4);
+        }
         while (chosenSides.Count < count)
         {
             int index = rng.Next(0, availableSides.Count);
