@@ -1,9 +1,16 @@
 namespace map_generator;
 
-public class Connector
+public record Connector
 {
     private static readonly Lazy<Connector> empty = new Lazy<Connector>(
-        () => new Connector(-1, -1, 1, Direction.NONE, new RoomTheme[] { }, new Random())
+        () => new Connector
+        {
+            x = -1,
+            y = -1,
+            id = 1,
+            themes = new RoomTheme[] { },
+            themeChances = new double[] { }
+        }
         );
 
     public static Connector Empty
@@ -11,42 +18,20 @@ public class Connector
         get { return empty.Value; }
     }
 
-    private int x;
-    private int y;
-    private int id;
-    private Random rng;
-    private RoomTheme[] themes;
-    private int themeCount;
-    private Direction direction;
+    public int x { get; init; }
+    public int y { get; init; }
+    public int id { get; init; }
+    public RoomTheme[] themes { get; init; }
+    public double[] themeChances { get; init; }
 
-    public Connector(int x, int y, int id, Direction direction, RoomTheme[] themes, Random rng)
+    public RoomTheme getRandomRoomTheme(Random rng)
     {
-        this.id = id;
-        this.x = x;
-        this.y = y;
-        this.rng = rng;
-        this.themes = themes;
-        this.themeCount = themes.Length;
-        this.direction = direction;
-    }
-
-    public int getX()
-    {
-        return x;
-    }
-
-    public int getY()
-    {
-        return y;
-    }
-
-    public Direction getDirection()
-    {
-        return this.direction;
-    }
-    public RoomTheme getRandomRoomTheme()
-    {
-        return this.themes[rng.Next(this.themeCount)];
+        double randDouble = rng.NextDouble();
+        int closestIndex = themeChances.Select((chance, index) => new { Index = index, Difference = Math.Abs(chance - randDouble) })
+            .OrderBy(i => i.Difference)
+            .First()
+            .Index;
+        return this.themes[closestIndex];
     }
 
 }
