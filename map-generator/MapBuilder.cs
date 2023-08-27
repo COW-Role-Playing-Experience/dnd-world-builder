@@ -41,7 +41,57 @@ public class MapBuilder
         return this;
     }
 
+    public MapBuilder fillGaps()
+    {
+        Console.WriteLine("FILLING GAPS");
+        RoomTile[,] tmpGrid = this.cloneTiles();
+        for (int x = 1; x < this.xSize - 1; x++)
+        {
+            for (int y = 1; y < this.ySize - 1; y++)
+            {
+                if (this.tiles[x, y].isEmpty())
+                {
+                    int count = this.countEmptyNeighbors(x, y);
+                    if (count < 3)
+                    {
+                        tmpGrid[x, y].setEmpty(false);
+                    }
+                }
+            }
+        }
 
+        this.tiles = tmpGrid;
+        return this;
+    }
+
+
+    private int countEmptyNeighbors(int x, int y)
+    {
+        int count = 0;
+        if (this.tiles[x + 1, y].isEmpty())
+            count++;
+        if (this.tiles[x - 1, y].isEmpty())
+            count++;
+        if (this.tiles[x, y + 1].isEmpty())
+            count++;
+        if (this.tiles[x, y - 1].isEmpty())
+            count++;
+        return count;
+    }
+
+    private RoomTile[,] cloneTiles()
+    {
+        RoomTile[,] cloneTiles = new RoomTile[xSize, ySize];
+        for (int x = 0; x < this.xSize; x++)
+        {
+            for (int y = 0; y < this.ySize; y++)
+            {
+                cloneTiles[x, y] = (RoomTile)this.tiles[x, y].Clone();
+            }
+        }
+
+        return cloneTiles;
+    }
 
     public MapBuilder printMap()
     {
