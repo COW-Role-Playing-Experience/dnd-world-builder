@@ -1,0 +1,52 @@
+[
+  {
+    "id": 0,
+    "padding": 0.8,
+    "themes": [
+      0,1
+    ],
+    "themeChances": [
+      0.5,1
+    ]
+  },
+  {
+    "id": 1,
+    "padding": 0.8,
+    "themes": [
+      0,1
+    ],
+    "themeChances": [
+      0.5,1
+    ]
+  },
+  {
+    "id": 2,
+    "padding": 0.8,
+    "themes": [
+      0,1
+    ],
+    "themeChances": [
+      0.5,1
+    ]
+  },
+  {
+    "id": 3,
+    "padding": 0.8,
+    "themes": [
+      0,1
+    ],
+    "themeChances": [
+      0.5,1
+    ]
+  },
+  {
+    "id": 4,
+    "padding": 0.8,
+    "themes": [
+      0,1
+    ],
+    "themeChances": [
+      0.5,1
+    ]
+  }
+]

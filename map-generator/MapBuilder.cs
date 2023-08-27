@@ -17,8 +17,6 @@ public class MapBuilder
         this.rng = rng;
         this.tiles = new RoomTile[xSize, ySize];
         this.emptyTilesMap();
-        System.Console.WriteLine("testing");
-        this.initRoom();
     }
 
     private void emptyTilesMap()
@@ -33,13 +31,14 @@ public class MapBuilder
         }
     }
 
-    private void initRoom()
+    public MapBuilder initRoom()
     {
         // TEST GENERATION
         int initX = this.xSize / 2;
         int initY = this.ySize / 2;
-        RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, this.tiles, this.rng);
+        RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, this.roomThemes[0], this.tiles, this.rng, this.roomThemes, this.connectors);
         room.generateRoom();
+        return this;
     }
 
     public MapBuilder printMap()
@@ -62,6 +61,10 @@ public class MapBuilder
         string rawRooms = File.ReadAllText(filePath + "rooms.json");
 
         this.roomThemes = JsonSerializer.Deserialize<RoomTheme[]>(rawRooms);
+
+        string rawConnectors = File.ReadAllText(filePath + "connectors.json");
+
+        this.connectors = JsonSerializer.Deserialize<Connector[]>(rawConnectors);
 
         return this;
     }

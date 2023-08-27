@@ -5,10 +5,9 @@ public record Connector
     private static readonly Lazy<Connector> empty = new Lazy<Connector>(
         () => new Connector
         {
-            x = -1,
-            y = -1,
-            id = 1,
-            themes = new RoomTheme[] { },
+            id = -1,
+            padding = -1,
+            themeIds = new int[] { },
             themeChances = new double[] { }
         }
         );
@@ -18,20 +17,24 @@ public record Connector
         get { return empty.Value; }
     }
 
-    public int x { get; init; }
-    public int y { get; init; }
     public int id { get; init; }
-    public RoomTheme[] themes { get; init; }
+    public double padding { get; init; }
+    public int[] themeIds { get; init; }
     public double[] themeChances { get; init; }
 
-    public RoomTheme getRandomRoomTheme(Random rng)
+    public RoomTheme getRandomRoomTheme(RoomTheme[] themes, Random rng)
     {
+        if (this.Equals(Empty))
+        {
+            throw new InvalidOperationException("Cannot get a random theme from an empty Connector");
+        }
+
         double randDouble = rng.NextDouble();
         int closestIndex = themeChances.Select((chance, index) => new { Index = index, Difference = Math.Abs(chance - randDouble) })
             .OrderBy(i => i.Difference)
             .First()
             .Index;
-        return this.themes[closestIndex];
+        return themes[this.themeIds[closestIndex]];
     }
 
 }
