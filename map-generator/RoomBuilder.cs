@@ -15,8 +15,7 @@ public class RoomBuilder
     private readonly MapBuilder mapBuilder;
     private Random rng;
     private Direction prevDirection;
-    private Direction failedDirection;
-    private bool isRegen;
+    private int regenCount;
     private int[] connectorIds;
     private int connectorCount;
     private bool[] connSides;
@@ -34,8 +33,7 @@ public class RoomBuilder
         this.connectors = mapBuilder.getConnectors();
         this.mapBuilder = mapBuilder;
         this.prevDirection = prevDirection;
-        this.failedDirection = Direction.NONE;
-        this.isRegen = false;
+        this.regenCount = 0;
         this.connectorIds = roomTheme.connectorIds;
         this.connectorCount = rng.Next(roomTheme.minConnectors, roomTheme.maxConnectors);
         this.roomConnectors = new Connector[4];
@@ -55,8 +53,6 @@ public class RoomBuilder
     public void generateRooms(Queue<RoomBuilder> builderBuffer)
     {
         this.bakeRoomTiles().generateConns();
-        Console.Clear();
-        mapBuilder.printMap();
         List<RoomBuilder> rooms = new List<RoomBuilder>();
         for (int i = 0; i < 4; i++)
         {
@@ -106,13 +102,15 @@ public class RoomBuilder
             bool safe = this.checkTilesEmptyOrAvailable(xPos, yPos, width, height);
             if (!safe)
             {
-                if (isRegen) continue;
-                this.isRegen = true;
-                this.failedDirection = (Direction)i;
+                if (regenCount == 4) continue;
+                regenCount++;
                 builderBuffer.Enqueue(this);
                 generateRooms(builderBuffer);
                 return;
             }
+
+            Console.Clear();
+            mapBuilder.printMap();
 
 
             RoomBuilder room = new RoomBuilder(xPos, yPos, width, height, prevDir,
@@ -226,19 +224,13 @@ public class RoomBuilder
         if (this.prevDirection != Direction.NONE)
         {
             availableSides.Remove(this.prevDirection + 2 % 4);
-        }
-
-        if (this.failedDirection != Direction.NONE)
-        {
-            availableSides.Remove(this.failedDirection);
-            count = count > 1 ? 2 : 1;
+            count = count > 3 ? 3 : count;
         }
 
         availableSides = availableSides.OrderBy(a => rng.Next()).ToList();
         while (chosenSides.Count < count)
         {
             int index = rng.Next(0, availableSides.Count);
-            Console.WriteLine(index);
             chosenSides.Add(availableSides[index]);
             availableSides.RemoveAt(index);
         }
