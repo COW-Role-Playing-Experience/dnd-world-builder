@@ -1,9 +1,15 @@
 namespace map_generator;
 
-public class Connector
+public record Connector
 {
     private static readonly Lazy<Connector> empty = new Lazy<Connector>(
-        () => new Connector(-1, -1, 1, Direction.NONE, new RoomTheme[] { }, new Random())
+        () => new Connector
+        {
+            id = -1,
+            padding = -1,
+            themeIds = new int[] { },
+            themeChances = new double[] { }
+        }
         );
 
     public static Connector Empty
@@ -11,42 +17,24 @@ public class Connector
         get { return empty.Value; }
     }
 
-    private int x;
-    private int y;
-    private int id;
-    private Random rng;
-    private RoomTheme[] themes;
-    private int themeCount;
-    private Direction direction;
+    public int id { get; init; }
+    public double padding { get; init; }
+    public int[] themeIds { get; init; }
+    public double[] themeChances { get; init; }
 
-    public Connector(int x, int y, int id, Direction direction, RoomTheme[] themes, Random rng)
+    public RoomTheme getRandomRoomTheme(RoomTheme[] themes, Random rng)
     {
-        this.id = id;
-        this.x = x;
-        this.y = y;
-        this.rng = rng;
-        this.themes = themes;
-        this.themeCount = themes.Length;
-        this.direction = direction;
-    }
+        if (this.Equals(Empty))
+        {
+            throw new InvalidOperationException("Cannot get a random theme from an empty Connector");
+        }
 
-    public int getX()
-    {
-        return x;
-    }
-
-    public int getY()
-    {
-        return y;
-    }
-
-    public Direction getDirection()
-    {
-        return this.direction;
-    }
-    public RoomTheme getRandomRoomTheme()
-    {
-        return this.themes[rng.Next(this.themeCount)];
+        double randDouble = rng.NextDouble();
+        int closestIndex = themeChances.Select((chance, index) => new { Index = index, Difference = Math.Abs(chance - randDouble) })
+            .OrderBy(i => i.Difference)
+            .First()
+            .Index;
+        return themes[this.themeIds[closestIndex]];
     }
 
 }
