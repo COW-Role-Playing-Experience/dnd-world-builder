@@ -4,9 +4,9 @@ class Program
 {
     static void Main()
     {
-        Random rng = new Random(273465);
+        Random rng = new Random();
         Console.WriteLine("Hello, World!");
-        MapBuilder map = new MapBuilder(50, 50, rng);
-        map.printMap();
+        MapBuilder map = new MapBuilder(200, 40, rng, 0.8);
+        map.setTheme("data/dungeon-theme/").initRoom().fillGaps().printMap();
     }
 }

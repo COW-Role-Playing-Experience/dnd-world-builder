@@ -1,7 +1,7 @@
 using System.Data;
 using map_generator;
 
-public class RoomTile
+public class RoomTile : ICloneable
 {
     private int x;
     private int y;
@@ -45,5 +45,10 @@ public class RoomTile
     public int getY()
     {
         return this.y;
+    }
+
+    public object Clone()
+    {
+        return new RoomTile(this.x, this.y, this.empty, this.direction);
     }
 }

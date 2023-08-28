@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "padding": 0.5,
+    "themeIds": [0, 1, 2, 3, 4],
+    "themeChances": [1, 0.9, 0.7, 0.5, 0.4]
+  },
+  {
+    "id": 1,
+    "padding": 0.5,
+    "themeIds": [0, 1, 2, 3],
+    "themeChances": [0.7, 0.3, 0.5, 0.2]
+  },
+  {
+    "id": 2,
+    "padding": 0.5,
+    "themeIds": [0, 1, 2, 5],
+    "themeChances": [1, 0.7, 0.5, 0.1]
+  },
+  {
+    "id": 3,
+    "padding": 0.5,
+    "themeIds": [0, 1, 2, 3],
+    "themeChances": [0.7, 0.3, 0.5, 0.2]
+  },
+  {
+    "id": 4,
+    "padding": 0.2,
+    "themeIds": [4],
+    "themeChances": [1]
+  }
+]
