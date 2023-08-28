@@ -3,39 +3,39 @@
     "id": 0,
     "minWidth": 6,
     "maxWidth": 8,
-    "minHeight": 3,
-    "maxHeight": 6,
-    "connectorIds": [0, 1, 3],
+    "minHeight": 6,
+    "maxHeight": 8,
+    "connectorIds": [4, 4, 4],
     "minConnectors": 2,
     "maxConnectors": 3
   },
   {
     "id": 1,
-    "minWidth": 3,
-    "maxWidth": 5,
-    "minHeight": 6,
-    "maxHeight": 8,
-    "connectorIds": [0, 4, 2],
+    "minWidth": 6,
+    "maxWidth": 8,
+    "minHeight": 8,
+    "maxHeight": 10,
+    "connectorIds": [4, 4, 4],
     "minConnectors": 1,
     "maxConnectors": 3
   },
   {
     "id": 2,
-    "minWidth": 4,
+    "minWidth": 5,
     "maxWidth": 6,
-    "minHeight": 4,
+    "minHeight": 5,
     "maxHeight": 6,
-    "connectorIds": [0, 4],
+    "connectorIds": [4, 4],
     "minConnectors": 1,
     "maxConnectors": 2
   },
   {
     "id": 3,
-    "minWidth": 4,
-    "maxWidth": 6,
+    "minWidth": 8,
+    "maxWidth": 10,
     "minHeight": 6,
     "maxHeight": 8,
-    "connectorIds": [0, 4],
+    "connectorIds": [4, 4],
     "minConnectors": 1,
     "maxConnectors": 2
   },
@@ -43,8 +43,8 @@
     "id": 4,
     "minWidth": 2,
     "maxWidth": 2,
-    "minHeight": 5,
-    "maxHeight": 6,
+    "minHeight": 14,
+    "maxHeight": 20,
     "connectorIds": [0],
     "minConnectors": 1,
     "maxConnectors": 1
@@ -55,8 +55,8 @@
     "maxWidth": 5,
     "minHeight": 5,
     "maxHeight": 5,
-    "connectorIds": [0,1,2],
-    "minConnectors": 3,
-    "maxConnectors": 3
+    "connectorIds": [4,4,4,4],
+    "minConnectors": 4,
+    "maxConnectors": 4
   }
 ]
