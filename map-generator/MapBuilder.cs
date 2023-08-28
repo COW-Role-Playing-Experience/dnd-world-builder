@@ -36,8 +36,8 @@ public class MapBuilder
     public MapBuilder initRoom()
     {
         // TEST GENERATION
-        int initX = this.xSize / 2 - 3;
-        int initY = this.ySize / 2 - 3;
+        int initX = this.xSize / 2;
+        int initY = this.ySize / 2;
         RoomBuilder room = new RoomBuilder(initX, initY, 5, 5, Direction.NONE, this.roomThemes[5], this);
         room.generateMap();
         return this;
@@ -54,7 +54,7 @@ public class MapBuilder
                 if (this.tiles[x, y].isEmpty())
                 {
                     int count = this.countEmptyNeighbors(x, y);
-                    if (count < 3)
+                    if (count < 2)
                     {
                         tmpGrid[x, y].setEmpty(false);
                     }
