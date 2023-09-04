@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "map-generator", "map-generator\map-generator.csproj", "{9C45A21F-6CB1-477F-AEBB-1D36F78592B2}"
 EndProject
@@ -20,3 +19,4 @@ Global
 		{44BE58F8-357A-4C76-9CD7-59359986B1E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
+
