@@ -1,14 +1,16 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using UI.ViewModels;
 
 namespace UI.Views;
 
-public partial class DMView : UserControl
+public partial class DmView : UserControl
 {
-    public DMView()
+    public DmView()
     {
         InitializeComponent();
+        DataContext = new DmViewModel();
+
     }
 
     private void InitializeComponent()
