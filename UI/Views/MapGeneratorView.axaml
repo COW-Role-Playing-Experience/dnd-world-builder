@@ -10,11 +10,15 @@
 
     <Grid ColumnDefinitions="250,Auto" ShowGridLines="True">
         <Grid RowDefinitions="2*,3*,1*">
+
+            <!-- Seed generation controls -->
             <StackPanel Grid.Column="0" Grid.Row="0">
                 <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Generate From Seed</Button>
                 <TextBox Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
                 <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Generate New Seed</Button>
             </StackPanel>
+
+            <!-- Theme selection -->
             <StackPanel Grid.Column="0" Grid.Row="1">
                 <ComboBox PlaceholderText="Theme" Height="50" Width="250" HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center">
@@ -22,6 +26,8 @@
                     <ComboBoxItem>Cave</ComboBoxItem>
                 </ComboBox>
             </StackPanel>
+
+            <!-- Export/Back -->
             <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom">
                 <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Export</Button>
                 <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
@@ -31,8 +37,9 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <Canvas Grid.Column="1"></Canvas>
 
+        <!-- Canvas for displaying the generated map -->
+        <Canvas Grid.Column="1"></Canvas>
 
     </Grid>
 </UserControl>
