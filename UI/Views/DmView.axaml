@@ -1,0 +1,121 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:UI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="450"
+             x:Class="UI.Views.DmView"
+             x:DataType="vm:DmViewModel">
+    <!-- Main layout grid -->
+    <Grid>
+        <!-- Background canvas to be the generated map image -->
+        <Canvas Background="#C0C0C0">
+        </Canvas>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Top section with title and main UI -->
+            <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Margin="20">
+
+                <!-- Title label, should be changeable later? -->
+                <Label Grid.Column="0" Width="300" FontSize="40" IsVisible="{Binding IsUiVisible, Mode=TwoWay}"> Map Generator</Label>
+
+                <!-- Main Toggles -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center"
+                            VerticalAlignment="Center" MinWidth="200" IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
+                    <Button Classes="green" Background="Coral" Command="{Binding  ToggleAddVisibility}"></Button>
+                    <Button Classes="green"></Button>
+                    <Button Classes="green"></Button>
+                    <Button Classes="green"></Button>
+                </StackPanel>
+
+                <!-- Util buttons -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="25" HorizontalAlignment="Right"
+                            FlowDirection="RightToLeft" MinWidth="300">
+                    <Button Width="50" Height="50" Background="#006494" HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center" Command="{Binding  ToggleUiVisibility}"
+                            Opacity="{Binding UiButtonOpacity}">
+                        UI
+                    </Button>
+                    <Button Width="50" Height="50" Background="#006494" HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center" x:CompileBindings="False"
+                            Command="{Binding $parent[Window].DataContext.ReturnHome}"
+                            IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
+                        Back
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+
+            <!-- Middle section for adding extra overlays -->
+            <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,20,0" MinWidth="300"
+                  MaxWidth="300" IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
+                <Border VerticalAlignment="Top" Background="#657153" BorderBrush="Black" BorderThickness="1"
+                        Margin="0,10" IsVisible="{Binding IsAddVisible, Mode=TwoWay}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Add to the game" FontSize="18" FontWeight="Bold"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Rectangle Grid.Row="1" Height="1" Fill="Black" HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Top" />
+                        <ScrollViewer Grid.Row="2" HorizontalAlignment="Center" Margin="5"
+                                      VerticalScrollBarVisibility="Auto" MinHeight="60" MaxHeight="200">
+                            <ItemsControl Name="CirclesControl" Grid.Row="2" HorizontalAlignment="Center" Margin="5"
+                                          x:DataType="vm:DmViewModel" ItemsSource="{Binding TokensCollection}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentPresenter Content="{Binding}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                        <Rectangle Grid.Row="3" Height="1" Fill="Black" HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Top" />
+                        <TextBlock Grid.Row="4" Text="Import" FontSize="18" FontWeight="Bold"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Rectangle Grid.Row="5" Height="1" Fill="Black" HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Top" Margin="0" />
+                        <Button Grid.Row="6" Content="Add" Width="50" Height="50" HorizontalAlignment="Center"
+                                Margin="0,10" Command="{Binding AddTokenCommand}" />
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Bottom section to have zoom controls -->
+            <Grid Grid.Row="2" VerticalAlignment="Bottom" Background="Aqua"
+                  IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
+                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                    <Button Width="35" Height="35" BorderThickness="2" BorderBrush="Black"
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        +
+                    </Button>
+                    <Button Width="35" Height="35" BorderThickness="2" BorderBrush="Black"
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        -
+                    </Button>
+                    <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        100%
+                    </Label>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
