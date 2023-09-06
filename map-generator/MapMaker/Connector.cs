@@ -1,4 +1,4 @@
-namespace map_generator;
+namespace map_generator.MapMaker;
 
 public record Connector
 {

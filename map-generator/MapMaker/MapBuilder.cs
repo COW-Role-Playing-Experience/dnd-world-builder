@@ -1,6 +1,8 @@
 using System.Text.Json;
 using map_generator;
 
+namespace map_generator.MapMaker;
+
 public class MapBuilder
 {
     private RoomTile[,] tiles;
