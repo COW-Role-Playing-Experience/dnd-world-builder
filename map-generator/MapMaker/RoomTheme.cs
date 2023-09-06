@@ -1,3 +1,6 @@
+
+namespace map_generator.MapMaker;
+
 public record RoomTheme
 {
     public required int id { get; init; }

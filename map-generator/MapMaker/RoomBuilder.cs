@@ -3,6 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using map_generator;
 
+namespace map_generator.MapMaker;
+
 public class RoomBuilder
 {
     private int xSize;
