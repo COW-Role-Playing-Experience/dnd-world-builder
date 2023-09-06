@@ -1,4 +1,7 @@
 ﻿using System;
+using map_generator.MapMaker;
+
+namespace map_generator;
 
 class Program
 {
