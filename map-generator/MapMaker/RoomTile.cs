@@ -1,6 +1,8 @@
 using System.Data;
 using map_generator;
 
+namespace map_generator.MapMaker;
+
 public class RoomTile : ICloneable
 {
     private int x;
