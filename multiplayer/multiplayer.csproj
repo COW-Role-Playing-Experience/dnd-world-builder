@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="..\Assets\data\**\*.*">
+    <Content Include="..\Assets\**\*.*">
        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <PackageReference Include="LiteNetLib" Version="1.1.0"/>
