@@ -1,6 +1,6 @@
-using System;
 using LiteNetLib;
 using LiteNetLib.Utils;
+using map_generator.MapMaker;
 
 public class Client
 {
@@ -10,8 +10,18 @@ public class Client
 
     static Client()
     {
+        _netPacketProcessor.RegisterNestedType(() => new MapData());
+        _netPacketProcessor.SubscribeReusable<MapData, NetPeer>(OnMapDataReceived);
         _netPacketProcessor.RegisterNestedType(() => new Token());
         _netPacketProcessor.SubscribeReusable<Token, NetPeer>(OnTokenReceived);
+    }
+
+    private static void OnMapDataReceived(MapData md, NetPeer peer)
+    {
+        Console.WriteLine("Client received map data with theme: " + md.Theme);
+        // Call map generation
+        MapBuilder map = new(md.XSize, md.YSize, new Random(md.Seed), md.ExpectedPopulation);
+        map.setTheme(md.Theme).initRoom().fillGaps().printMap();
     }
 
     private static void OnTokenReceived(Token t, NetPeer peer)
