@@ -162,4 +162,26 @@ public class MapBuilder
     {
         return this.tiles;
     }
+
+    /**Creates Connectors.json to store the connectors in json format*/
+    public void connectorsToJson()
+    {
+        var options = new JsonSerializerOptions()
+        {
+            WriteIndented = true
+        };
+        var jsonString = JsonSerializer.Serialize(this.connectors, options);
+        File.WriteAllText("../map-generator/data/dungeon-theme/connectors.json", jsonString);
+    }
+
+    /**Creates Rooms.json to store the rooms in json format*/
+    public void roomsToJson()
+    {
+        var options = new JsonSerializerOptions()
+        {
+            WriteIndented = true
+        };
+        var jsonString = JsonSerializer.Serialize(this.roomThemes, options);
+        File.WriteAllText("../map-generator/data/dungeon-theme/rooms.json", jsonString);
+    }
 }
