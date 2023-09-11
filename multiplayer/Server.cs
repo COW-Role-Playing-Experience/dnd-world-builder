@@ -52,7 +52,7 @@ public class Server
             Console.WriteLine("We got connection: {0}", peer.EndPoint);
             NetDataWriter writer = new();
             // Send map data to client
-            MapData md = new(0, 200, 40, 0.8, "../map-generator/data/dungeon-theme/");
+            MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
             _netPacketProcessor.Write(writer, md);
             peer.Send(writer, DeliveryMethod.ReliableOrdered);
             writer.Reset();
