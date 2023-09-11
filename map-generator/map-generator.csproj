@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="data\**\*.*">
+        <Content Include="..\Assets\data\**\*.*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
