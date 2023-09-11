@@ -1,4 +1,3 @@
-using System;
 using LiteNetLib;
 using LiteNetLib.Utils;
 
@@ -9,7 +8,6 @@ public class Server
     static readonly int MAX_CONNECTIONS = 10;
     private static readonly NetPacketProcessor _netPacketProcessor = new();
 
-
     private static List<Token> tokens = new(){
         new("T1", 56, 200, (255, 50, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png"),
         new("T2", 234, 24, (50, 255, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png"),
@@ -19,8 +17,10 @@ public class Server
 
     static Server()
     {
+        _netPacketProcessor.RegisterNestedType(() => new MapData());
         _netPacketProcessor.RegisterNestedType(() => new Token());
         _netPacketProcessor.SubscribeReusable<Token, NetPeer>(OnTokenReceived);
+
     }
 
     private static void OnTokenReceived(Token t, NetPeer peer)
@@ -51,6 +51,12 @@ public class Server
         {
             Console.WriteLine("We got connection: {0}", peer.EndPoint);
             NetDataWriter writer = new();
+            // Send map data to client
+            MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
+            _netPacketProcessor.Write(writer, md);
+            peer.Send(writer, DeliveryMethod.ReliableOrdered);
+            writer.Reset();
+            // Then send all tokens
             foreach (Token t in tokens)
             {
                 _netPacketProcessor.Write(writer, t);
