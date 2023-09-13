@@ -7,7 +7,9 @@
     "maxHeight": 8,
     "connectorIds": [4, 4, 4],
     "minConnectors": 2,
-    "maxConnectors": 3
+    "maxConnectors": 3,
+    "floorTexture": "DEBUG",
+    "decorGroup": "DEBUG"
   },
   {
     "id": 1,
@@ -17,7 +19,9 @@
     "maxHeight": 10,
     "connectorIds": [4, 4, 4],
     "minConnectors": 1,
-    "maxConnectors": 3
+    "maxConnectors": 3,
+    "floorTexture": "DEBUG",
+    "decorGroup": "DEBUG"
   },
   {
     "id": 2,
@@ -27,7 +31,9 @@
     "maxHeight": 6,
     "connectorIds": [4, 4],
     "minConnectors": 1,
-    "maxConnectors": 2
+    "maxConnectors": 2,
+    "floorTexture": "DEBUG",
+    "decorGroup": "DEBUG"
   },
   {
     "id": 3,
@@ -37,7 +43,9 @@
     "maxHeight": 8,
     "connectorIds": [4, 4],
     "minConnectors": 1,
-    "maxConnectors": 2
+    "maxConnectors": 2,
+    "floorTexture": "DEBUG",
+    "decorGroup": "DEBUG"
   },
   {
     "id": 4,
@@ -47,7 +55,9 @@
     "maxHeight": 20,
     "connectorIds": [0],
     "minConnectors": 1,
-    "maxConnectors": 1
+    "maxConnectors": 1,
+    "floorTexture": "DEBUG",
+    "decorGroup": "DEBUG"
   },
   {
     "id": 5,
@@ -57,6 +67,8 @@
     "maxHeight": 5,
     "connectorIds": [4,4,4,4],
     "minConnectors": 4,
-    "maxConnectors": 4
+    "maxConnectors": 4,
+    "floorTexture": "DEBUG",
+    "decorGroup": "DEBUG"
   }
 ]
