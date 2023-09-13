@@ -1,4 +1,5 @@
 using System.Text;
+using map_generator.MapMaker;
 
 namespace map_generator.DecorHandling;
 
@@ -6,26 +7,32 @@ public class RoomDecorator
 {
     private int xSize;
     private int ySize;
+    private int xOrigin;
+    private int yOrigin;
+    private Random _random;
+
+
     private bool[,] occupancyMap;
     private int freeTiles;
 
-    private static Random _random = new Random(); //TODO: Replace with either static parameter or constructor parameter
-
     private static readonly float idealDecorPercent = 0.3f; //ideally we want 30% of the room, at a minimum, to be metaTiles
 
-    //TODO: Remove this and replace it with a call to randomly acquire a DecorGroup from the RoomTheme
-    private static readonly DecorGroup DUMMY_DECOR = new DecorGroup("REMOVE_ME", 3, 3, new List<DecorPosition>());
-
-    public RoomDecorator(int xSize, int ySize)
+    public RoomDecorator(int xOrigin, int yOrigin, int xSize, int ySize, Random random)
     {
+        this._random = random;
+        this.xOrigin = xOrigin;
+        this.yOrigin = yOrigin;
         this.xSize = xSize;
         this.ySize = ySize;
         this.occupancyMap = new bool[xSize, ySize];
         this.freeTiles = occupancyMap.Length;
     }
 
-    public RoomDecorator(bool[,] occupancyMap)
+    public RoomDecorator(int xOrigin, int yOrigin, bool[,] occupancyMap, Random random)
     {
+        this._random = random;
+        this.xOrigin = xOrigin;
+        this.yOrigin = yOrigin;
         this.xSize = occupancyMap.GetLength(0);
         this.ySize = occupancyMap.GetLength(1);
         this.occupancyMap = occupancyMap;
@@ -33,7 +40,7 @@ public class RoomDecorator
     }
 
     /**Add MetaTiles to a room until idealDecorPercent or more of it is filled with MetaTiles */
-    public List<MetaTile> GenerateDecor()
+    public List<MetaTile> GenerateDecor(RoomTheme roomTheme)
     {
         int idealOccupiedTiles = (int)(idealDecorPercent * freeTiles);
         int occupiedTiles = 0;
@@ -45,7 +52,7 @@ public class RoomDecorator
         while (occupiedTiles < idealOccupiedTiles)
         {
             //TODO: replace with call to RoomTheme
-            DecorGroup toPlace = DUMMY_DECOR;
+            DecorGroup toPlace = roomTheme.GetDecorGroup();
 
             List<(int, int)> positions = FindValidPlacements(toPlace, traversalMap);
 
@@ -54,18 +61,18 @@ public class RoomDecorator
 
             occupiedTiles += toPlace.Width * toPlace.Height;
 
-            (int, int) position = positions[_random.Next(0, positions.Count - 1)];
+            (int xPos, int yPos) = positions[_random.Next(0, positions.Count - 1)];
 
             // Update the occupancy map to reflect new MetaTile
             for (int x = 0; x < toPlace.Width; x++)
             {
                 for (int y = 0; y < toPlace.Height; y++)
                 {
-                    occupancyMap[x + position.Item1, y + position.Item2] = true;
+                    occupancyMap[x + xPos, y + yPos] = true;
                 }
             }
 
-            metaTiles.Add(new MetaTile(position.Item1, position.Item2, toPlace));
+            metaTiles.Add(new MetaTile(xPos + xOrigin, yPos + yOrigin, toPlace));
         }
 
         return metaTiles;
