@@ -1,4 +1,5 @@
 ﻿using System;
+using map_generator.JsonLoading;
 using map_generator.MapMaker;
 
 namespace map_generator;
@@ -10,8 +11,9 @@ class Program
         //ImageSharpTest.ImageTest.Demo();
 
         Random rng = new Random();
+        DataLoader.Init(rng);
         Console.WriteLine("Hello, World!");
         MapBuilder map = new MapBuilder(200, 40, rng, 0.8);
-        map.setTheme("data/dungeon-theme/").initRoom().fillGaps().printMap();
+        map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom().fillGaps().printMap();
     }
 }
