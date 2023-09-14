@@ -59,6 +59,15 @@ public class TextureStoreBuilder
         return this;
     }
 
+    public TextureStoreBuilder AddEmpty()
+    {
+        Image<Rgba32> debug = new Image<Rgba32>(1, 1);
+        debug[0, 0] = new Rgba32(0, 0, 0, 0);
+
+        _store.Add(DataLoader.EMPTY, () => debug);
+        return this;
+    }
+
     public Store<Image<Rgba32>> Get()
     {
         if (_used) throw new InvalidOperationException("This builder has already been used.");
