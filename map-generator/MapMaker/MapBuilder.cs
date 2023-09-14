@@ -29,7 +29,7 @@ public class MapBuilder
         {
             for (int y = 0; y < this.ySize; y++)
             {
-                RoomTile tile = new RoomTile(x, y, true);
+                RoomTile tile = new RoomTile(x, y, null);
                 tiles[x, y] = tile;
             }
         }
@@ -58,7 +58,8 @@ public class MapBuilder
                     int count = this.countEmptyNeighbors(x, y);
                     if (count < 2)
                     {
-                        tmpGrid[x, y].setEmpty(false);
+                        //TODO: replace this with texture grabbed from neighbouring tiles
+                        tmpGrid[x, y].setTexture("DEBUG");
                     }
                 }
             }
