@@ -20,15 +20,15 @@ public class Client
 
     private static void OnMapDataReceived(MapData md, NetPeer peer)
     {
-        Console.WriteLine("Client received map data with theme: " + md.Theme);
+        // Console.WriteLine("Client received map data with theme: " + md.Theme);
         // Call map generation
         MapBuilder map = new(md.XSize, md.YSize, new Random(md.Seed), md.ExpectedPopulation);
-        map.setTheme(md.Theme).initRoom().fillGaps().printMap();
+        // map.setTheme(md.Theme).initRoom().fillGaps().printMap();
     }
 
     private static void OnTokenReceived(Token t, NetPeer peer)
     {
-        Console.WriteLine("Client received token: " + t.Name);
+        // Console.WriteLine("Client received token: " + t.Name);
         var rand = new Random();
         //Code to draw token
         if (!t.CheckMoved())
@@ -66,7 +66,8 @@ public class Client
             dataReader.Recycle();
         };
 
-        for (int i = 0; i < 5; i++)
+        // Run for a minute
+        for (int i = 0; i < 60; i++)
         {
             client.PollEvents();
             Thread.Sleep(1000);
