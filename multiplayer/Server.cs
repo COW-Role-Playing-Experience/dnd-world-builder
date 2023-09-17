@@ -9,7 +9,7 @@ public class Server
     static bool ClientsCanMove = true;
     static bool ToggleFOW = false;
     private static readonly NetPacketProcessor _netPacketProcessor = new();
-    private static Queue<int> WaitList = new();
+    private static readonly Queue<int> WaitList = new();
 
     private static List<Token> tokens = new()
     {
@@ -50,25 +50,38 @@ public class Server
         writer.Reset();
     }
 
-    private static void JoinGame(NetPeer peer)
+    private static void JoinGame(NetPeer peer, bool onwaitlist)
     {
         NetDataWriter writer = new();
-        // Send map data to client
-        MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
-        _netPacketProcessor.Write(writer, md);
-        if (!ClientsCanMove)
+        // Note: It's expecting map and token data after this point but none is being sent so crash
+        if (onwaitlist)
         {
+            writer.Put(true);
             peer.Send(writer, DeliveryMethod.ReliableOrdered);
             writer.Reset();
-            return;
         }
-        // Then send all tokens
-        foreach (Token t in tokens)
+        else
         {
-            _netPacketProcessor.Write(writer, t);
+            writer.Put(false);
+            peer.Send(writer, DeliveryMethod.ReliableOrdered);
+            writer.Reset();
+            // Send map data to client
+            MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
+            _netPacketProcessor.Write(writer, md);
+            if (!ClientsCanMove)
+            {
+                peer.Send(writer, DeliveryMethod.ReliableOrdered);
+                writer.Reset();
+                return;
+            }
+            // Then send all tokens
+            foreach (Token t in tokens)
+            {
+                _netPacketProcessor.Write(writer, t);
+            }
+            peer.Send(writer, DeliveryMethod.ReliableOrdered);
+            writer.Reset();
         }
-        peer.Send(writer, DeliveryMethod.ReliableOrdered);
-        writer.Reset();
     }
 
     public static void RunServer(int PORT, string HOST_CODE)
@@ -91,12 +104,13 @@ public class Server
             {
                 // Connect client to game and add to the list of connected clients
                 Console.WriteLine("Connection: {0} with ID: {1} joined the game", peer.EndPoint, peer.Id);
-                JoinGame(peer);
+                JoinGame(peer, false);
             }
             else
             {
                 // Put the client on a waitlist
                 Console.WriteLine("Connnection: {0} with ID: {1} added to waitlist", peer.EndPoint, peer.Id);
+                JoinGame(peer, true);
                 WaitList.Enqueue(peer.Id);
             }
 
@@ -112,7 +126,7 @@ public class Server
                 int ClientID = WaitList.Dequeue();
                 NetPeer PeerFromWaitlist = server.GetPeerById(ClientID);
                 Console.WriteLine("Connection: {0} with ID: {1} removed from waitlist and joined the game", PeerFromWaitlist.EndPoint, PeerFromWaitlist.Id);
-                JoinGame(PeerFromWaitlist);
+                JoinGame(PeerFromWaitlist, false);
             }
             Console.WriteLine(string.Format("Waitlist: ({0}).", string.Join(", ", WaitList)));
         };

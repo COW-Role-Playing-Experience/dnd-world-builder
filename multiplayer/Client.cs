@@ -20,7 +20,7 @@ public class Client
 
     private static void OnMapDataReceived(MapData md, NetPeer peer)
     {
-        // Console.WriteLine("Client received map data with theme: " + md.Theme);
+        Console.WriteLine("Client " + peer.Id + " received map data with theme: " + md.Theme);
         // Call map generation
         MapBuilder map = new(md.XSize, md.YSize, new Random(md.Seed), md.ExpectedPopulation);
         // map.setTheme(md.Theme).initRoom().fillGaps().printMap();
@@ -28,7 +28,7 @@ public class Client
 
     private static void OnTokenReceived(Token t, NetPeer peer)
     {
-        // Console.WriteLine("Client received token: " + t.Name);
+        Console.WriteLine("Client " + peer.Id + " received token: " + t.Name);
         var rand = new Random();
         //Code to draw token
         if (!t.CheckMoved())
@@ -61,8 +61,13 @@ public class Client
 
         listener.NetworkReceiveEvent += (fromPeer, dataReader, channel, deliveryMethod) =>
         {
-            CanMove = dataReader.GetBool();
-            _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
+            bool OnWaitList = dataReader.GetBool();
+            Console.WriteLine("On waitlist: " + OnWaitList);
+            if (!OnWaitList)
+            {
+                CanMove = dataReader.GetBool();
+                _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
+            }
             dataReader.Recycle();
         };
 
