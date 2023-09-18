@@ -8,6 +8,8 @@ public class Client
 
     private static readonly string HOST_CODE = "1234";
 
+    private static bool CanMove;
+
     static Client()
     {
         _netPacketProcessor.RegisterNestedType(() => new MapData());
@@ -28,11 +30,25 @@ public class Client
     {
         Console.WriteLine("Client received token: " + t.Name);
         var rand = new Random();
-        t.MoveToken(rand.Next(), rand.Next());
-        NetDataWriter writer = new();
-        _netPacketProcessor.Write(writer, t);
-        peer.Send(writer, DeliveryMethod.ReliableOrdered);
-        writer.Reset();
+        //Code to draw token
+        if (!t.CheckMoved())
+        {
+            Console.WriteLine("Token " + t.Name + "'s position hasn't changed");
+            return;
+        }
+        if (!t.PlayerMoveable)
+        {
+            Console.WriteLine("Token " + t.Name + " is not moveable by player");
+            return;
+        }
+        if (CanMove)
+        {
+            t.MoveToken(rand.Next(0, 100), rand.Next(0, 100));
+            NetDataWriter writer = new();
+            _netPacketProcessor.Write(writer, t);
+            peer.Send(writer, DeliveryMethod.ReliableOrdered);
+            writer.Reset();
+        }
     }
 
     public static void RunClient(int port)
@@ -45,6 +61,7 @@ public class Client
 
         listener.NetworkReceiveEvent += (fromPeer, dataReader, channel, deliveryMethod) =>
         {
+            CanMove = dataReader.GetBool();
             _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
             dataReader.Recycle();
         };
