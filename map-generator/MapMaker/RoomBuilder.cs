@@ -47,6 +47,7 @@ public class RoomBuilder
     {
         Queue<RoomBuilder> builderBuffer = new Queue<RoomBuilder>();
         generateRooms(builderBuffer);
+        this.bakeRoomTiles();
         while (builderBuffer.Count != 0)
         {
             builderBuffer.Dequeue().generateRooms(builderBuffer);
@@ -54,7 +55,7 @@ public class RoomBuilder
     }
     public void generateRooms(Queue<RoomBuilder> builderBuffer)
     {
-        this.bakeRoomTiles().generateConns();
+        this.generateConns();
         List<RoomBuilder> rooms = new List<RoomBuilder>();
         for (int i = 0; i < 4; i++)
         {
@@ -122,7 +123,12 @@ public class RoomBuilder
 
         foreach (RoomBuilder room in rooms.OrderBy(a => rng.Next()))
         {
-            builderBuffer.Enqueue(room);
+            bool safe = checkTilesEmptyOrAvailable(room.x, room.y, room.xSize, room.ySize);
+            if (safe)
+            {
+                room.bakeRoomTiles();
+                builderBuffer.Enqueue(room);
+            }
         }
     }
 
