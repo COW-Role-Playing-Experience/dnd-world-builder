@@ -28,17 +28,17 @@ public class Client
 
     private static void OnTokenReceived(Token t, NetPeer peer)
     {
-        // Console.WriteLine("Client " + peer.Id + " received token: " + t.Name);
+        Console.WriteLine("Client " + peer.Id + " received token: " + t.Name);
         var rand = new Random();
         //Code to draw token
         if (!t.CheckMoved())
         {
-            // Console.WriteLine("Token " + t.Name + "'s position hasn't changed");
+            Console.WriteLine("Token " + t.Name + "'s position hasn't changed");
             return;
         }
         if (!t.PlayerMoveable)
         {
-            // Console.WriteLine("Token " + t.Name + " is not moveable by player");
+            Console.WriteLine("Token " + t.Name + " is not moveable by player");
             return;
         }
         if (CanMove)
@@ -62,11 +62,9 @@ public class Client
         listener.NetworkReceiveEvent += (fromPeer, dataReader, channel, deliveryMethod) =>
         {
             bool OnWaitList = dataReader.GetBool();
-            Console.WriteLine("On waitlist: " + OnWaitList);
             if (!OnWaitList)
             {
                 CanMove = dataReader.GetBool();
-                Console.WriteLine("Player can move tokens: " + CanMove);
                 _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
             }
             dataReader.Recycle();

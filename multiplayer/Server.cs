@@ -32,22 +32,21 @@ public class Server
         Console.WriteLine("Server received token: " + t.Name);
         Console.WriteLine("New X pos: " + t.X);
         Console.WriteLine("New Y pos: " + t.Y);
-        // var rand = new Random();
-        // NetDataWriter writer = new();
-        // if (ClientsCanMove)
-        // {
-        //     writer.Put(true);
-        //     // t.PlayerMoveable = false;
-        // }
-        // else
-        // {
-        //     writer.Put(false);
-        // }
-
-        // // t.MoveToken(t.X + rand.Next(0, 100), t.Y + rand.Next(0, 100));
-        // _netPacketProcessor.Write(writer, t);
-        // peer.Send(writer, DeliveryMethod.ReliableOrdered);
-        // writer.Reset();
+        NetDataWriter writer = new();
+        if (ClientsCanMove)
+        {
+            writer.Put(true);
+            // t.PlayerMoveable = false;
+        }
+        else
+        {
+            writer.Put(false);
+        }
+        var rand = new Random();
+        t.MoveToken(t.X + rand.Next(0, 100), t.Y + rand.Next(0, 100));
+        _netPacketProcessor.Write(writer, t);
+        peer.Send(writer, DeliveryMethod.ReliableOrdered);
+        writer.Reset();
     }
 
     private static void JoinGame(NetPeer peer, bool OnWaitList)
@@ -70,14 +69,11 @@ public class Server
             MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
             _netPacketProcessor.Write(writer, md);
             peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            if (ClientsCanMove)
+            // Then send all tokens
+            foreach (Token t in tokens)
             {
-                // Then send all tokens
-                foreach (Token t in tokens)
-                {
-                    _netPacketProcessor.Write(writer, t);
-                    peer.Send(writer, DeliveryMethod.ReliableOrdered);
-                }
+                _netPacketProcessor.Write(writer, t);
+                peer.Send(writer, DeliveryMethod.ReliableOrdered);
             }
         }
         // Clear the NetDataWriter buffer after sending everything
