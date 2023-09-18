@@ -9,6 +9,9 @@ class Multiplayer
 
     static readonly List<Task> tasks = new();
 
+    /*
+        A mock server for testing
+    */
     static void StartServer()
     {
         Console.WriteLine("Starting mock server");
@@ -16,6 +19,9 @@ class Multiplayer
         tasks.Add(serverTask);
     }
 
+    /*
+        Starts 15 new client instances for testing
+    */
     static void StartClients()
     {
         Console.WriteLine("Starting up 15 new client instances");

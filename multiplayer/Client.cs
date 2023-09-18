@@ -18,14 +18,20 @@ public class Client
         _netPacketProcessor.SubscribeReusable<Token, NetPeer>(OnTokenReceived);
     }
 
+    /// <summary>
+    /// Receives map data from the server and then calls the map generate method to build the map. This is done once after the player has joined the game.
+    /// </summary>
     private static void OnMapDataReceived(MapData md, NetPeer peer)
     {
-        // Console.WriteLine("Client " + peer.Id + " received map data with theme: " + md.Theme);
-        // // Call map generation
-        // MapBuilder map = new(md.XSize, md.YSize, new Random(md.Seed), md.ExpectedPopulation);
-        // map.setTheme(md.Theme).initRoom().fillGaps().printMap();
+        Console.WriteLine("Client " + peer.Id + " received map data with theme: " + md.Theme);
+        // Call map generation
+        MapBuilder map = new(md.XSize, md.YSize, new Random(md.Seed), md.ExpectedPopulation);
+        map.setTheme(md.Theme).initRoom().fillGaps().printMap();
     }
 
+    /// <summary>
+    /// Receives token data from the server and calls the draw method for each token. Player can move tokens if allowed by the server (DM).
+    /// </summary>
     private static void OnTokenReceived(Token t, NetPeer peer)
     {
         Console.WriteLine("Client " + peer.Id + " received token: " + t.Name);
@@ -51,6 +57,9 @@ public class Client
         }
     }
 
+    /// <summary>
+    /// Executes the client which is done through the player view in the UI
+    /// </summary>
     public static void RunClient(int port)
     {
         Console.WriteLine("Running client");

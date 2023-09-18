@@ -10,7 +10,7 @@ public class Server
     static bool ToggleFOW = false;
     private static readonly NetPacketProcessor _netPacketProcessor = new();
     private static readonly Queue<int> WaitList = new();
-
+    // List of tokens currently in the game
     private static List<Token> tokens = new()
     {
         new("T1", 56, 200, (255, 50, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", true, true),
@@ -27,6 +27,9 @@ public class Server
 
     }
 
+    /// <summary>
+    /// Receives token data from the clients and updates player and/or token data via the DM UI
+    /// </summary>
     private static void OnTokenReceived(Token t, NetPeer peer)
     {
         Console.WriteLine("Server received token: " + t.Name);
@@ -49,6 +52,9 @@ public class Server
         writer.Reset();
     }
 
+    /// <summary>
+    /// Allows the client (player) to join the game and send out map and token data if the player is not on the waitlist.
+    /// </summary>
     private static void JoinGame(NetPeer peer, bool OnWaitList)
     {
         NetDataWriter writer = new();
@@ -80,6 +86,9 @@ public class Server
         writer.Reset();
     }
 
+    /// <summary>
+    /// Executes the server which is done through the DM view in the UI
+    /// </summary>
     public static void RunServer(int PORT, string HOST_CODE)
     {
         _netListener = new EventBasedNetListener();
