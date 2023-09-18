@@ -17,6 +17,9 @@ public class RenderPipeline
 
     public MapBuilder MapBuilder { set; private get; }
 
+    /**
+     * Sets all pixels within the Image canvas to transparent.
+     */
     public void Clear()
     {
         _canvas.Mutate(ftx => ftx.Fill(
@@ -52,6 +55,12 @@ public class RenderPipeline
 
     /**
      * Renders a new frame to the provided WriteableBitmap.
+     *
+     * <summary>
+     * <para>
+     * This method requires an Avalonia context to be initialised before it can be run.
+     * </para>>
+     * </summary>>
      */
     public void Render(WriteableBitmap bm)
     {
