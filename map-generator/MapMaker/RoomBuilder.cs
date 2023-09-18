@@ -43,7 +43,7 @@ public class RoomBuilder
         this.connSides = new bool[4];
     }
 
-    public void generateMap()
+   public void generateMap()
     {
         Queue<RoomBuilder> builderBuffer = new Queue<RoomBuilder>();
         generateRooms(builderBuffer);
