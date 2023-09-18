@@ -20,25 +20,25 @@ public class Client
 
     private static void OnMapDataReceived(MapData md, NetPeer peer)
     {
-        Console.WriteLine("Client " + peer.Id + " received map data with theme: " + md.Theme);
-        // Call map generation
-        MapBuilder map = new(md.XSize, md.YSize, new Random(md.Seed), md.ExpectedPopulation);
+        // Console.WriteLine("Client " + peer.Id + " received map data with theme: " + md.Theme);
+        // // Call map generation
+        // MapBuilder map = new(md.XSize, md.YSize, new Random(md.Seed), md.ExpectedPopulation);
         // map.setTheme(md.Theme).initRoom().fillGaps().printMap();
     }
 
     private static void OnTokenReceived(Token t, NetPeer peer)
     {
-        Console.WriteLine("Client " + peer.Id + " received token: " + t.Name);
+        // Console.WriteLine("Client " + peer.Id + " received token: " + t.Name);
         var rand = new Random();
         //Code to draw token
         if (!t.CheckMoved())
         {
-            Console.WriteLine("Token " + t.Name + "'s position hasn't changed");
+            // Console.WriteLine("Token " + t.Name + "'s position hasn't changed");
             return;
         }
         if (!t.PlayerMoveable)
         {
-            Console.WriteLine("Token " + t.Name + " is not moveable by player");
+            // Console.WriteLine("Token " + t.Name + " is not moveable by player");
             return;
         }
         if (CanMove)
@@ -66,6 +66,7 @@ public class Client
             if (!OnWaitList)
             {
                 CanMove = dataReader.GetBool();
+                Console.WriteLine("Player can move tokens: " + CanMove);
                 _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
             }
             dataReader.Recycle();

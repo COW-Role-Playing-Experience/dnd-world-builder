@@ -32,46 +32,52 @@ public class Server
         Console.WriteLine("Server received token: " + t.Name);
         Console.WriteLine("New X pos: " + t.X);
         Console.WriteLine("New Y pos: " + t.Y);
-        var rand = new Random();
-        NetDataWriter writer = new();
-        if (ClientsCanMove)
-        {
-            writer.Put(true);
-            // t.PlayerMoveable = false;
-        }
-        else
-        {
-            writer.Put(false);
-        }
+        // var rand = new Random();
+        // NetDataWriter writer = new();
+        // if (ClientsCanMove)
+        // {
+        //     writer.Put(true);
+        //     // t.PlayerMoveable = false;
+        // }
+        // else
+        // {
+        //     writer.Put(false);
+        // }
 
-        // t.MoveToken(t.X + rand.Next(0, 100), t.Y + rand.Next(0, 100));
-        _netPacketProcessor.Write(writer, t);
-        peer.Send(writer, DeliveryMethod.ReliableOrdered);
-        writer.Reset();
+        // // t.MoveToken(t.X + rand.Next(0, 100), t.Y + rand.Next(0, 100));
+        // _netPacketProcessor.Write(writer, t);
+        // peer.Send(writer, DeliveryMethod.ReliableOrdered);
+        // writer.Reset();
     }
 
     private static void JoinGame(NetPeer peer, bool OnWaitList)
     {
         NetDataWriter writer = new();
         writer.Put(OnWaitList);
-        peer.Send(writer, DeliveryMethod.ReliableOrdered);
+        // peer.Send(writer, DeliveryMethod.ReliableOrdered);
         if (!OnWaitList)
         {
+            if (ClientsCanMove)
+            {
+                writer.Put(true);
+                // t.PlayerMoveable = false;
+            }
+            else
+            {
+                writer.Put(false);
+            }
             // Send map data to client
             MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
             _netPacketProcessor.Write(writer, md);
-            if (!ClientsCanMove)
-            {
-                peer.Send(writer, DeliveryMethod.ReliableOrdered);
-                writer.Reset();
-                return;
-            }
             peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            // Then send all tokens
-            foreach (Token t in tokens)
+            if (ClientsCanMove)
             {
-                _netPacketProcessor.Write(writer, t);
-                peer.Send(writer, DeliveryMethod.ReliableOrdered);
+                // Then send all tokens
+                foreach (Token t in tokens)
+                {
+                    _netPacketProcessor.Write(writer, t);
+                    peer.Send(writer, DeliveryMethod.ReliableOrdered);
+                }
             }
         }
         // Clear the NetDataWriter buffer after sending everything
