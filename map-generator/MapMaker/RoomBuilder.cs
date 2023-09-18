@@ -173,6 +173,10 @@ public class RoomBuilder
     // Builder Methods
     private RoomBuilder bakeRoomTiles()
     {
+        if (!checkTilesEmptyOrAvailable(x, y, xSize, ySize))
+        {
+            throw new UnauthorizedAccessException("Cannot bake over existing room tiles here.");
+        }
         for (int i = x; i < x + this.xSize; i++)
         {
             for (int j = y; j < y + this.ySize; j++)
