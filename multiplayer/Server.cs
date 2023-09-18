@@ -50,21 +50,13 @@ public class Server
         writer.Reset();
     }
 
-    private static void JoinGame(NetPeer peer, bool onwaitlist)
+    private static void JoinGame(NetPeer peer, bool OnWaitList)
     {
         NetDataWriter writer = new();
-        // Note: It's expecting map and token data after this point but none is being sent so crash
-        if (onwaitlist)
+        writer.Put(OnWaitList);
+        peer.Send(writer, DeliveryMethod.ReliableOrdered);
+        if (!OnWaitList)
         {
-            writer.Put(true);
-            peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            writer.Reset();
-        }
-        else
-        {
-            writer.Put(false);
-            peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            writer.Reset();
             // Send map data to client
             MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
             _netPacketProcessor.Write(writer, md);
@@ -74,14 +66,16 @@ public class Server
                 writer.Reset();
                 return;
             }
+            peer.Send(writer, DeliveryMethod.ReliableOrdered);
             // Then send all tokens
             foreach (Token t in tokens)
             {
                 _netPacketProcessor.Write(writer, t);
+                peer.Send(writer, DeliveryMethod.ReliableOrdered);
             }
-            peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            writer.Reset();
         }
+        // Clear the NetDataWriter buffer after sending everything
+        writer.Reset();
     }
 
     public static void RunServer(int PORT, string HOST_CODE)
