@@ -57,7 +57,16 @@ public class RoomBuilder
     {
         this.generateConns();
         List<RoomBuilder> rooms = new List<RoomBuilder>();
-        for (int i = 0; i < 4; i++)
+        List<int> randOrder = new List<int> { 0, 1, 2, 3 };
+
+        // Fisher-Yates shuffle
+        for (int i = randOrder.Count - 1; i > 0; i--)
+        {
+            int j = rng.Next(0, i + 1);
+            (randOrder[i], randOrder[j]) = (randOrder[j], randOrder[i]);
+        }
+
+        foreach (int i in randOrder)
         {
             if (!this.connSides[i]) continue;
             Connector connector = this.roomConnectors[i];
@@ -105,7 +114,7 @@ public class RoomBuilder
             bool safe = this.checkTilesEmptyOrAvailable(xPos, yPos, width, height);
             if (!safe)
             {
-                if (regenCount == 4) continue;
+                if (regenCount == 8) continue;
                 regenCount++;
                 builderBuffer.Enqueue(this);
                 generateRooms(builderBuffer);
@@ -121,7 +130,7 @@ public class RoomBuilder
             rooms.Add(room);
         }
 
-        foreach (RoomBuilder room in rooms.OrderBy(a => rng.Next()))
+        foreach (RoomBuilder room in rooms)
         {
             bool safe = checkTilesEmptyOrAvailable(room.x, room.y, room.xSize, room.ySize);
             if (safe)
@@ -238,8 +247,12 @@ public class RoomBuilder
             availableSides.Remove(this.prevDirection + 2 % 4);
             count = count > 3 ? 3 : count;
         }
-
-        availableSides = availableSides.OrderBy(a => rng.Next()).ToList();
+        // Fisher-Yates shuffle
+        for (int i = availableSides.Count - 1; i > 0; i--)
+        {
+            int j = rng.Next(0, i + 1);
+            (availableSides[i], availableSides[j]) = (availableSides[j], availableSides[i]);
+        }
         while (chosenSides.Count < count)
         {
             int index = rng.Next(0, availableSides.Count);
