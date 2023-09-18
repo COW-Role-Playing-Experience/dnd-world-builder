@@ -11,25 +11,42 @@ public class Token : INetSerializable
 
     public float Y { get; set; }
 
+    private float LastX { get; set; }
+
+    private float LastY { get; set; }
+
     private (int, int, int) _Colour { get; set; }
 
     private string? _ImgID { get; set; }
+
+    public bool PlayerMoveable { get; set; }
+    public bool PlayerVisible { get; set; }
 
     public Token()
     {
 
     }
 
-    public Token(string name, float x, float y, (int, int, int) colour, string imgid)
+    public Token(string name, float x, float y, (int, int, int) colour, string imgid, bool playermoveable, bool playervisible)
     {
-        this.Name = name;
-        this.X = x;
-        this.Y = y;
-        this._Colour = colour;
+        Name = name;
+        X = x;
+        Y = y;
+        _Colour = colour;
         // TODO determine how we will get the id of the image (i.e path or something else)
-        this._ImgID = imgid;
+        _ImgID = imgid;
+        PlayerMoveable = playermoveable;
+        PlayerVisible = playervisible;
     }
 
+    public bool CheckMoved()
+    {
+        if (X == LastX && Y == LastY)
+        {
+            return false;
+        }
+        return true;
+    }
 
     /*
     Calculate new x and y coords based on direction, if direction doesn't change, then don't update position.
@@ -40,6 +57,8 @@ public class Token : INetSerializable
         {
             return;
         }
+        LastX = X;
+        LastY = Y;
         X = newX;
         Y = newY;
     }
@@ -52,6 +71,7 @@ public class Token : INetSerializable
         writer.Put(_Colour.Item1);
         writer.Put(_Colour.Item2);
         writer.Put(_Colour.Item3);
+        writer.Put(PlayerMoveable);
         writer.Put(_ImgID);
     }
 
@@ -61,6 +81,7 @@ public class Token : INetSerializable
         X = reader.GetFloat();
         Y = reader.GetFloat();
         _Colour = (reader.GetInt(), reader.GetInt(), reader.GetInt());
+        PlayerMoveable = reader.GetBool();
         _ImgID = reader.GetString();
     }
 }
