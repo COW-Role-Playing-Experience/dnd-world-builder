@@ -9,6 +9,9 @@ class Multiplayer
 
     static readonly List<Task> tasks = new();
 
+    /*
+        A mock server for testing
+    */
     static void StartServer()
     {
         Console.WriteLine("Starting mock server");
@@ -16,14 +19,18 @@ class Multiplayer
         tasks.Add(serverTask);
     }
 
+    /*
+        Starts 15 new client instances for testing
+    */
     static void StartClients()
     {
-        Console.WriteLine("Starting up 3 new client instances");
-        for (int i = 0; i < 3; i++) // 15 seconds to load 3 new instances
+        Console.WriteLine("Starting up 15 new client instances");
+        for (int i = 0; i < 15; i++)
         {
             Task clientTask = Task.Factory.StartNew(() => Client.RunClient(PORT));
             tasks.Add(clientTask);
-            Thread.Sleep(5000);
+            // Start a new client every sec
+            Thread.Sleep(1000);
         }
     }
 
