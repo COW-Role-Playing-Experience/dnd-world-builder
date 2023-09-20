@@ -4,9 +4,7 @@ using LiteNetLib.Utils;
 public class Client
 {
     private static readonly NetPacketProcessor _netPacketProcessor = new();
-
-    private static readonly string HostCode = "1234";
-
+    private static NetManager _player;
     private static bool _canMove;
 
     static Client()
@@ -59,13 +57,13 @@ public class Client
     /// <summary>
     /// Executes the client which is done through the player view in the UI
     /// </summary>
-    public static void RunClient(int port)
+    public static void RunClient(int port, string HostCode)
     {
         Console.WriteLine("Running client");
         EventBasedNetListener listener = new();
-        NetManager client = new(listener);
-        client.Start();
-        client.Connect("localhost", port, HostCode);
+        _player = new(listener);
+        _player.Start();
+        _player.Connect("localhost", port, HostCode);
 
         listener.NetworkReceiveEvent += (fromPeer, dataReader, channel, deliveryMethod) =>
         {
@@ -77,15 +75,11 @@ public class Client
             }
             dataReader.Recycle();
         };
+    }
 
-        // Run for a minute
-        for (var i = 0; i < 60; i++)
-        {
-            client.PollEvents();
-            Thread.Sleep(1000);
-        }
-
+    public static void StopClient()
+    {
         Console.WriteLine("Stopping client");
-        client.Stop();
+        _player.Stop();
     }
 }

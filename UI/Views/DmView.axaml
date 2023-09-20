@@ -154,6 +154,22 @@
                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Zoom}">
                     </Label>
                 </StackPanel>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Spacing="20" Height="35" >
+                    <TextBox BorderThickness="2" BorderBrush="Black" Width="150" Height="35" Watermark="Enter Game Code" MaxLength="12"></TextBox>
+                    <TextBox BorderThickness="2" BorderBrush="Black" Width="100" Height="35" Watermark="Enter Port" MaxLength="5"></TextBox>
+                     <Button
+                        Command="{Binding LaunchServer}">
+                     Launch Server
+                     </Button>
+                     <Button
+                        Command="{Binding StopServer}">
+                     Stop Server
+                     </Button>
+                    <TextBlock FontSize="18" VerticalAlignment="Center" Text="{Binding ServerIsRunning, Mode=TwoWay}"/>
+                    <!-- <TextBlock FontSize="18" VerticalAlignment="Center" Text="Players: {Binding PlayersConnected}"/>
+                    <TextBlock FontSize="18" VerticalAlignment="Center" Text="Waitlist: {Binding WaitlistLen}"/> -->
+
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>

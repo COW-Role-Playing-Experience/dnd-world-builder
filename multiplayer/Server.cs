@@ -5,6 +5,7 @@ public class Server
 {
     private static EventBasedNetListener? _netListener;
     private static NetManager? _netManager;
+    private static NetManager _server;
     private const int MaxConnections = 10;
     static bool _clientsCanMove = true;
     static bool _toggleFOW = false;
@@ -95,8 +96,8 @@ public class Server
         _netManager = new NetManager(_netListener);
         Console.WriteLine("Running server");
         EventBasedNetListener listener = new();
-        NetManager server = new(listener);
-        server.Start(PORT);
+        _server = new(listener);
+        _server.Start(PORT);
 
         listener.ConnectionRequestEvent += request =>
         {
@@ -105,7 +106,7 @@ public class Server
 
         listener.PeerConnectedEvent += peer =>
         {
-            if (server.ConnectedPeersCount <= MaxConnections)
+            if (_server.ConnectedPeersCount <= MaxConnections)
             {
                 // Connect client to game and add to the list of connected clients
                 Console.WriteLine("Connection: {0} with ID: {1} joined the game", peer.EndPoint, peer.Id);
@@ -119,7 +120,7 @@ public class Server
                 WaitList.Enqueue(peer.Id);
             }
 
-            Console.WriteLine("Connected: " + server.ConnectedPeersCount);
+            Console.WriteLine("Connected: " + _server.ConnectedPeersCount);
             Console.WriteLine(string.Format("Waitlist: ({0}).", string.Join(", ", WaitList)));
         };
 
@@ -129,7 +130,7 @@ public class Server
             if (WaitList.Count != 0)
             {
                 int ClientID = WaitList.Dequeue();
-                NetPeer PeerFromWaitlist = server.GetPeerById(ClientID);
+                NetPeer PeerFromWaitlist = _server.GetPeerById(ClientID);
                 Console.WriteLine("Connection: {0} with ID: {1} removed from waitlist and joined the game", PeerFromWaitlist.EndPoint, PeerFromWaitlist.Id);
                 JoinGame(PeerFromWaitlist, false);
             }
@@ -141,15 +142,11 @@ public class Server
             _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
             dataReader.Recycle();
         };
+    }
 
-        // Run for 3 minutes
-        for (int i = 0; i < (60 * 3); i++)
-        {
-            server.PollEvents();
-            Thread.Sleep(1000);
-        }
-
+    public static void StopServer()
+    {
         Console.WriteLine("Stopping server");
-        server.Stop();
+        _server.Stop();
     }
 }

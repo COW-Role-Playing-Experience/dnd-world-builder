@@ -49,6 +49,7 @@ public class DmViewModel : ViewModelBase
     public bool _isLeftMouseDown;
 
     private int ObservableTokenCount => _observableTokenCount.Value;
+    private bool _serverIsRunning = false;
 
     private readonly ObservableAsPropertyHelper<int> _observableTokenCount;
 
@@ -80,15 +81,25 @@ public class DmViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _uiButtonOpacity, value);
     }
 
+    public bool ServerIsRunning
+    {
+        get => _serverIsRunning;
+        set => this.RaiseAndSetIfChanged(ref _serverIsRunning, value);
+    }
+
     // Commands for UI actions.
     public ReactiveCommand<Unit, Unit> ToggleUiVisibility { get; }
     public ReactiveCommand<Unit, Unit> ToggleAddVisibility { get; }
     public ReactiveCommand<Unit, Unit> AddTokenCommand { get; }
+    public ReactiveCommand<Unit, Unit> LaunchServer { get; }
+    public ReactiveCommand<Unit, Unit> StopServer { get; }
 
     public DmViewModel()
     {
         ToggleUiVisibility = ReactiveCommand.Create(ToggleUiToggleButton);
         ToggleAddVisibility = ReactiveCommand.Create(ToggleAddButton);
+        LaunchServer = ReactiveCommand.Create(LaunchServerButton);
+        StopServer = ReactiveCommand.Create(StopServerButton);
         AddTokenCommand = ReactiveCommand.CreateFromTask(AddTokenAsync);
         LoadExistingImages();
 
@@ -391,8 +402,30 @@ public class DmViewModel : ViewModelBase
             Console.WriteLine($"Token moved at X: {position.X}, Y: {position.Y}");
             token.OnCavas = true;
         }
-
         token.RequestDelete += OnTokenRequestDelete;
+    }
+    private void LaunchServerButton()
+    {
+        if (ServerIsRunning)
+        {
+            Console.WriteLine("Server already running. Abort.");
+            return;
+        }
+        int Port = 20500;
+        string HostCode = "1234";
+        Server.RunServer(Port, HostCode);
+        ServerIsRunning = true;
+    }
+
+    private void StopServerButton()
+    {
+        if (!ServerIsRunning)
+        {
+            Console.WriteLine("Server hasn't started. Abort.");
+            return;
+        }
+        Server.StopServer();
+        ServerIsRunning = false;
     }
 
 

@@ -1,33 +1,38 @@
 ﻿using System.Threading.Tasks;
 using System.Threading;
+using System.ComponentModel.Design;
 
 class Multiplayer
 {
-    static readonly int PORT = 20500;
-
-    static readonly string HOST_CODE = "1234";
 
     static readonly List<Task> tasks = new();
 
     /*
         A mock server for testing
     */
-    static void StartServer()
+    static void StartServer(int Port, string HostCode)
     {
-        Console.WriteLine("Starting mock server");
-        Task serverTask = Task.Factory.StartNew(() => Server.RunServer(PORT, HOST_CODE));
+        Console.WriteLine("Running server");
+        Task serverTask = Task.Factory.StartNew(() => Server.RunServer(Port, HostCode));
         tasks.Add(serverTask);
+    }
+
+    static void StartNewClient(int Port, string HostCode)
+    {
+        Console.WriteLine("Starting a new client instance");
+        Task clientTask = Task.Factory.StartNew(() => Client.RunClient(Port, HostCode));
+        tasks.Add(clientTask);
     }
 
     /*
         Starts 15 new client instances for testing
     */
-    static void StartClients()
+    static void StartMockClients(int Port, string HostCode)
     {
         Console.WriteLine("Starting up 15 new client instances");
         for (int i = 0; i < 15; i++)
         {
-            Task clientTask = Task.Factory.StartNew(() => Client.RunClient(PORT));
+            Task clientTask = Task.Factory.StartNew(() => Client.RunClient(Port, HostCode));
             tasks.Add(clientTask);
             // Start a new client every sec
             Thread.Sleep(1000);
@@ -36,8 +41,11 @@ class Multiplayer
 
     static void Main()
     {
-        StartServer();
-        StartClients();
+        int Port = 20500;
+        string HostCode = "1234";
+
+        StartServer(Port, HostCode);
+        StartMockClients(Port, HostCode);
         Task.WaitAll(tasks.ToArray());
     }
 }
