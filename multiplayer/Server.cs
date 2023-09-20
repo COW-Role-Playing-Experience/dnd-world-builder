@@ -149,4 +149,15 @@ public class Server
         Console.WriteLine("Stopping server");
         _server.Stop();
     }
+
+    public static int GetPlayerCount()
+    {
+        if (_server == null) return 0;
+        return _server.ConnectedPeersCount;
+    }
+
+    public static int GetWaitlistCount()
+    {
+        return WaitList.Count;
+    }
 }

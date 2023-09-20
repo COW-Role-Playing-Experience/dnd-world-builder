@@ -87,18 +87,30 @@ public class DmViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _serverIsRunning, value);
     }
 
+    public int PlayerCount
+    {
+        get => Server.GetPlayerCount();
+        // set => this.RaiseAndSetIfChanged(ref Server.GetPlayerCount(), value);
+    }
+
+    public int WaitlistCount
+    {
+        get => Server.GetWaitlistCount();
+        // set => this.RaiseAndSetIfChanged(ref Server.GetWaitlistCount(), value);
+    }
+
     // Commands for UI actions.
     public ReactiveCommand<Unit, Unit> ToggleUiVisibility { get; }
     public ReactiveCommand<Unit, Unit> ToggleAddVisibility { get; }
     public ReactiveCommand<Unit, Unit> AddTokenCommand { get; }
-    public ReactiveCommand<Unit, Unit> LaunchServer { get; }
+    public ReactiveCommand<string, Unit> LaunchServer { get; }
     public ReactiveCommand<Unit, Unit> StopServer { get; }
 
     public DmViewModel()
     {
         ToggleUiVisibility = ReactiveCommand.Create(ToggleUiToggleButton);
         ToggleAddVisibility = ReactiveCommand.Create(ToggleAddButton);
-        LaunchServer = ReactiveCommand.Create(LaunchServerButton);
+        LaunchServer = ReactiveCommand.Create<string>(LaunchServerButton);
         StopServer = ReactiveCommand.Create(StopServerButton);
         AddTokenCommand = ReactiveCommand.CreateFromTask(AddTokenAsync);
         LoadExistingImages();
@@ -404,15 +416,17 @@ public class DmViewModel : ViewModelBase
         }
         token.RequestDelete += OnTokenRequestDelete;
     }
-    private void LaunchServerButton()
+
+    private void LaunchServerButton(string HostCode)
+    // private void LaunchServerButton(int Port, string HostCode)
     {
         if (ServerIsRunning)
         {
             Console.WriteLine("Server already running. Abort.");
             return;
         }
+        Console.WriteLine("Hostcode: " + HostCode);
         int Port = 20500;
-        string HostCode = "1234";
         Server.RunServer(Port, HostCode);
         ServerIsRunning = true;
     }
