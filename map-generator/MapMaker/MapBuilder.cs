@@ -193,4 +193,8 @@ public class MapBuilder
     {
         roomMetaTiles.AddRange(metaTiles);
     }
+    public List<MetaTile> getMetaTiles()
+    {
+        return roomMetaTiles;
+    }
 }
