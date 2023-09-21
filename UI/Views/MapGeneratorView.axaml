@@ -13,9 +13,9 @@
 
             <!-- Seed generation controls -->
             <StackPanel Grid.Column="0" Grid.Row="0">
-                <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Generate From Seed</Button>
-                <TextBox Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
-                <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Generate New Seed</Button>
+                <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >Generate From Seed</Button>
+                <TextBox Name="SeedTextBox" Width="250" MaxLength ="9" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="GenerateSeed">Generate New Seed</Button>
             </StackPanel>
 
             <!-- Theme selection -->
