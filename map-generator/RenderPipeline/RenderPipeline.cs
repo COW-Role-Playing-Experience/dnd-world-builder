@@ -7,15 +7,26 @@ namespace map_generator.RenderPipeline;
 
 public class RenderPipeline
 {
-    private readonly Image<Rgba32> _canvas;
+    private Image<Rgba32> _canvas;
+    private WriteableBitmap _writeableBitmap;
 
-    public RenderPipeline(MapBuilder mb, int width, int height)
+    public RenderPipeline(MapBuilder mb, WriteableBitmap wb)
     {
         MapBuilder = mb;
-        _canvas = new Image<Rgba32>(width, height);
+        _writeableBitmap = wb;
+        _canvas = new Image<Rgba32>((int)wb.Size.Width, (int)wb.Size.Height);
     }
 
     public MapBuilder MapBuilder { set; private get; }
+
+    public WriteableBitmap WriteableBitmap
+    {
+        set
+        {
+            _writeableBitmap = value;
+            _canvas = new Image<Rgba32>((int)value.Size.Width, (int)value.Size.Height);
+        }
+    }
 
     /**
      * Sets all pixels within the Image canvas to transparent.
@@ -40,10 +51,10 @@ public class RenderPipeline
      * </para>>
      * </summary>>
      */
-    private unsafe void Bake(WriteableBitmap bm)
+    private unsafe void Bake()
     {
         // Obtains the pointer from the WriteableBitmap
-        using var buffer = bm.Lock();
+        using var buffer = _writeableBitmap.Lock();
         IntPtr ptr = buffer.Address;
 
         // Writes the image data directly into the address of the byte[] buffer.
@@ -62,9 +73,9 @@ public class RenderPipeline
      * </para>>
      * </summary>>
      */
-    public void Render(WriteableBitmap bm)
+    public void Render()
     {
         this.Clear();
-        this.Bake(bm);
+        this.Bake();
     }
 }
