@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using ReactiveUI;
-using Path = System.IO.Path;
+using UI.Classes;
 
 namespace UI.ViewModels;
 
@@ -31,7 +32,9 @@ public class DmViewModel : ViewModelBase
     private readonly ObservableAsPropertyHelper<int> _observableTokenCount;
 
     // Collection to store token borders.
-    public ObservableCollection<Border> TokensCollection { get; } = new ObservableCollection<Border>();
+    public ObservableCollection<Token> TokensCollection { get; } = new ObservableCollection<Token>();
+
+    public ObservableCollection<Token> TokensOnCanvas { get; } = new ObservableCollection<Token>();
 
     // Properties for UI bindings.
     public bool IsUiVisible
@@ -132,8 +135,16 @@ public class DmViewModel : ViewModelBase
 
                 if (File.Exists(selectedFilePath) && Directory.Exists(tokensFolderPath))
                 {
-                    var selectedFileName = Path.GetFileName(selectedFilePath);
-                    var newFilePath = Path.Combine(tokensFolderPath, selectedFileName);
+                    // Prompt the user to enter a new file name and await the result
+                    var newName = await PromptForNewFileNameAsync(selectedFilePath);
+
+                    if (string.IsNullOrWhiteSpace(newName))
+                    {
+                        Console.WriteLine("Invalid file name. Aborting.");
+                        return;
+                    }
+
+                    var newFilePath = Path.Combine(tokensFolderPath, newName);
 
                     try
                     {
@@ -143,20 +154,6 @@ public class DmViewModel : ViewModelBase
                     {
                         Console.WriteLine($"Error copying file: {ex.Message}");
                     }
-
-                    var bitmap = new Bitmap(newFilePath);
-
-                    var border = new Border
-                    {
-                        Width = 40,
-                        Height = 40,
-                        BorderBrush = Brushes.Black,
-                        BorderThickness = new Thickness(1),
-                        CornerRadius = new CornerRadius(20),
-                        Background = new ImageBrush(bitmap),
-                        ClipToBounds = true
-                    };
-                    TokensCollection.Add(border);
                 }
                 else
                 {
@@ -164,7 +161,70 @@ public class DmViewModel : ViewModelBase
                 }
             }
         }
+
+        LoadExistingImages();
     }
+
+    private async Task<string> PromptForNewFileNameAsync(string selectedFilePath)
+    {
+        var mainWindow = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)
+            ?.MainWindow;
+        Debug.Assert(mainWindow != null, nameof(mainWindow) + " != null");
+        // Create a new window for the prompt.
+        var dialog = new Window
+        {
+            Width = 300,
+            Height = 150,
+            Title = "Enter New File Name",
+            WindowStartupLocation = WindowStartupLocation.CenterScreen
+        };
+
+        // Create a TextBox for user input.
+        var textBox = new TextBox
+        {
+            Watermark = "Enter new file name...",
+            Text = Path.GetFileNameWithoutExtension(selectedFilePath),
+            MaxLength = 9
+        };
+
+        // Create a Button for submission.
+        var submitButton = new Button
+        {
+            Content = "Submit",
+            HorizontalAlignment = HorizontalAlignment.Right,
+            Margin = new Thickness(0, 10, 0, 0)
+        };
+
+        // Create a TaskCompletionSource to await the user's input
+        var tcs = new TaskCompletionSource<string>();
+
+        // Handle the button click event.
+        submitButton.Click += (sender, e) =>
+        {
+            // Set the result and complete the task
+            tcs.SetResult($"{textBox.Text}{Path.GetExtension(selectedFilePath)}");
+            dialog.Close();
+        };
+
+        // Arrange controls in a vertical stack.
+        var stackPanel = new StackPanel
+        {
+            Margin = new Thickness(10),
+            Children =
+            {
+                new TextBlock { Text = "Please enter a new file name:" },
+                textBox,
+                submitButton
+            }
+        };
+
+        dialog.Content = stackPanel;
+        await dialog.ShowDialog(mainWindow);
+
+        // Await the user's input using the TaskCompletionSource
+        return await tcs.Task;
+    }
+
 
     // Loads existing images from the tokens folder and adds them to the TokensCollection.
     private void LoadExistingImages()
@@ -183,25 +243,48 @@ public class DmViewModel : ViewModelBase
         var validExtensions = new[] { ".png", ".jpg", ".jpeg", ".bmp", ".gif" };
         var imageFiles = Directory.GetFiles(tokensFolderPath, "*.*", SearchOption.TopDirectoryOnly)
             .Where(s => validExtensions.Contains(Path.GetExtension(s).ToLowerInvariant()));
+        TokensCollection.Clear();
 
         foreach (var imageFilePath in imageFiles)
         {
+            var fileName = Path.GetFileNameWithoutExtension(imageFilePath);
             // Create a bitmap from the image file.
             var bitmap = new Bitmap(imageFilePath);
 
-            // Create a bordered representation of the image.
-            var border = new Border
-            {
-                Width = 40,
-                Height = 40,
-                BorderBrush = Brushes.Black,
-                BorderThickness = new Thickness(1),
-                CornerRadius = new CornerRadius(20),
-                Background = new ImageBrush(bitmap),
-                ClipToBounds = true
-            };
-
-            TokensCollection.Add(border);
+            var token = new Token(fileName, new ImageBrush(bitmap));
+            TokensCollection.Add(token);
         }
+    }
+
+    public void HandleTokenDrop(Token token, Point position)
+    {
+        // Create a copy of the original token
+        if (!token.OnCavas)
+        {
+            var tokenCopy = new Token(token.Name, token.ImageBitMap)
+            {
+                // Store the position of the token copy (you might need to modify the Token class to store this data)
+                XLoc = (int)position.X,
+                YLoc = (int)position.Y
+            };
+            // Add the token copy to the collection
+            TokensOnCanvas.Add(tokenCopy);
+            Canvas.SetLeft(tokenCopy, position.X);
+            Canvas.SetTop(tokenCopy, position.Y);
+            Console.WriteLine($"Token added at X: {position.X}, Y: {position.Y}");
+            tokenCopy.OnCavas = true;
+
+        }
+        else
+        {
+            token.XLoc = (int)position.X;
+            token.YLoc = (int)position.Y;
+            Canvas.SetLeft(token, position.X);
+            Canvas.SetTop(token, position.Y);
+            Console.WriteLine($"Token moved at X: {position.X}, Y: {position.Y}");
+            token.OnCavas = true;
+        }
+
+
     }
 }
