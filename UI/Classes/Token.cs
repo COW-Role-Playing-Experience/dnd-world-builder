@@ -14,7 +14,6 @@ namespace UI.Classes;
 
 public class Token : StackPanel
 {
-
     public bool OnCavas = false;
     public int XLoc { get; set; }
     public int YLoc { get; set; }
@@ -31,7 +30,7 @@ public class Token : StackPanel
         var text = new TextBlock
         {
             Text = fileName,
-            TextAlignment = TextAlignment.Center
+            TextAlignment = TextAlignment.Center,
         };
 
         var border = new Border
@@ -44,10 +43,20 @@ public class Token : StackPanel
             Background = imageBitMap,
             ClipToBounds = true
         };
+        var outerBorder = new Border
+        {
+            Background = Brushes.White,
+            Width = 40,
+            Height = 40,
+            ClipToBounds = true,
+            CornerRadius = new CornerRadius(20),
+            Child = border
+        };
+
 
         Width = 70;
         Orientation = Orientation.Vertical;
-        Children.Add(border);
+        Children.Add(outerBorder);
         Children.Add(text);
     }
 
