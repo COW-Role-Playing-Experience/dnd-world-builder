@@ -15,7 +15,7 @@ public abstract class AbstractRenderPipeline
         Canvas = new Image<Rgba32>(width, height);
     }
 
-    public MapBuilder MapBuilder { set; private get; }
+    public MapBuilder MapBuilder { set; protected get; }
 
     /**
      * Sets all pixels within the Image canvas to transparent.
