@@ -1,5 +1,6 @@
 using System.Data;
 using map_generator;
+using map_generator.JsonLoading;
 
 namespace map_generator.MapMaker;
 
@@ -8,35 +9,31 @@ public class RoomTile : ICloneable
     private int x;
     private int y;
     private Direction direction;
-    private bool empty;
+    private string? texture;
 
 
 
-    public RoomTile(int x, int y, bool isEmpty, Direction direction = Direction.NONE)
+    public RoomTile(int x, int y, string? texture, Direction direction = Direction.NONE)
     {
         this.x = x;
         this.y = y;
         this.direction = direction;
-        this.empty = isEmpty;
+        this.texture = texture;
     }
 
     public char getChar()
     {
-        if (this.empty)
-        {
-            return '.';
-        }
-        return 'X';
+        return this.texture == null ? '.' : 'X';
     }
 
     public bool isEmpty()
     {
-        return this.empty;
+        return this.texture == null;
     }
 
-    public void setEmpty(bool empty)
+    public void setTexture(string? texture)
     {
-        this.empty = empty;
+        this.texture = texture;
     }
 
     public int getX()
@@ -49,8 +46,18 @@ public class RoomTile : ICloneable
         return this.y;
     }
 
+    public Image<Rgba32>? getTexture()
+    {
+        return DataLoader.Textures[texture ?? DataLoader.EMPTY];
+    }
+
+    public string? getTextureName()
+    {
+        return texture;
+    }
+
     public object Clone()
     {
-        return new RoomTile(this.x, this.y, this.empty, this.direction);
+        return new RoomTile(this.x, this.y, this.texture, this.direction);
     }
 }
