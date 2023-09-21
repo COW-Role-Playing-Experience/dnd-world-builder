@@ -1,5 +1,7 @@
+using System;
 using LiteNetLib;
 using LiteNetLib.Utils;
+using UI.Classes;
 
 public class Client
 {

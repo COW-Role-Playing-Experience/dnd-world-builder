@@ -1,3 +1,4 @@
+using System;
 using LiteNetLib.Utils;
 
 [Serializable]

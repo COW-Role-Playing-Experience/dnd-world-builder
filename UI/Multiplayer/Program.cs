@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Threading;
 using System.ComponentModel.Design;
+using System.Collections.Generic;
+using System;
 
 class Multiplayer
 {
@@ -37,15 +39,5 @@ class Multiplayer
             // Start a new client every sec
             Thread.Sleep(1000);
         }
-    }
-
-    static void Main()
-    {
-        int Port = 20500;
-        string HostCode = "1234";
-
-        StartServer(Port, HostCode);
-        StartMockClients(Port, HostCode);
-        Task.WaitAll(tasks.ToArray());
     }
 }

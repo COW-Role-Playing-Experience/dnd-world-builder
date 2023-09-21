@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using LiteNetLib;
 using LiteNetLib.Utils;
+using UI.Classes;
 
 public class Server
 {
@@ -14,17 +17,17 @@ public class Server
     // List of _tokens currently in the game
     private static List<Token> _tokens = new()
     {
-        new("T1", 56, 200, (255, 50, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", true, true),
-        new("T2", 234, 24, (50, 255, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", true, true),
-        new("T3", 345, 12, (255, 255, 50), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", false, true),
-        new("T4", 87, 34, (255, 255, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", false, true)
+        // new("T1", 56, 200, (255, 50, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", true, true),
+        // new("T2", 234, 24, (50, 255, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", true, true),
+        // new("T3", 345, 12, (255, 255, 50), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", false, true),
+        // new("T4", 87, 34, (255, 255, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", false, true)
     };
 
     static Server()
     {
         _netPacketProcessor.RegisterNestedType(() => new MapData());
         _netPacketProcessor.RegisterNestedType(() => new Token());
-        _netPacketProcessor.SubscribeReusable<Token, NetPeer>(OnTokenReceived);
+        // _netPacketProcessor.SubscribeReusable<Token, NetPeer>(OnTokenReceived);
 
     }
 
@@ -34,8 +37,8 @@ public class Server
     private static void OnTokenReceived(Token t, NetPeer peer)
     {
         Console.WriteLine("Server received token: " + t.Name);
-        Console.WriteLine("New X pos: " + t.X);
-        Console.WriteLine("New Y pos: " + t.Y);
+        Console.WriteLine("New X pos: " + t.XLoc);
+        Console.WriteLine("New Y pos: " + t.YLoc);
         NetDataWriter writer = new();
         if (_clientsCanMove)
         {
@@ -47,7 +50,7 @@ public class Server
             writer.Put(false);
         }
         var rand = new Random();
-        t.MoveToken(t.X + rand.Next(0, 100), t.Y + rand.Next(0, 100));
+        t.MoveToken(t.XLoc + rand.Next(0, 100), t.YLoc + rand.Next(0, 100));
         _netPacketProcessor.Write(writer, t);
         peer.Send(writer, DeliveryMethod.ReliableOrdered);
         writer.Reset();
@@ -76,12 +79,12 @@ public class Server
             MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
             _netPacketProcessor.Write(writer, md);
             peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            // Then send all tokens
-            foreach (Token t in _tokens)
-            {
-                _netPacketProcessor.Write(writer, t);
-                peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            }
+            // // Then send all tokens
+            // foreach (Token t in _tokens)
+            // {
+            //     _netPacketProcessor.Write(writer, t);
+            //     peer.Send(writer, DeliveryMethod.ReliableOrdered);
+            // }
         }
         // Clear the NetDataWriter buffer after sending everything
         writer.Reset();

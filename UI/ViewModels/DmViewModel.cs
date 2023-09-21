@@ -376,7 +376,7 @@ public class DmViewModel : ViewModelBase
             // Create a bitmap from the image file.
             var bitmap = new Bitmap(imageFilePath);
 
-            var token = new Token(fileName, new ImageBrush(bitmap));
+            var token = new Token(fileName, new ImageBrush(bitmap), true, true);
             TokensCollection.Add(token);
         }
     }
@@ -390,7 +390,7 @@ public class DmViewModel : ViewModelBase
         // Create a copy of the original token
         if (!token.OnCavas)
         {
-            var tokenCopy = new Token(token.Name, token.ImageBitMap)
+            var tokenCopy = new Token(token.Name, token.ImageBitMap, true, true)
             {
                 XLoc = (int)(position.X - halfWidth),
                 YLoc = (int)(position.Y - halfHeight)

@@ -4,31 +4,41 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
+using SkiaSharp;
+using UI.Views;
+using LiteNetLib.Utils;
+using System.IO;
+using Avalonia.Media.Imaging;
 using Brushes = Avalonia.Media.Brushes;
 
 namespace UI.Classes
 {
-    public class Token : StackPanel
+    [Serializable]
+    public class Token : StackPanel, INetSerializable
     {
         public bool OnCavas = false;
         public int XLoc { get; set; }
         public int YLoc { get; set; }
+        private int LastX { get; set; }
+        private int LastY { get; set; }
         public double Scaling { get; private set; }
         public double Size { get; set; }
         public TextBlock text;
         public ImageBrush ImageBitMap { get; }
         private new string? Name { get; }
         public event Action<Token> RequestDelete;
-
-
+        public bool PlayerMoveable { get; set; }
+        public bool PlayerVisible { get; set; }
         public new ContextMenu ContextMenu;
 
-        public Token(string? fileName, ImageBrush imageBitMap)
+        public Token(string? fileName, ImageBrush imageBitMap, bool playerMoveable, bool playerVisible)
         {
             ImageBitMap = imageBitMap;
             Scaling = 1;
             Size = 40;
             Name = fileName;
+            PlayerMoveable = playerMoveable;
+            PlayerVisible = playerVisible;
 
             text = new TextBlock
             {
@@ -137,6 +147,54 @@ namespace UI.Classes
         {
             var position = e.GetPosition(this);
             Console.WriteLine($"Pointer released at X: {position.X}, Y: {position.Y}");
+        }
+
+        public bool CheckMoved()
+        {
+            if (XLoc == LastX && YLoc == LastY)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /*
+        Calculate new x and y coords based on direction, if direction doesn't change, then don't update position.
+        */
+        public void MoveToken(int newX, int newY)
+        {
+            if (newX == XLoc && newY == YLoc)
+            {
+                return;
+            }
+            LastX = XLoc;
+            LastY = YLoc;
+            XLoc = newX;
+            YLoc = newY;
+        }
+
+        public void Serialize(NetDataWriter writer)
+        {
+            writer.Put(Name);
+            writer.Put(XLoc);
+            writer.Put(YLoc);
+            writer.Put(LastX);
+            writer.Put(LastY);
+            writer.Put(OnCavas);
+            writer.Put(PlayerMoveable);
+            writer.Put(PlayerVisible);
+        }
+
+        public void Deserialize(NetDataReader reader)
+        {
+            Name = reader.GetString();
+            XLoc = reader.GetInt();
+            YLoc = reader.GetInt();
+            LastX = reader.GetInt();
+            LastY = reader.GetInt();
+            OnCavas = reader.GetBool();
+            PlayerMoveable = reader.GetBool();
+            PlayerVisible = reader.GetBool();
         }
     }
 }
