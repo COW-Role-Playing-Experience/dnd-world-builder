@@ -1,8 +1,10 @@
+
+
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using System;
 using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
 using UI.ViewModels;
+using System.Windows.Input;
 
 namespace UI.Views;
 
@@ -23,5 +25,10 @@ public partial class MapGeneratorView : UserControl
     {
         TextBox SeedTextBox = this.FindControl<TextBox>("SeedTextBox");
         (DataContext as MapGeneratorViewModel)?.GenerateSeed(SeedTextBox);
+    }
+
+    private void SeedBoxWritten(object sender, TextChangedEventArgs e)
+    {
+        (DataContext as MapGeneratorViewModel)?.SeedBoxWritten(sender, e);
     }
 }
