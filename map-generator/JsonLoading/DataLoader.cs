@@ -26,6 +26,8 @@ public static class DataLoader
     public static readonly string ConcreteDecorGroupPath = $"{RootPath}/data/decorgroups.json";
     public static readonly string RandomDecorGroupPath = $"{RootPath}/data/decorgroup_collections.json";
 
+    public static readonly string EMPTY = "EMPTY";
+
     private static Store<Image<Rgba32>>? _textures;
     private static Store<DecorGroup>? _decorGroups;
 
@@ -38,6 +40,7 @@ public static class DataLoader
     {
         _textures = new TextureStoreBuilder()
             .AddDebug()
+            .AddEmpty()
             .BindConcreteTextures(ConcreteTexturePath, ConcreteTextureRoot)
             .BindRandomisedTextures(RandomTexturePath, random)
             .Get();
