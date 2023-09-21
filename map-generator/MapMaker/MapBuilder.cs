@@ -1,11 +1,13 @@
 using System.Text.Json;
 using map_generator;
+using map_generator.DecorHandling;
 
 namespace map_generator.MapMaker;
 
 public class MapBuilder
 {
     private RoomTile[,] tiles;
+    private List<MetaTile> roomMetaTiles;
     private int xSize;
     private int ySize;
     private Random rng;
@@ -21,6 +23,7 @@ public class MapBuilder
         this.expectedPopulation = expectedPopulation % 1;
         this.tiles = new RoomTile[xSize, ySize];
         this.emptyTilesMap();
+        this.roomMetaTiles = new List<MetaTile>();
     }
 
     private void emptyTilesMap()
@@ -184,5 +187,10 @@ public class MapBuilder
         };
         var jsonString = JsonSerializer.Serialize(this.roomThemes, options);
         File.WriteAllText("../map-generator/data/dungeon-theme/rooms.json", jsonString);
+    }
+
+    public void addMetaTiles(List<MetaTile> metaTiles)
+    {
+        roomMetaTiles.AddRange(metaTiles);
     }
 }
