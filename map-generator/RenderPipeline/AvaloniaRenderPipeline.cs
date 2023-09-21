@@ -73,6 +73,9 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
         int tileOriginY = (int)Math.Floor(yPos);
 
         int tileSize;
+        int tileOffsetX;
+        int tileOffsetY;
+
         if (_aspectRatio < 1.0)
         {
             // Get the amount of tiles over axis X to render
@@ -82,6 +85,8 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
 
             // Image accuracy may be worth using a double
             tileSize = Convert.ToInt32(_writeableBitmap.Size.Width / tilesX);
+            tileOffsetX = Convert.ToInt32(tileSize * (tilesX - zoom * _tileFactor));
+            tileOffsetY = Convert.ToInt32(tileSize * (tilesY - tilesX * _aspectRatio));
         }
         else
         {
@@ -89,6 +94,8 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
             tilesX = Convert.ToInt32(tilesY * _aspectRatio);
 
             tileSize = Convert.ToInt32(_writeableBitmap.Size.Height / tilesY);
+            tileOffsetY = Convert.ToInt32(tileSize * (tilesY - zoom * _tileFactor));
+            tileOffsetX = Convert.ToInt32(tileSize * (tilesX - tilesY * _aspectRatio));
         }
 
         for (int x = tileOriginX; x < tileOriginX + tilesX; x++)
@@ -106,8 +113,8 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
 
                 texture.Mutate(o => o.Resize(tileSize, tileSize));
 
-                var x1 = x;
-                var y1 = y;
+                int x1 = x - tileOriginX - tileOffsetX;
+                int y1 = y - tileOriginY - tileOffsetY;
 
                 Canvas.Mutate(o => o.DrawImage(texture, new Point(x1, y1), 1f));
             }
