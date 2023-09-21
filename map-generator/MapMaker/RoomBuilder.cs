@@ -2,6 +2,7 @@ using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using map_generator;
+using map_generator.DecorHandling;
 
 namespace map_generator.MapMaker;
 
@@ -15,6 +16,7 @@ public class RoomBuilder
     private readonly RoomTheme[] themes;
     private readonly Connector[] connectors;
     private readonly MapBuilder mapBuilder;
+    private readonly RoomTheme roomTheme;
     private Random rng;
     private Direction prevDirection;
     private int regenCount;
@@ -34,6 +36,7 @@ public class RoomBuilder
         this.themes = mapBuilder.getRoomThemes();
         this.connectors = mapBuilder.getConnectors();
         this.mapBuilder = mapBuilder;
+        this.roomTheme = roomTheme;
         this.prevDirection = prevDirection;
         this.regenCount = 0;
         this.connectorIds = roomTheme.connectorIds;
@@ -192,12 +195,15 @@ public class RoomBuilder
         {
             throw new UnauthorizedAccessException("Cannot bake over existing room tiles here.");
         }
+        RoomDecorator roomDecorator = new RoomDecorator(x, y, xSize, ySize, rng);
+        mapBuilder.addMetaTiles(roomDecorator.GenerateDecor(this.roomTheme));
         for (int i = x; i < x + this.xSize; i++)
         {
             for (int j = y; j < y + this.ySize; j++)
             {
                 RoomTile tile = this.gridTiles[i, j];
-                tile.setEmpty(false);
+                //TODO: grab texture from RoomTheme obj
+                tile.setTexture("DEBUG");
             }
         }
 
