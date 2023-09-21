@@ -9,8 +9,23 @@
     <!-- Main layout grid -->
     <Grid>
         <!-- Background canvas to be the generated map image -->
-        <Canvas Background="#C0C0C0">
-        </Canvas>
+
+        <ItemsControl Name="TokensOnCanvasControl" ItemsSource="{Binding TokensOnCanvas}" DragDrop.AllowDrop="True">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="#403233" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ContentPresenter Content="{Binding}"
+                                      Canvas.Left="{Binding XLoc}"
+                                      Canvas.Top="{Binding YLoc}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+        </ItemsControl>
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -29,6 +44,7 @@
                             VerticalAlignment="Center" MinWidth="200" IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
                     <Button Classes="green" Background="Coral" Command="{Binding  ToggleAddVisibility}"></Button>
                     <Button Classes="green"></Button>
+
                     <Button Classes="green"></Button>
                     <Button Classes="green"></Button>
                 </StackPanel>
@@ -86,6 +102,7 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
+
                         <Rectangle Grid.Row="3" Height="1" Fill="Black" HorizontalAlignment="Stretch"
                                    VerticalAlignment="Top" />
                         <TextBlock Grid.Row="4" Text="Import" FontSize="18" FontWeight="Bold"
@@ -101,6 +118,7 @@
             <!-- Bottom section to have zoom controls -->
             <Grid Grid.Row="2" VerticalAlignment="Bottom" Background="Aqua"
                   IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
+
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <Button Width="35" Height="35" BorderThickness="2" BorderBrush="Black"
                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
