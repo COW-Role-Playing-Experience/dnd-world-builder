@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input.TextInput;
 using Avalonia.Media.Imaging;
 using map_generator.MapMaker;
+using SixLabors.ImageSharp.Drawing.Processing;
 
 namespace map_generator.RenderPipeline;
 
@@ -11,6 +12,7 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     private WriteableBitmap _writeableBitmap;
     private float _aspectRatio;
     private int _tileFactor;
+    private int colour = 0; //TODO: for debugging purposes, remove!
 
     public AvaloniaRenderPipeline(MapBuilder mapBuilder, WriteableBitmap writeableBitmap) :
         base(mapBuilder, (int)writeableBitmap.Size.Width, (int)writeableBitmap.Size.Height)
@@ -61,63 +63,76 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
         Canvas = new Image<Rgba32>((int)writeableBitmap.Size.Width, (int)writeableBitmap.Size.Height);
     }
 
+    public void Debug()
+    {
+        Canvas.Mutate(ftx => ftx.Fill(
+            new Rgba32(255 - colour, 0, colour, 255),
+            new Rectangle(0, 0, Canvas.Size.Width, Canvas.Size.Width))
+        );
+        colour = (colour + 3) % 256;
+    }
+
     /**
      * Renders a new frame at the given location.
      */
     public void Render(float xPos, float yPos, float zoom)
     {
-        int tilesX;
-        int tilesY;
+        Debug();
+        Bake();
 
-        int tileOriginX = (int)Math.Floor(xPos);
-        int tileOriginY = (int)Math.Floor(yPos);
-
-        int tileSize;
-        int tileOffsetX;
-        int tileOffsetY;
-
-        if (_aspectRatio < 1.0)
-        {
-            // Get the amount of tiles over axis X to render
-            // Use Convert RoundUp to handle halfway tiles
-            tilesX = Convert.ToInt32(zoom * _tileFactor);
-            tilesY = Convert.ToInt32(tilesX * _aspectRatio);
-
-            // Image accuracy may be worth using a double
-            tileSize = Convert.ToInt32(_writeableBitmap.Size.Width / tilesX);
-            tileOffsetX = Convert.ToInt32(tileSize * (tilesX - zoom * _tileFactor));
-            tileOffsetY = Convert.ToInt32(tileSize * (tilesY - tilesX * _aspectRatio));
-        }
-        else
-        {
-            tilesY = Convert.ToInt32(zoom * _tileFactor);
-            tilesX = Convert.ToInt32(tilesY * _aspectRatio);
-
-            tileSize = Convert.ToInt32(_writeableBitmap.Size.Height / tilesY);
-            tileOffsetY = Convert.ToInt32(tileSize * (tilesY - zoom * _tileFactor));
-            tileOffsetX = Convert.ToInt32(tileSize * (tilesX - tilesY * _aspectRatio));
-        }
-
-        for (int x = tileOriginX; x < tileOriginX + tilesX; x++)
-        {
-            for (int y = tileOriginY; y < tileOriginY + tilesY; y++)
-            {
-                // Use tilesize to determine tile image resize
-                RoomTile tile = MapBuilder.getTiles()[x, y];
-                Image<Rgba32>? texture = tile.getTexture()?.Clone();
-
-                if (texture == null)
-                {
-                    continue;
-                }
-
-                texture.Mutate(o => o.Resize(tileSize, tileSize));
-
-                int x1 = x - tileOriginX - tileOffsetX;
-                int y1 = y - tileOriginY - tileOffsetY;
-
-                Canvas.Mutate(o => o.DrawImage(texture, new Point(x1, y1), 1f));
-            }
-        }
+        //TODO: Reintegrate code into project. Currently this code refuses to generate correctly
+        // int tilesX;
+        // int tilesY;
+        //
+        // int tileOriginX = (int)Math.Floor(xPos);
+        // int tileOriginY = (int)Math.Floor(yPos);
+        //
+        // int tileSize;
+        // int tileOffsetX;
+        // int tileOffsetY;
+        //
+        // if (_aspectRatio < 1.0)
+        // {
+        //     // Get the amount of tiles over axis X to render
+        //     // Use Convert RoundUp to handle halfway tiles
+        //     tilesX = Convert.ToInt32(zoom * _tileFactor);
+        //     tilesY = Convert.ToInt32(tilesX * _aspectRatio);
+        //
+        //     // Image accuracy may be worth using a double
+        //     tileSize = Convert.ToInt32(_writeableBitmap.Size.Width / tilesX);
+        //     tileOffsetX = Convert.ToInt32(tileSize * (tilesX - zoom * _tileFactor));
+        //     tileOffsetY = Convert.ToInt32(tileSize * (tilesY - tilesX * _aspectRatio));
+        // }
+        // else
+        // {
+        //     tilesY = Convert.ToInt32(zoom * _tileFactor);
+        //     tilesX = Convert.ToInt32(tilesY * _aspectRatio);
+        //
+        //     tileSize = Convert.ToInt32(_writeableBitmap.Size.Height / tilesY);
+        //     tileOffsetY = Convert.ToInt32(tileSize * (tilesY - zoom * _tileFactor));
+        //     tileOffsetX = Convert.ToInt32(tileSize * (tilesX - tilesY * _aspectRatio));
+        // }
+        //
+        // for (int x = tileOriginX; x < tileOriginX + tilesX; x++)
+        // {
+        //     for (int y = tileOriginY; y < tileOriginY + tilesY; y++)
+        //     {
+        //         // Use tilesize to determine tile image resize
+        //         RoomTile tile = MapBuilder.getTiles()[x, y];
+        //         Image<Rgba32>? texture = tile.getTexture()?.Clone();
+        //
+        //         if (texture == null)
+        //         {
+        //             continue;
+        //         }
+        //
+        //         texture.Mutate(o => o.Resize(tileSize, tileSize));
+        //
+        //         int x1 = x - tileOriginX - tileOffsetX;
+        //         int y1 = y - tileOriginY - tileOffsetY;
+        //
+        //         Canvas.Mutate(o => o.DrawImage(texture, new Point(x1, y1), 1f));
+        //     }
+        // }
     }
 }
