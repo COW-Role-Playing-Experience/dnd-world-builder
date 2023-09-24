@@ -146,11 +146,17 @@ public class Server
             dataReader.Recycle();
         };
 
+        // Poll the event in parallel
+        Task.Factory.StartNew(PollEvents);
+    }
+
+    private static void PollEvents()
+    {
         while (_running)
         {
             _server.PollEvents();
             System.Threading.Thread.Sleep(1000);
-        }
+        };
     }
 
     public static void StopServer()
