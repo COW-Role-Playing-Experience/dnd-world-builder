@@ -14,12 +14,21 @@ public partial class MapGeneratorView : UserControl
     {
         InitializeComponent();
         DataContext = new MapGeneratorViewModel();
+        initialiseThemesBox();
     }
 
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
     }
+
+    //Initialise theme ComboBox
+    private void initialiseThemesBox()
+    {
+        ComboBox themeBox = this.FindControl<ComboBox>("ThemesBox");
+        (DataContext as MapGeneratorViewModel)?.makeThemeBoxes(themeBox);
+    }
+
 
     private void GenerateSeed(object sender, RoutedEventArgs e)
     {
