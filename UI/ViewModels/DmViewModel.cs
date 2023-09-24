@@ -258,33 +258,45 @@ public class DmViewModel : ViewModelBase
 
     public void HandleTokenDrop(Token token, Point position)
     {
+        // Calculate the half-width and half-height of the token based on its current size.
+        double halfWidth = 40 / 2.0; // Since the width is changed to 40 once added to canvas
+        double halfHeight = token.Size / 2.0;
+
         // Create a copy of the original token
         if (!token.OnCavas)
         {
             var tokenCopy = new Token(token.Name, token.ImageBitMap)
             {
-                // Store the position of the token copy (you might need to modify the Token class to store this data)
-                XLoc = (int)position.X,
-                YLoc = (int)position.Y
+                XLoc = (int)(position.X - halfWidth),
+                YLoc = (int)(position.Y - halfHeight)
             };
             // Add the token copy to the collection
+            tokenCopy.Width = 40;
+            tokenCopy.Children.Remove(token.text);
             TokensOnCanvas.Add(tokenCopy);
-            Canvas.SetLeft(tokenCopy, position.X);
-            Canvas.SetTop(tokenCopy, position.Y);
+            Canvas.SetLeft(tokenCopy, tokenCopy.XLoc);
+            Canvas.SetTop(tokenCopy, tokenCopy.YLoc);
             Console.WriteLine($"Token added at X: {position.X}, Y: {position.Y}");
             tokenCopy.OnCavas = true;
-
+            tokenCopy.RequestDelete += OnTokenRequestDelete;
         }
         else
         {
-            token.XLoc = (int)position.X;
-            token.YLoc = (int)position.Y;
-            Canvas.SetLeft(token, position.X);
-            Canvas.SetTop(token, position.Y);
+            token.XLoc = (int)(position.X - halfWidth);
+            token.YLoc = (int)(position.Y - halfHeight);
+            Canvas.SetLeft(token, token.XLoc);
+            Canvas.SetTop(token, token.YLoc);
             Console.WriteLine($"Token moved at X: {position.X}, Y: {position.Y}");
             token.OnCavas = true;
         }
 
+        token.RequestDelete += OnTokenRequestDelete;
+    }
 
+
+    private void OnTokenRequestDelete(Token token)
+    {
+        token.ContextMenu.Close();
+        TokensOnCanvas.Remove(token);
     }
 }
