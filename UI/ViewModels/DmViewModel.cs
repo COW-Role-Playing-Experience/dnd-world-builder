@@ -118,6 +118,7 @@ public class DmViewModel : ViewModelBase
         _observableTokenCount = this
             .WhenAnyValue(vm => vm._tokenCount)
             .ToProperty(this, vm => vm.ObservableTokenCount);
+        Server.ViewModel = this;
     }
 
     public int FogOfWarSize

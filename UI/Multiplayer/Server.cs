@@ -1,27 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Reflection;
+using System.Threading.Tasks;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using UI.Classes;
+using UI.ViewModels;
 
 public class Server
 {
+    public static DmViewModel ViewModel { get; set; }
     private static EventBasedNetListener? _netListener;
     private static NetManager? _netManager;
     private static NetManager _server;
-    private const int MaxConnections = 10;
+    private const int MaxConnections = 1;//10 <- temporary to test the connections and waitlist;
     static bool _clientsCanMove = true;
     static bool _toggleFOW = false;
+    private static bool _running = true;
     private static readonly NetPacketProcessor _netPacketProcessor = new();
     private static readonly Queue<int> WaitList = new();
-    // List of _tokens currently in the game
-    private static List<Token> _tokens = new()
-    {
-        // new("T1", 56, 200, (255, 50, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", true, true),
-        // new("T2", 234, 24, (50, 255, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", true, true),
-        // new("T3", 345, 12, (255, 255, 50), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", false, true),
-        // new("T4", 87, 34, (255, 255, 255), "Assets/Images/Assets/Images/Chest_Wood_Light_G_1x1.png", false, true)
-    };
 
     static Server()
     {
@@ -63,7 +61,7 @@ public class Server
     {
         NetDataWriter writer = new();
         writer.Put(OnWaitList);
-        // peer.Send(writer, DeliveryMethod.ReliableOrdered);
+        peer.Send(writer, DeliveryMethod.ReliableOrdered);
         if (!OnWaitList)
         {
             if (_clientsCanMove)
@@ -79,12 +77,12 @@ public class Server
             MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
             _netPacketProcessor.Write(writer, md);
             peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            // // Then send all tokens
-            // foreach (Token t in _tokens)
-            // {
-            //     _netPacketProcessor.Write(writer, t);
-            //     peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            // }
+            // Then send all tokens
+            foreach (Token t in ViewModel.TokensOnCanvas)
+            {
+                _netPacketProcessor.Write(writer, t);
+                peer.Send(writer, DeliveryMethod.ReliableOrdered);
+            }
         }
         // Clear the NetDataWriter buffer after sending everything
         writer.Reset();
@@ -101,10 +99,12 @@ public class Server
         EventBasedNetListener listener = new();
         _server = new(listener);
         _server.Start(PORT);
+        _running = true;
 
         listener.ConnectionRequestEvent += request =>
         {
-            request.AcceptIfKey(HOST_CODE);
+            // request.AcceptIfKey(HOST_CODE);
+            request.Accept();
         };
 
         listener.PeerConnectedEvent += peer =>
@@ -145,11 +145,18 @@ public class Server
             _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
             dataReader.Recycle();
         };
+
+        while (_running)
+        {
+            _server.PollEvents();
+            System.Threading.Thread.Sleep(1000);
+        }
     }
 
     public static void StopServer()
     {
         Console.WriteLine("Stopping server");
+        _running = false;
         _server.Stop();
     }
 

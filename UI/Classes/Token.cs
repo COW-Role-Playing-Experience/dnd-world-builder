@@ -33,7 +33,7 @@ namespace UI.Classes
 
         public Token(string? fileName, ImageBrush imageBitMap, bool playerMoveable, bool playerVisible)
         {
-            ImageBitMap = imageBitMap;
+            // ImageBitMap = imageBitMap;
             Scaling = 1;
             Size = 40;
             Name = fileName;

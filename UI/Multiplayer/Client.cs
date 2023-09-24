@@ -6,15 +6,15 @@ using UI.Classes;
 public class Client
 {
     private static readonly NetPacketProcessor _netPacketProcessor = new();
-    private static NetManager _player;
+    private static NetManager _client;
     private static bool _canMove;
 
     static Client()
     {
         _netPacketProcessor.RegisterNestedType(() => new MapData());
-        _netPacketProcessor.SubscribeReusable<MapData, NetPeer>(OnMapDataReceived);
+        // _netPacketProcessor.SubscribeReusable<MapData, NetPeer>(OnMapDataReceived);
         _netPacketProcessor.RegisterNestedType(() => new Token());
-        _netPacketProcessor.SubscribeReusable<Token, NetPeer>(OnTokenReceived);
+        // _netPacketProcessor.SubscribeReusable<Token, NetPeer>(OnTokenReceived);
     }
 
     /// <summary>
@@ -46,14 +46,14 @@ public class Client
             Console.WriteLine("Token " + t.Name + " is not moveable by player");
             return;
         }
-        if (_canMove)
-        {
-            t.MoveToken(rand.Next(0, 100), rand.Next(0, 100));
-            NetDataWriter writer = new();
-            _netPacketProcessor.Write(writer, t);
-            peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            writer.Reset();
-        }
+        // if (_canMove)
+        // {
+        //     t.MoveToken(rand.Next(0, 100), rand.Next(0, 100));
+        //     NetDataWriter writer = new();
+        //     _netPacketProcessor.Write(writer, t);
+        //     peer.Send(writer, DeliveryMethod.ReliableOrdered);
+        //     writer.Reset();
+        // }
     }
 
     /// <summary>
@@ -63,9 +63,9 @@ public class Client
     {
         Console.WriteLine("Running client");
         EventBasedNetListener listener = new();
-        _player = new(listener);
-        _player.Start();
-        _player.Connect("localhost", port, HostCode);
+        _client = new(listener);
+        _client.Start();
+        _client.Connect("localhost", port, HostCode);
 
         listener.NetworkReceiveEvent += (fromPeer, dataReader, channel, deliveryMethod) =>
         {
@@ -82,6 +82,6 @@ public class Client
     public static void StopClient()
     {
         Console.WriteLine("Stopping client");
-        _player.Stop();
+        _client.Stop();
     }
 }
