@@ -105,6 +105,7 @@ public class DmViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> AddTokenCommand { get; }
     public ReactiveCommand<string, Unit> LaunchServer { get; }
     public ReactiveCommand<Unit, Unit> StopServer { get; }
+    public ReactiveCommand<Unit, Unit> LaunchMockClients { get; }
 
     public DmViewModel()
     {
@@ -112,6 +113,7 @@ public class DmViewModel : ViewModelBase
         ToggleAddVisibility = ReactiveCommand.Create(ToggleAddButton);
         LaunchServer = ReactiveCommand.Create<string>(LaunchServerButton);
         StopServer = ReactiveCommand.Create(StopServerButton);
+        LaunchMockClients = ReactiveCommand.Create(LaunchMockClientsButton);
         AddTokenCommand = ReactiveCommand.CreateFromTask(AddTokenAsync);
         LoadExistingImages();
 
@@ -426,8 +428,9 @@ public class DmViewModel : ViewModelBase
             Console.WriteLine("Server already running. Abort.");
             return;
         }
+        HostCode = "1234";
+        int Port = 24652;
         Console.WriteLine("Hostcode: " + HostCode);
-        int Port = 20500;
         Server.RunServer(Port, HostCode);
         ServerIsRunning = true;
     }
@@ -442,7 +445,6 @@ public class DmViewModel : ViewModelBase
         Server.StopServer();
         ServerIsRunning = false;
     }
-
 
     private void OnTokenRequestDelete(Token token)
     {
@@ -472,4 +474,17 @@ public class DmViewModel : ViewModelBase
         MapHandler.RebindSource(Map);
     }
 
+    private void LaunchMockClientsButton()
+    {
+        string HostCode = "1234";
+        int Port = 24652;
+        //Below code is for testing client connections
+        Console.WriteLine("Starting up 2 new client instances");
+        for (int i = 0; i < 2; i++)
+        {
+            Client.RunClient(Port, HostCode);
+            // Start a new client every sec
+            System.Threading.Thread.Sleep(1000);
+        }
+    }
 }

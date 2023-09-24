@@ -166,6 +166,10 @@
                         Command="{Binding StopServer}">
                      Stop Server
                      </Button>
+                     <Button
+                        Command="{Binding LaunchMockClients}">
+                     Run clients
+                     </Button>
                     <TextBlock FontSize="18" VerticalAlignment="Center" Text="{Binding ServerIsRunning, Mode=TwoWay, StringFormat='Running: {0}'}"/>
                     <TextBlock FontSize="18" VerticalAlignment="Center" Text="{Binding PlayerCount, StringFormat='Players: {0}'}"/>
                     <TextBlock FontSize="18" VerticalAlignment="Center" Text="{Binding WaitlistCount, StringFormat='Waitlist: {0}'}"/>
