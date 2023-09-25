@@ -59,6 +59,6 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
      */
     public void Render(float x, float y, float zoom)
     {
-        //TODO: implement me!!!!
+        Render(0, 0, 0, 0);
     }
 }
