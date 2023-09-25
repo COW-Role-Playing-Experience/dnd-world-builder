@@ -13,7 +13,7 @@
 
             <!-- Seed generation controls -->
             <StackPanel Grid.Column="0" Grid.Row="0">
-                <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Click="GenerateSeed">Generate From Seed</Button>
+                <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Click="GenerateFromSeed">Generate From Seed</Button>
                 <TextBox Name="SeedTextBox" Width="250" MaxLength ="9" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextChanged="SeedBoxWritten"></TextBox>
                 <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="GenerateSeed">Generate New Seed</Button>
             </StackPanel>
@@ -42,7 +42,7 @@
         </Grid>
 
         <!-- Canvas for displaying the generated map -->
-        <Canvas Grid.Column="1"></Canvas>
+        <Canvas Grid.Column="1" Name="Map" Background="{Binding  ImageBrush}"></Canvas>
 
     </Grid>
 </UserControl>

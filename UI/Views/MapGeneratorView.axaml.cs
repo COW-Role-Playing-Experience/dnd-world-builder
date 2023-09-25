@@ -5,16 +5,21 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using UI.ViewModels;
 using System.Windows.Input;
+using Avalonia;
+using Avalonia.Media.Imaging;
 
 namespace UI.Views;
 
 public partial class MapGeneratorView : UserControl
 {
+    private Canvas _canvas;
     public MapGeneratorView()
     {
         InitializeComponent();
         DataContext = new MapGeneratorViewModel();
         initialiseThemesBox();
+
+
     }
 
     private void InitializeComponent()
@@ -36,13 +41,20 @@ public partial class MapGeneratorView : UserControl
         (DataContext as MapGeneratorViewModel)?.GenerateSeed(SeedTextBox);
     }
 
-    private void GenerateMap(object sender, RoutedEventArgs e)
+    private async void InitCanvas(object sender, VisualTreeAttachmentEventArgs e)
     {
-        (DataContext as MapGeneratorViewModel)?.GenerateMap();
+
     }
 
     private void SeedBoxWritten(object sender, TextChangedEventArgs e)
     {
         (DataContext as MapGeneratorViewModel)?.SeedBoxWritten(sender, e);
+    }
+
+    private void GenerateFromSeed(object? sender, RoutedEventArgs e)
+    {
+        var mapControl = this.FindControl<Canvas>("Map");
+
+        if (mapControl != null) (DataContext as MapGeneratorViewModel)?.GenerateMap(mapControl);
     }
 }
