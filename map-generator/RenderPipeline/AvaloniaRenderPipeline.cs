@@ -55,12 +55,21 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     }
 
     /**
-     * Rebinds the RenderPipeline to a new WriteableBitmap.
+     * Bind a new WriteableBitmap to this pipeline.
      */
-    public void Rebind(WriteableBitmap writeableBitmap)
+    public void RebindBitmap(WriteableBitmap writeableBitmap)
     {
         _writeableBitmap = writeableBitmap;
         Canvas = new Image<Rgba32>((int)writeableBitmap.Size.Width, (int)writeableBitmap.Size.Height);
+        _aspectRatio = (float)writeableBitmap.Size.AspectRatio;
+        _tileFactor = MapBuilder?.getTiles().GetLength(_aspectRatio < 1.0 ? 0 : 1) ?? 0;
+    }
+
+    public override void RebindBuilder(MapBuilder mb)
+    {
+        base.RebindBuilder(mb);
+        _aspectRatio = (float)(_writeableBitmap?.Size.AspectRatio ?? 1.0f);
+        _tileFactor = MapBuilder!.getTiles().GetLength(_aspectRatio < 1.0 ? 0 : 1);
     }
 
     /**

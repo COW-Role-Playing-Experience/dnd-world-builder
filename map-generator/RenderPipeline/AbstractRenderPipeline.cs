@@ -8,6 +8,7 @@ namespace map_generator.RenderPipeline;
 public abstract class AbstractRenderPipeline
 {
     protected Image<Rgba32> Canvas;
+    protected MapBuilder? MapBuilder;
 
     protected AbstractRenderPipeline(MapBuilder? mb, int width, int height)
     {
@@ -15,7 +16,13 @@ public abstract class AbstractRenderPipeline
         Canvas = new Image<Rgba32>(width, height);
     }
 
-    public MapBuilder? MapBuilder { set; protected get; }
+    /**
+     * Bind a new MapBuilder to this pipeline.
+     */
+    public virtual void RebindBuilder(MapBuilder mb)
+    {
+        MapBuilder = mb;
+    }
 
     /**
      * Sets all pixels within the Image canvas to transparent.
