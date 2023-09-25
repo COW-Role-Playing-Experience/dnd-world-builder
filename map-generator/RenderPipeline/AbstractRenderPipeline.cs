@@ -86,8 +86,8 @@ public abstract class AbstractRenderPipeline
 
                 texture.Mutate(o => o.Resize(tileSize, tileSize));
 
-                int x1 = x - tileOriginX - tileOffsetX;
-                int y1 = x - tileOriginY - tileOffsetY;
+                int x1 = x * tileSize - tileOriginX - tileOffsetX;
+                int y1 = y * tileSize - tileOriginY - tileOffsetY;
 
                 Canvas.Mutate(o => o.DrawImage(texture, new Point(x1, y1), 1f));
             }
