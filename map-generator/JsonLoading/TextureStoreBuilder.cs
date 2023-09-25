@@ -31,7 +31,7 @@ public class TextureStoreBuilder
     /**
      * Reads the provided json file, adding the probabilistic textures into the texture store.
      */
-    public TextureStoreBuilder BindRandomisedTextures(string path, Random random)
+    public TextureStoreBuilder BindRandomisedTextures(string path, RandomSource random)
     {
         GroupData textureGroups;
         using (FileStream fs = File.OpenRead(path))

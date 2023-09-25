@@ -28,7 +28,7 @@ public class DecorGroupStoreBuilder
         return this;
     }
 
-    public DecorGroupStoreBuilder BindRandomisedDecorGroups(string path, Random random)
+    public DecorGroupStoreBuilder BindRandomisedDecorGroups(string path, RandomSource random)
     {
         GroupData dgGroups;
 

@@ -14,6 +14,13 @@ public static class DataLoader
         Converters = { new PairCollectionJsonConverter() }
     };
 
+    private static RandomSource _randomSource = new();
+
+    public static Random Random
+    {
+        set => _randomSource.Random = value;
+    }
+
     public static readonly JsonSerializerOptions CaseInsensitive = new()
     {
         PropertyNameCaseInsensitive = true
@@ -36,18 +43,18 @@ public static class DataLoader
     public static Store<DecorGroup> DecorGroups => _decorGroups
         ?? throw new NullReferenceException("DataLoader has not been initialised with .Init()!");
 
-    public static void Init(Random random)
+    public static void Init()
     {
         _textures = new TextureStoreBuilder()
             .AddDebug()
             .AddEmpty()
             .BindConcreteTextures(ConcreteTexturePath, ConcreteTextureRoot)
-            .BindRandomisedTextures(RandomTexturePath, random)
+            .BindRandomisedTextures(RandomTexturePath, _randomSource)
             .Get();
         _decorGroups = new DecorGroupStoreBuilder()
             .AddDebug()
             .BindConcreteDecorGroups(ConcreteDecorGroupPath)
-            .BindRandomisedDecorGroups(RandomDecorGroupPath, random)
+            .BindRandomisedDecorGroups(RandomDecorGroupPath, _randomSource)
             .Get();
     }
 
