@@ -14,6 +14,7 @@ public partial class DmView : UserControl
     {
         InitializeComponent();
         DataContext = new DmViewModel();
+        enterDMView();
         var tokensItemsControl = this.FindControl<ItemsControl>("TokensOnCanvasControl");
         tokensItemsControl?.AddHandler(DragDrop.DropEvent, OnTokenDropped);
     }
@@ -21,6 +22,10 @@ public partial class DmView : UserControl
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
+    }
+
+    private void enterDMView(){
+        (DataContext as DmViewModel)?.enterDMView();
     }
 
     private void OnTokenDropped(object sender, DragEventArgs e)

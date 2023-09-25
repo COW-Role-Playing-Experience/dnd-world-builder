@@ -7,6 +7,10 @@ using System.IO;
 using map_generator.JsonLoading;
 using map_generator.RenderPipeline;
 using map_generator.MapMaker;
+using Avalonia.Media.Imaging;
+using Avalonia;
+using System.Drawing.Imaging;
+using Avalonia.Platform;
 
 namespace UI.ViewModels;
 
@@ -14,7 +18,7 @@ namespace UI.ViewModels;
 public class MapGeneratorViewModel : ViewModelBase
 {
     private int MapSeed = new Random().Next(1, 999999999);
-    private AvaloniaRenderPipeline pipeline;
+    public static AvaloniaRenderPipeline pipeline;
     public void GenerateSeed(TextBox SeedTextBox)
     {
         Random random = new Random();
@@ -41,7 +45,7 @@ public class MapGeneratorViewModel : ViewModelBase
     public void initMapGen()
     {
         DataLoader.Init(); //load all the textures
-        this.pipeline = new(null, null); //create a new pipeline with unbound mapbuilder and WritableBuffer
+        MapGeneratorViewModel.pipeline = new(null, null); //create a new pipeline with unbound mapbuilder and WritableBuffer
     }
 
     public void GenerateMap()

@@ -11,6 +11,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using ReactiveUI;
 using UI.Classes;
@@ -298,5 +299,16 @@ public class DmViewModel : ViewModelBase
     {
         token.ContextMenu.Close();
         TokensOnCanvas.Remove(token);
+    }
+
+    public void enterDMView()
+    {
+        WriteableBitmap buffer = new WriteableBitmap(
+       new PixelSize(1920, 1080),
+       new Vector(96, 96),
+       Avalonia.Platform.PixelFormat.Rgba8888,
+       AlphaFormat.Unpremul
+   );
+        MapGeneratorViewModel.pipeline.Rebind(buffer); //pipeline should be given the buffer
     }
 }

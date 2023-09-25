@@ -32,6 +32,7 @@ public partial class MapGeneratorView : UserControl
         (DataContext as MapGeneratorViewModel)?.makeThemeBoxes(themeBox);
     }
 
+
     private void initialiseMapGen()
     {
         (DataContext as MapGeneratorViewModel)?.initMapGen();
