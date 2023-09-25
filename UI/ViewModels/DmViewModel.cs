@@ -50,6 +50,9 @@ public class DmViewModel : ViewModelBase
 
     private int ObservableTokenCount => _observableTokenCount.Value;
     private bool _serverIsRunning = false;
+    private int _playerCount = 0;
+    private int _waitlistCount = 0;
+
 
     private readonly ObservableAsPropertyHelper<int> _observableTokenCount;
 
@@ -89,14 +92,14 @@ public class DmViewModel : ViewModelBase
 
     public int PlayerCount
     {
-        get => Server.GetPlayerCount();
-        // set => this.RaiseAndSetIfChanged(ref Server.GetPlayerCount(), value);
+        get => _playerCount;
+        set => this.RaiseAndSetIfChanged(ref _playerCount, value);
     }
 
     public int WaitlistCount
     {
-        get => Server.GetWaitlistCount();
-        // set => this.RaiseAndSetIfChanged(ref Server.GetWaitlistCount(), value);
+        get => _waitlistCount;
+        set => this.RaiseAndSetIfChanged(ref _waitlistCount, value);
     }
 
     // Commands for UI actions.

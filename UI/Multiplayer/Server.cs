@@ -114,6 +114,7 @@ public class Server
                 // Connect client to game and add to the list of connected clients
                 Console.WriteLine("Connection: {0} with ID: {1} joined the game", peer.EndPoint, peer.Id);
                 JoinGame(peer, false);
+                ViewModel.PlayerCount = GetPlayerCount();
             }
             else
             {
@@ -121,6 +122,7 @@ public class Server
                 Console.WriteLine("Connnection: {0} with ID: {1} added to waitlist", peer.EndPoint, peer.Id);
                 JoinGame(peer, true);
                 WaitList.Enqueue(peer.Id);
+                ViewModel.WaitlistCount = WaitList.Count;
             }
 
             Console.WriteLine("Connected: " + _server.ConnectedPeersCount);
@@ -170,10 +172,5 @@ public class Server
     {
         if (_server == null) return 0;
         return _server.ConnectedPeersCount;
-    }
-
-    public static int GetWaitlistCount()
-    {
-        return WaitList.Count;
     }
 }
