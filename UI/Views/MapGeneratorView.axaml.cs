@@ -5,6 +5,8 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using UI.ViewModels;
 using System.Windows.Input;
+using map_generator.JsonLoading;
+using map_generator.RenderPipeline;
 
 namespace UI.Views;
 
@@ -15,6 +17,7 @@ public partial class MapGeneratorView : UserControl
         InitializeComponent();
         DataContext = new MapGeneratorViewModel();
         initialiseThemesBox();
+        initialiseMapGen();
     }
 
     private void InitializeComponent()
@@ -28,6 +31,12 @@ public partial class MapGeneratorView : UserControl
         ComboBox themeBox = this.FindControl<ComboBox>("ThemesBox");
         (DataContext as MapGeneratorViewModel)?.makeThemeBoxes(themeBox);
     }
+
+    private void initialiseMapGen()
+    {
+        (DataContext as MapGeneratorViewModel)?.initMapGen();
+    }
+
 
 
     private void GenerateSeed(object sender, RoutedEventArgs e)

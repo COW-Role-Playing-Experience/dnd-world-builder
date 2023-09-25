@@ -9,7 +9,7 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     private WriteableBitmap? _writeableBitmap;
 
     public AvaloniaRenderPipeline(MapBuilder? mapBuilder, WriteableBitmap? writeableBitmap) :
-        base(mapBuilder, (int)(writeableBitmap?.Size.Width ?? 0), (int)(writeableBitmap?.Size.Height ?? 0))
+        base(mapBuilder, (int)(writeableBitmap?.Size.Width ?? 1), (int)(writeableBitmap?.Size.Height ?? 1))
     {
         _writeableBitmap = writeableBitmap;
     }

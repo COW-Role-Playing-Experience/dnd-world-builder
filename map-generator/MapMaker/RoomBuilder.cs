@@ -124,7 +124,14 @@ public class RoomBuilder
                 return;
             }
 
-            Console.Clear();
+            try
+            {
+                Console.Clear();
+            }
+            catch (IOException e)
+            {
+                //TODO Unhandled exception occurred when caling console.clear from the UI
+            }
             mapBuilder.printMap();
 
 

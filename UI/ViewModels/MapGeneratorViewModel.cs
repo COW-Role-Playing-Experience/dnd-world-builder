@@ -4,6 +4,9 @@ using Avalonia.Controls;
 using System.Windows.Input;
 using System.Linq;
 using System.IO;
+using map_generator.JsonLoading;
+using map_generator.RenderPipeline;
+using map_generator.MapMaker;
 
 namespace UI.ViewModels;
 
@@ -11,6 +14,7 @@ namespace UI.ViewModels;
 public class MapGeneratorViewModel : ViewModelBase
 {
     private int MapSeed = new Random().Next(1, 999999999);
+    private AvaloniaRenderPipeline pipeline;
     public void GenerateSeed(TextBox SeedTextBox)
     {
         Random random = new Random();
@@ -34,15 +38,22 @@ public class MapGeneratorViewModel : ViewModelBase
         }
     }
 
+    public void initMapGen()
+    {
+        DataLoader.Init(); //load all the textures
+        this.pipeline = new(null, null); //create a new pipeline with unbound mapbuilder and WritableBuffer
+    }
+
     public void GenerateMap()
     {
-        //TODO this is where we implement the map generation
-        // Random rng = new Random();
-        // DataLoader.Init(MapSeed);
-        // Console.WriteLine("Hello, World!");
-        // MapBuilder map = new MapBuilder(200, 40, rng, 0.8);
-        // map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom().fillGaps().printMap();
-
+        Random rng = new Random(MapSeed);
+        DataLoader.Random = rng;
+        int xSize = 200;
+        int ySize = 40;
+        MapBuilder map = new MapBuilder(xSize, ySize, rng, 0.8);
+        map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom().fillGaps();
+        pipeline.MapBuilder = map; //bind the finished map to the renderer
+        pipeline.Render(xSize / 2.0f, ySize / 2.0f, 1); //call once with the default to update bitmap
     }
 
     //Dynamically add Themes to the map generator view, based on what folders exist in Assets\Data
