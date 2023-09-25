@@ -1,6 +1,8 @@
 using System;
+using System.Threading.Tasks;
 using LiteNetLib;
 using LiteNetLib.Utils;
+using map_generator.MapMaker;
 using UI.Classes;
 
 public class Client
@@ -8,12 +10,13 @@ public class Client
     private static readonly NetPacketProcessor _netPacketProcessor = new();
     private static NetManager _client;
     private static bool _canMove;
+    private static bool _running = true;
 
     static Client()
     {
         _netPacketProcessor.RegisterNestedType(() => new MapData());
-        // _netPacketProcessor.SubscribeReusable<MapData, NetPeer>(OnMapDataReceived);
-        _netPacketProcessor.RegisterNestedType(() => new Token());
+        _netPacketProcessor.SubscribeReusable<MapData, NetPeer>(OnMapDataReceived);
+        // _netPacketProcessor.RegisterNestedType(() => new Token());
         // _netPacketProcessor.SubscribeReusable<Token, NetPeer>(OnTokenReceived);
     }
 
@@ -24,8 +27,8 @@ public class Client
     {
         Console.WriteLine("Client " + peer.Id + " received map data with theme: " + md.Theme);
         // Call map generation
-        // MapBuilder map = new(md.XSize, md.YSize, new Random(md.Seed), md.ExpectedPopulation);
-        // map.setTheme(md.Theme).initRoom().fillGaps().printMap();
+        MapBuilder map = new(md.XSize, md.YSize, new Random(md.Seed), md.ExpectedPopulation);
+        map.setTheme(md.Theme).initRoom().fillGaps().printMap();
     }
 
     /// <summary>
@@ -46,14 +49,14 @@ public class Client
             Console.WriteLine("Token " + t.Name + " is not moveable by player");
             return;
         }
-        // if (_canMove)
-        // {
-        //     t.MoveToken(rand.Next(0, 100), rand.Next(0, 100));
-        //     NetDataWriter writer = new();
-        //     _netPacketProcessor.Write(writer, t);
-        //     peer.Send(writer, DeliveryMethod.ReliableOrdered);
-        //     writer.Reset();
-        // }
+        if (_canMove)
+        {
+            t.MoveToken(rand.Next(0, 100), rand.Next(0, 100));
+            NetDataWriter writer = new();
+            _netPacketProcessor.Write(writer, t);
+            peer.Send(writer, DeliveryMethod.ReliableOrdered);
+            writer.Reset();
+        }
     }
 
     /// <summary>
@@ -66,6 +69,7 @@ public class Client
         _client = new(listener);
         _client.Start();
         _client.Connect("localhost", port, HostCode);
+        _running = true;
 
         listener.NetworkReceiveEvent += (fromPeer, dataReader, channel, deliveryMethod) =>
         {
@@ -77,11 +81,30 @@ public class Client
             }
             dataReader.Recycle();
         };
+
+        while (_running)
+        {
+            _client.PollEvents();
+            System.Threading.Thread.Sleep(1000);
+        };
+
+        // Poll the event in parallel
+        // Task.Factory.StartNew(PollEvents);
+    }
+
+    private static void PollEvents()
+    {
+        while (_running)
+        {
+            _client.PollEvents();
+            System.Threading.Thread.Sleep(1000);
+        };
     }
 
     public static void StopClient()
     {
         Console.WriteLine("Stopping client");
+        _running = false;
         _client.Stop();
     }
 }

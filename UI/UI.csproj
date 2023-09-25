@@ -27,6 +27,7 @@
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.4" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.4" />
         <PackageReference Include="LiteNetLib" Version="1.1.0"/>
+        <ProjectReference Include="..\map-generator\map-generator.csproj" />
     </ItemGroup>
 
 

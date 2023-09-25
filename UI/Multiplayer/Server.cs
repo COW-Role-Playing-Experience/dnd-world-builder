@@ -73,16 +73,19 @@ public class Server
             {
                 writer.Put(false);
             }
+            Console.WriteLine("Send map");
             // Send map data to client
             MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
             _netPacketProcessor.Write(writer, md);
             peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            // Then send all tokens
-            foreach (Token t in ViewModel.TokensOnCanvas)
-            {
-                _netPacketProcessor.Write(writer, t);
-                peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            }
+            // Console.WriteLine("Send tokens");
+            // // Then send all tokens
+            // foreach (Token t in ViewModel.TokensOnCanvas)
+            // {
+            //     _netPacketProcessor.Write(writer, t);
+            //     peer.Send(writer, DeliveryMethod.ReliableOrdered);
+            // writer.Reset();
+            // }
         }
         // Clear the NetDataWriter buffer after sending everything
         writer.Reset();
@@ -103,8 +106,7 @@ public class Server
 
         listener.ConnectionRequestEvent += request =>
         {
-            // request.AcceptIfKey(HOST_CODE);
-            request.Accept();
+            request.AcceptIfKey(HOST_CODE);
         };
 
         listener.PeerConnectedEvent += peer =>
@@ -148,8 +150,14 @@ public class Server
             dataReader.Recycle();
         };
 
+        while (_running)
+        {
+            _server.PollEvents();
+            System.Threading.Thread.Sleep(1000);
+        };
+
         // Poll the event in parallel
-        Task.Factory.StartNew(PollEvents);
+        // Task.Factory.StartNew(PollEvents);
     }
 
     private static void PollEvents()
