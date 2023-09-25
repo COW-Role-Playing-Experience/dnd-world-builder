@@ -97,6 +97,8 @@ public abstract class AbstractRenderPipeline
             }
         }
 
-        this.Bake();
+        //TODO: Re-enable baking!
+        Canvas.SaveAsPng("DEBUG.png");
+        //this.Bake();
     }
 }

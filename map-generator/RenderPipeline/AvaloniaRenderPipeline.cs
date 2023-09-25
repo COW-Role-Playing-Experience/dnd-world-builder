@@ -19,6 +19,18 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     }
 
     /**
+     * TODO: remove after pipeline completed/integrated!
+     *
+     * Debugging constructor which fake-binds a render context. Be sure not to Bake()!
+     */
+    public AvaloniaRenderPipeline(MapBuilder mapBuilder, int width, int height) :
+        base(mapBuilder, width, height)
+    {
+        _aspectRatio = width / (float)height;
+        _tileFactor = mapBuilder.getTiles().GetLength(_aspectRatio < 1.0 ? 0 : 1);
+    }
+
+    /**
     * Bakes the Image canvas into the Avalonia WriteableBitmap.
     *
     * <summary>
