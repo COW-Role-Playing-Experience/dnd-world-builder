@@ -45,7 +45,47 @@ public abstract class AbstractRenderPipeline
     protected void Render(float tlX, float tlY, float brX, float brY)
     {
         this.Clear();
-        this.Debug(); //TODO: remove me!
+
+        // Overflow is always tl
+        int tileOriginX = (int)Math.Floor(tlX);
+        int tileOriginY = (int)Math.Floor(tlY);
+
+
+        int tileSize;
+
+        if (brX - tlX < brY - tlY)
+        {
+            tileSize = Convert.ToInt32(Canvas.Size.Width / (brX - tlX));
+        }
+        else
+        {
+            tileSize = Convert.ToInt32(Canvas.Size.Height / (brY - tlY));
+        }
+
+        int tileOffsetX = Convert.ToInt32(tileSize * (tlX - tileOriginX));
+        int tileOffsetY = Convert.ToInt32(tileSize * (tlY - tileOriginY));
+
+        for (int x = tileOriginX; x < tileOriginX + brX; x++)
+        {
+            for (int y = tileOriginY; y < tileOriginY + brY; y++)
+            {
+                RoomTile tile = MapBuilder.getTiles()[x, y];
+                Image<Rgba32>? texture = tile.getTexture()?.Clone();
+
+                if (texture == null)
+                {
+                    continue;
+                }
+
+                texture.Mutate(o => o.Resize(tileSize, tileSize));
+
+                int x1 = x - tileOriginX - tileOffsetX;
+                int y1 = x - tileOriginY - tileOffsetY;
+
+                Canvas.Mutate(o => o.DrawImage(texture, new Point(x1, y1), 1f));
+            }
+        }
+
         this.Bake();
     }
 }
