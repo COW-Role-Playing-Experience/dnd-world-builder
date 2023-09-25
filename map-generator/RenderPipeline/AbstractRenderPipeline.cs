@@ -69,7 +69,7 @@ public abstract class AbstractRenderPipeline
         {
             for (int y = tileOriginY; y < tileOriginY + brY; y++)
             {
-                RoomTile tile = MapBuilder.getTiles()[x, y];
+                RoomTile tile = MapBuilder!.getTiles()[x, y];
                 Image<Rgba32>? texture = tile.getTexture()?.Clone();
 
                 if (texture == null)

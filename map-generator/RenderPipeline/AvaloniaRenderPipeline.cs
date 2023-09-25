@@ -14,8 +14,8 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
         base(mapBuilder, (int)(writeableBitmap?.Size.Width ?? 0), (int)(writeableBitmap?.Size.Height ?? 0))
     {
         _writeableBitmap = writeableBitmap;
-        _aspectRatio = (float)writeableBitmap.Size.AspectRatio;
-        _tileFactor = _aspectRatio < 1.0 ? mapBuilder.getTiles().GetLength(0) : mapBuilder.getTiles().GetLength(1);
+        _aspectRatio = (float)(writeableBitmap?.Size.AspectRatio ?? 1.0f);
+        _tileFactor = mapBuilder?.getTiles().GetLength(_aspectRatio < 1.0 ? 0 : 1) ?? 0;
     }
 
     /**
