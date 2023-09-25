@@ -7,11 +7,15 @@ namespace map_generator.RenderPipeline;
 public class AvaloniaRenderPipeline : AbstractRenderPipeline
 {
     private WriteableBitmap? _writeableBitmap;
+    private float _aspectRatio;
+    private int _tileFactor;
 
     public AvaloniaRenderPipeline(MapBuilder? mapBuilder, WriteableBitmap? writeableBitmap) :
         base(mapBuilder, (int)(writeableBitmap?.Size.Width ?? 0), (int)(writeableBitmap?.Size.Height ?? 0))
     {
         _writeableBitmap = writeableBitmap;
+        _aspectRatio = (float)writeableBitmap.Size.AspectRatio;
+        _tileFactor = _aspectRatio < 1.0 ? mapBuilder.getTiles().GetLength(0) : mapBuilder.getTiles().GetLength(1);
     }
 
     /**
@@ -64,6 +68,21 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
      */
     public void Render(float x, float y, float zoom)
     {
-        Render(0, 0, 0, 0);
+        float tilesX;
+        float tilesY;
+
+        if (_aspectRatio < 1.0)
+        {
+            // Get the amount of tiles over the axis X to render
+            tilesX = zoom * _tileFactor;
+            tilesY = tilesX * _aspectRatio;
+        }
+        else
+        {
+            tilesY = zoom * _tileFactor;
+            tilesX = tilesY * _aspectRatio;
+        }
+
+        base.Render(x, y, x + tilesX, y + tilesY);
     }
 }
