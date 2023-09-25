@@ -28,11 +28,24 @@ public abstract class AbstractRenderPipeline
         );
     }
 
+    // TODO: Remove after testing.
+    // Debug method used to generate a red -> blue colour shift
+    private int _color = 0;
+    public void Debug()
+    {
+        Canvas.Mutate(ftx => ftx.Fill(
+            new Rgba32(_color, 0, 255 - _color, 255),
+            new Rectangle(0, 0, Canvas.Size.Width, Canvas.Size.Width))
+        );
+        _color = (_color + 4) % 256;
+    }
+
     protected abstract void Bake();
 
     protected void Render(float tlX, float tlY, float brX, float brY)
     {
         this.Clear();
+        this.Debug(); //TODO: remove me!
         this.Bake();
     }
 }
