@@ -34,6 +34,17 @@ public class MapGeneratorViewModel : ViewModelBase
         }
     }
 
+    public void GenerateMap()
+    {
+        //TODO this is where we implement the map generation
+        // Random rng = new Random();
+        // DataLoader.Init(MapSeed);
+        // Console.WriteLine("Hello, World!");
+        // MapBuilder map = new MapBuilder(200, 40, rng, 0.8);
+        // map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom().fillGaps().printMap();
+
+    }
+
     //Dynamically add Themes to the map generator view, based on what folders exist in Assets\Data
     public void makeThemeBoxes(ComboBox themesBox)
     {

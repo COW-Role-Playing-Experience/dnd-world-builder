@@ -36,6 +36,11 @@ public partial class MapGeneratorView : UserControl
         (DataContext as MapGeneratorViewModel)?.GenerateSeed(SeedTextBox);
     }
 
+    private void GenerateMap(object sender, RoutedEventArgs e)
+    {
+        (DataContext as MapGeneratorViewModel)?.GenerateMap();
+    }
+
     private void SeedBoxWritten(object sender, TextChangedEventArgs e)
     {
         (DataContext as MapGeneratorViewModel)?.SeedBoxWritten(sender, e);
