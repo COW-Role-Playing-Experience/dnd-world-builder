@@ -52,32 +52,27 @@ public abstract class AbstractRenderPipeline
     protected void Render(float tlX, float tlY, float brX, float brY)
     {
         this.Clear();
-        if (MapBuilder == null) throw new NullReferenceException("Cannot render map when MapBuilder is null.");
+        if (MapBuilder == null) throw new NullReferenceException("Render pipeline failed due to unbound MapBuilder");
 
         // Overflow is always tl
         int tileOriginX = (int)Math.Floor(tlX);
         int tileOriginY = (int)Math.Floor(tlY);
 
+        Console.WriteLine(brX - tlX);
 
-        int tileSize;
+        float tileSizeX = Canvas.Size.Width / (brX - tlX);
+        float tileSizeY = Canvas.Size.Height / (brY - tlY);
 
-        if (brX - tlX < brY - tlY)
-        {
-            tileSize = Convert.ToInt32(Canvas.Size.Width / (brX - tlX));
-        }
-        else
-        {
-            tileSize = Convert.ToInt32(Canvas.Size.Height / (brY - tlY));
-        }
+        Console.WriteLine((tileSizeX, tileSizeY));
 
-        int tileOffsetX = Convert.ToInt32(tileSize * (tlX - tileOriginX));
-        int tileOffsetY = Convert.ToInt32(tileSize * (tlY - tileOriginY));
+        float tileOffsetX = tileSizeX * (tlX - tileOriginX);
+        float tileOffsetY = tileSizeY * (tlY - tileOriginY);
 
         RoomTile[,] tiles = MapBuilder.getTiles();
 
-        for (int x = tileOriginX; x < brX; x++)
+        for (int x = tileOriginX; x < brX - 1; x++)
         {
-            for (int y = tileOriginY; y < brY; y++)
+            for (int y = tileOriginY; y < brY - 1; y++)
             {
                 // Skip if tile is out of bounds
                 if (
@@ -88,10 +83,11 @@ public abstract class AbstractRenderPipeline
                 RoomTile tile = tiles[x, y];
                 Image<Rgba32> texture = tile.getTexture().Clone();
 
-                texture.Mutate(o => o.Resize(tileSize, tileSize));
+                //TODO: replace with proper ratio-aware scale factor, +1 works well when zoomed in but will distort when zoomed out
+                texture.Mutate(o => o.Resize((int)tileSizeX + 1, (int)tileSizeY + 1));
 
-                int x1 = (x - tileOriginX) * tileSize - tileOffsetX;
-                int y1 = (y - tileOriginY) * tileSize - tileOffsetY;
+                int x1 = Convert.ToInt32((x - tileOriginX) * tileSizeX - tileOffsetX);
+                int y1 = Convert.ToInt32((y - tileOriginY) * tileSizeY - tileOffsetY);
 
                 Canvas.Mutate(o => o.DrawImage(texture, new Point(x1, y1), 1f));
             }

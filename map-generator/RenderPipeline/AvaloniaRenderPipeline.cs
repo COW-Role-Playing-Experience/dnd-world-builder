@@ -8,14 +8,12 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
 {
     private WriteableBitmap? _writeableBitmap;
     private float _aspectRatio;
-    private int _tileFactor;
 
     public AvaloniaRenderPipeline(MapBuilder? mapBuilder, WriteableBitmap? writeableBitmap) :
         base(mapBuilder, (int)(writeableBitmap?.Size.Width ?? 0), (int)(writeableBitmap?.Size.Height ?? 0))
     {
         _writeableBitmap = writeableBitmap;
         _aspectRatio = (float)(writeableBitmap?.Size.AspectRatio ?? 1.0f);
-        _tileFactor = mapBuilder?.getTiles().GetLength(_aspectRatio < 1.0 ? 0 : 1) ?? 0;
     }
 
     /**
@@ -27,7 +25,6 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
         base(mapBuilder, width, height)
     {
         _aspectRatio = width / (float)height;
-        _tileFactor = mapBuilder.getTiles().GetLength(_aspectRatio < 1.0 ? 0 : 1);
     }
 
     /**
@@ -74,14 +71,12 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
         _writeableBitmap = writeableBitmap;
         Canvas = new Image<Rgba32>((int)writeableBitmap.Size.Width, (int)writeableBitmap.Size.Height);
         _aspectRatio = (float)writeableBitmap.Size.AspectRatio;
-        _tileFactor = MapBuilder?.getTiles().GetLength(_aspectRatio < 1.0 ? 0 : 1) ?? 0;
     }
 
     public override void RebindBuilder(MapBuilder mb)
     {
         base.RebindBuilder(mb);
         _aspectRatio = (float)(_writeableBitmap?.Size.AspectRatio ?? 1.0f);
-        _tileFactor = MapBuilder!.getTiles().GetLength(_aspectRatio < 1.0 ? 0 : 1);
     }
 
     /**
@@ -89,21 +84,35 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
      */
     public void Render(float x, float y, float zoom)
     {
+        if (MapBuilder == null)
+        {
+            throw new NullReferenceException("Render pipeline failed due to unbound MapBuilder");
+        }
+
+        RoomTile[,] tiles = MapBuilder.getTiles();
+
+        int mapWidth = tiles.GetLength(0);
+        int mapHeight = tiles.GetLength(1);
+
+        float mapAspectRatio = mapWidth / (float)mapHeight;
+
         float tilesX;
         float tilesY;
 
-        if (_aspectRatio < 1.0)
+
+
+        if (_aspectRatio > mapAspectRatio)
         {
             // Get the amount of tiles over the axis X to render
-            tilesX = zoom * _tileFactor;
-            tilesY = tilesX * _aspectRatio;
+            tilesY = 1 / zoom * mapHeight;
+            tilesX = tilesY * _aspectRatio;
         }
         else
         {
-            tilesY = zoom * _tileFactor;
-            tilesX = tilesY * _aspectRatio;
+            tilesX = 1 / zoom * mapWidth;
+            tilesY = tilesX / _aspectRatio;
         }
 
-        base.Render(x, y, x + tilesX, y + tilesY);
+        base.Render(x - tilesX / 2, y - tilesY / 2, x + tilesX / 2, y + tilesY / 2);
     }
 }
