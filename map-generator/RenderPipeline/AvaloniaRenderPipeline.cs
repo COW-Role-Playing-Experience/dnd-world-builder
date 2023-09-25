@@ -6,10 +6,10 @@ namespace map_generator.RenderPipeline;
 
 public class AvaloniaRenderPipeline : AbstractRenderPipeline
 {
-    private WriteableBitmap _writeableBitmap;
+    private WriteableBitmap? _writeableBitmap;
 
-    public AvaloniaRenderPipeline(MapBuilder mapBuilder, WriteableBitmap writeableBitmap) :
-        base(mapBuilder, (int)writeableBitmap.Size.Width, (int)writeableBitmap.Size.Height)
+    public AvaloniaRenderPipeline(MapBuilder? mapBuilder, WriteableBitmap? writeableBitmap) :
+        base(mapBuilder, (int)(writeableBitmap?.Size.Width ?? 0), (int)(writeableBitmap?.Size.Height ?? 0))
     {
         _writeableBitmap = writeableBitmap;
     }
@@ -34,6 +34,11 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     */
     protected override unsafe void Bake()
     {
+        if (_writeableBitmap == null)
+        {
+            throw new NullReferenceException("Render pipeline failed due to unbound WritableBitmap");
+        }
+
         // Obtains the pointer from the WriteableBitmap
         using var buffer = _writeableBitmap.Lock();
         IntPtr ptr = buffer.Address;
