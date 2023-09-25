@@ -72,9 +72,9 @@ public abstract class AbstractRenderPipeline
         int tileOffsetX = Convert.ToInt32(tileSize * (tlX - tileOriginX));
         int tileOffsetY = Convert.ToInt32(tileSize * (tlY - tileOriginY));
 
-        for (int x = tileOriginX; x < tileOriginX + brX; x++)
+        for (int x = tileOriginX; x < brX; x++)
         {
-            for (int y = tileOriginY; y < tileOriginY + brY; y++)
+            for (int y = tileOriginY; y < brY; y++)
             {
                 RoomTile tile = MapBuilder!.getTiles()[x, y];
                 Image<Rgba32>? texture = tile.getTexture()?.Clone();
