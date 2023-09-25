@@ -52,6 +52,7 @@ public abstract class AbstractRenderPipeline
     protected void Render(float tlX, float tlY, float brX, float brY)
     {
         this.Clear();
+        if (MapBuilder == null) throw new NullReferenceException("Cannot render map when MapBuilder is null.");
 
         // Overflow is always tl
         int tileOriginX = (int)Math.Floor(tlX);
@@ -72,17 +73,20 @@ public abstract class AbstractRenderPipeline
         int tileOffsetX = Convert.ToInt32(tileSize * (tlX - tileOriginX));
         int tileOffsetY = Convert.ToInt32(tileSize * (tlY - tileOriginY));
 
+        RoomTile[,] tiles = MapBuilder.getTiles();
+
         for (int x = tileOriginX; x < brX; x++)
         {
             for (int y = tileOriginY; y < brY; y++)
             {
-                RoomTile tile = MapBuilder!.getTiles()[x, y];
-                Image<Rgba32>? texture = tile.getTexture()?.Clone();
+                // Skip if tile is out of bounds
+                if (
+                    x < 0 || x >= tiles.GetLength(0)
+                 || y < 0 || y >= tiles.GetLength(1)
+                ) continue;
 
-                if (texture == null)
-                {
-                    continue;
-                }
+                RoomTile tile = tiles[x, y];
+                Image<Rgba32> texture = tile.getTexture().Clone();
 
                 texture.Mutate(o => o.Resize(tileSize, tileSize));
 
