@@ -6,12 +6,25 @@ namespace map_generator.RenderPipeline;
 
 public class AvaloniaRenderPipeline : AbstractRenderPipeline
 {
-    private WriteableBitmap _writeableBitmap;
+    private WriteableBitmap? _writeableBitmap;
+    private float _aspectRatio;
 
-    public AvaloniaRenderPipeline(MapBuilder mapBuilder, WriteableBitmap writeableBitmap) :
-        base(mapBuilder, (int)writeableBitmap.Size.Width, (int)writeableBitmap.Size.Height)
+    public AvaloniaRenderPipeline(MapBuilder? mapBuilder, WriteableBitmap? writeableBitmap) :
+        base(mapBuilder, (int)(writeableBitmap?.Size.Width ?? 0), (int)(writeableBitmap?.Size.Height ?? 0))
     {
         _writeableBitmap = writeableBitmap;
+        _aspectRatio = (float)(writeableBitmap?.Size.AspectRatio ?? 1.0f);
+    }
+
+    /**
+     * TODO: remove after pipeline completed/integrated!
+     *
+     * Debugging constructor which fake-binds a render context. Be sure not to Bake()!
+     */
+    public AvaloniaRenderPipeline(MapBuilder mapBuilder, int width, int height) :
+        base(mapBuilder, width, height)
+    {
+        _aspectRatio = width / (float)height;
     }
 
     /**
@@ -34,6 +47,11 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     */
     protected override unsafe void Bake()
     {
+        if (_writeableBitmap == null)
+        {
+            throw new NullReferenceException("Render pipeline failed due to unbound WritableBitmap");
+        }
+
         // Obtains the pointer from the WriteableBitmap
         using var buffer = _writeableBitmap.Lock();
         IntPtr ptr = buffer.Address;
@@ -46,12 +64,19 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     }
 
     /**
-     * Rebinds the RenderPipeline to a new WriteableBitmap.
+     * Bind a new WriteableBitmap to this pipeline.
      */
-    public void Rebind(WriteableBitmap writeableBitmap)
+    public void RebindBitmap(WriteableBitmap writeableBitmap)
     {
         _writeableBitmap = writeableBitmap;
         Canvas = new Image<Rgba32>((int)writeableBitmap.Size.Width, (int)writeableBitmap.Size.Height);
+        _aspectRatio = (float)writeableBitmap.Size.AspectRatio;
+    }
+
+    public override void RebindBuilder(MapBuilder mb)
+    {
+        base.RebindBuilder(mb);
+        _aspectRatio = (float)(_writeableBitmap?.Size.AspectRatio ?? 1.0f);
     }
 
     /**
@@ -59,6 +84,35 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
      */
     public void Render(float x, float y, float zoom)
     {
-        Render(0, 0, 0, 0);
+        if (MapBuilder == null)
+        {
+            throw new NullReferenceException("Render pipeline failed due to unbound MapBuilder");
+        }
+
+        RoomTile[,] tiles = MapBuilder.getTiles();
+
+        int mapWidth = tiles.GetLength(0);
+        int mapHeight = tiles.GetLength(1);
+
+        float mapAspectRatio = mapWidth / (float)mapHeight;
+
+        float tilesX;
+        float tilesY;
+
+
+
+        if (_aspectRatio > mapAspectRatio)
+        {
+            // Get the amount of tiles over the axis X to render
+            tilesY = 1 / zoom * mapHeight;
+            tilesX = tilesY * _aspectRatio;
+        }
+        else
+        {
+            tilesX = 1 / zoom * mapWidth;
+            tilesY = tilesX / _aspectRatio;
+        }
+
+        base.Render(x - tilesX / 2, y - tilesY / 2, x + tilesX / 2, y + tilesY / 2);
     }
 }
