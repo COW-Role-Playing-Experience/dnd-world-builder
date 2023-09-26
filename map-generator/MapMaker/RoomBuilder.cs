@@ -132,7 +132,7 @@ public class RoomBuilder
             {
                 //TODO Unhandled exception occurred when caling console.clear from the UI
             }
-            mapBuilder.printMap();
+            //mapBuilder.printMap();
 
 
             RoomBuilder room = new RoomBuilder(xPos, yPos, width, height, prevDir,

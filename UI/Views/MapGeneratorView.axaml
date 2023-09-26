@@ -29,12 +29,12 @@
             <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom">
                 <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Export</Button>
                 <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                        x:CompileBindings="False" 
+                        x:CompileBindings="False"
                         Command="{Binding $parent[Window].DataContext.DmView}">
                     Host Game
                 </Button>
                 <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                        x:CompileBindings="False" 
+                        x:CompileBindings="False"
                         Command="{Binding $parent[Window].DataContext.ReturnHome}" >
                     Back
                 </Button>
@@ -42,7 +42,9 @@
         </Grid>
 
         <!-- Canvas for displaying the generated map -->
-        <Canvas Grid.Column="1"></Canvas>
+        <Canvas Grid.Column="1">
+            <Image x:Name="Map" Grid.Row="1" Stretch="Uniform"/>
+        </Canvas>
 
     </Grid>
 </UserControl>

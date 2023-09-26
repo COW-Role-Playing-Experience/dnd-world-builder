@@ -303,12 +303,5 @@ public class DmViewModel : ViewModelBase
 
     public void enterDMView()
     {
-        WriteableBitmap buffer = new WriteableBitmap(
-       new PixelSize(1920, 1080),
-       new Vector(96, 96),
-       Avalonia.Platform.PixelFormat.Rgba8888,
-       AlphaFormat.Unpremul
-   );
-        MapGeneratorViewModel.pipeline.Rebind(buffer); //pipeline should be given the buffer
     }
 }
