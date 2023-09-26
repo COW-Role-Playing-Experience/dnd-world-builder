@@ -8,14 +8,21 @@ namespace map_generator.RenderPipeline;
 public abstract class AbstractRenderPipeline
 {
     protected Image<Rgba32> Canvas;
+    protected MapBuilder? MapBuilder;
 
-    protected AbstractRenderPipeline(MapBuilder mb, int width, int height)
+    protected AbstractRenderPipeline(MapBuilder? mb, int width, int height)
     {
         MapBuilder = mb;
         Canvas = new Image<Rgba32>(width, height);
     }
 
-    public MapBuilder MapBuilder { set; private get; }
+    /**
+     * Bind a new MapBuilder to this pipeline.
+     */
+    public virtual void RebindBuilder(MapBuilder mb)
+    {
+        MapBuilder = mb;
+    }
 
     /**
      * Sets all pixels within the Image canvas to transparent.
@@ -45,7 +52,49 @@ public abstract class AbstractRenderPipeline
     protected void Render(float tlX, float tlY, float brX, float brY)
     {
         this.Clear();
-        this.Debug(); //TODO: remove me!
+        if (MapBuilder == null) throw new NullReferenceException("Render pipeline failed due to unbound MapBuilder");
+
+        // Overflow is always tl
+        int tileOriginX = (int)Math.Floor(tlX);
+        int tileOriginY = (int)Math.Floor(tlY);
+
+        Console.WriteLine(brX - tlX);
+
+        float tileSizeX = Canvas.Size.Width / (brX - tlX);
+        float tileSizeY = Canvas.Size.Height / (brY - tlY);
+
+        Console.WriteLine((tileSizeX, tileSizeY));
+
+        float tileOffsetX = tileSizeX * (tlX - tileOriginX);
+        float tileOffsetY = tileSizeY * (tlY - tileOriginY);
+
+        RoomTile[,] tiles = MapBuilder.getTiles();
+
+        for (int x = tileOriginX; x < brX - 1; x++)
+        {
+            for (int y = tileOriginY; y < brY - 1; y++)
+            {
+                // Skip if tile is out of bounds
+                if (
+                    x < 0 || x >= tiles.GetLength(0)
+                 || y < 0 || y >= tiles.GetLength(1)
+                ) continue;
+
+                RoomTile tile = tiles[x, y];
+                Image<Rgba32> texture = tile.getTexture().Clone();
+
+                //TODO: replace with proper ratio-aware scale factor, +1 works well when zoomed in but will distort when zoomed out
+                texture.Mutate(o => o.Resize((int)tileSizeX + 1, (int)tileSizeY + 1));
+
+                int x1 = Convert.ToInt32((x - tileOriginX) * tileSizeX - tileOffsetX);
+                int y1 = Convert.ToInt32((y - tileOriginY) * tileSizeY - tileOffsetY);
+
+                Canvas.Mutate(o => o.DrawImage(texture, new Point(x1, y1), 1f));
+            }
+        }
+
+        //TODO: Re-enable baking!
+        // Canvas.SaveAsPng("DEBUG.png");
         this.Bake();
     }
 }

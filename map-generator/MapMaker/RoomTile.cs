@@ -46,7 +46,7 @@ public class RoomTile : ICloneable
         return this.y;
     }
 
-    public Image<Rgba32>? getTexture()
+    public Image<Rgba32> getTexture()
     {
         return DataLoader.Textures[texture ?? DataLoader.EMPTY];
     }
