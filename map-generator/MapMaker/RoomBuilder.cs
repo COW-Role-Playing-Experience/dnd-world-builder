@@ -124,8 +124,8 @@ public class RoomBuilder
                 return;
             }
 
-            Console.Clear();
-            mapBuilder.printMap();
+            // Console.Clear();
+            // mapBuilder.printMap();
 
 
             RoomBuilder room = new RoomBuilder(xPos, yPos, width, height, prevDir,

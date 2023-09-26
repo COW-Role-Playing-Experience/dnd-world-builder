@@ -52,26 +52,26 @@ public class MapGeneratorViewModel : ViewModelBase
     public async Task GenerateMap(Canvas canvas)
     {
         //TODO this is where we implement the map generation
-        Random rng = new Random(MapSeed);
-        DataLoader.Random = rng;
-        DataLoader.Init();
+        // Random rng = new Random(MapSeed);
+        // DataLoader.Random = rng;
+        // DataLoader.Init();
         // Console.WriteLine("Hello, World!");
-        MapBuilder map = new MapBuilder(200, 40, rng, 0.8);
-        map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom().fillGaps();
+        // MapBuilder map = new MapBuilder(200, 40, rng, 0.8);
+        // map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom().fillGaps();
         // This should be refactored for optimization, for now I am putting it here for testing
-        if (_writeableBitmap == null)
-        {
-            int width = (int)canvas.Bounds.Width;
-            int height = (int)canvas.Bounds.Height;
-            _writeableBitmap =
-                new WriteableBitmap(new PixelSize(width, height), new Vector(96, 96), PixelFormat.Rgba8888, AlphaFormat.Unpremul);
-            ImageBrush = new(_writeableBitmap);
-        }
-        _renderPipeline = new AvaloniaRenderPipeline(map, _writeableBitmap);
-        _renderPipeline.Render(10, 10, 0.1f);
-
-        ImageBrush = new(_writeableBitmap);
-        canvas.Background = ImageBrush;
+        // if (_writeableBitmap == null)
+        // {
+        //     int width = (int)canvas.Bounds.Width;
+        //     int height = (int)canvas.Bounds.Height;
+        //     _writeableBitmap =
+        //         new WriteableBitmap(new PixelSize(width, height), new Vector(96, 96), PixelFormat.Rgba8888, AlphaFormat.Unpremul);
+        //     ImageBrush = new(_writeableBitmap);
+        // }
+        // _renderPipeline = new AvaloniaRenderPipeline(map, _writeableBitmap);
+        // _renderPipeline.Render(10, 10, 0.1f);
+        //
+        // ImageBrush = new(_writeableBitmap);
+        // canvas.Background = ImageBrush;
     }
 
     //Dynamically add Themes to the map generator view, based on what folders exist in Assets\Data
