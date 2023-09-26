@@ -24,7 +24,8 @@ public partial class DmView : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
-    private void enterDMView(){
+    private void enterDMView()
+    {
         (DataContext as DmViewModel)?.enterDMView();
     }
 
