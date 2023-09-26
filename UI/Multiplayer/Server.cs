@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using LiteNetLib;
@@ -35,8 +36,8 @@ public class Server
     private static void OnTokenReceived(Token t, NetPeer peer)
     {
         Console.WriteLine("Server received token: " + t.Name);
-        Console.WriteLine("New X pos: " + t.XLoc);
-        Console.WriteLine("New Y pos: " + t.YLoc);
+        // Console.WriteLine("New X pos: " + t.XLoc);
+        // Console.WriteLine("New Y pos: " + t.YLoc);
         NetDataWriter writer = new();
         if (_clientsCanMove)
         {
@@ -48,17 +49,29 @@ public class Server
             writer.Put(false);
         }
         var rand = new Random();
-        t.MoveToken(t.XLoc + rand.Next(0, 100), t.YLoc + rand.Next(0, 100));
+        // t.MoveToken(t.X + rand.Next(0, 100), t.Y + rand.Next(0, 100));
         _netPacketProcessor.Write(writer, t);
         peer.Send(writer, DeliveryMethod.ReliableOrdered);
         writer.Reset();
     }
+
+    // private static List<TokenData> ConvertTokens()
+    // {
+    //     List<TokenData> tokenDataList = new();
+    //     foreach (Token token in ViewModel.TokensOnCanvas)
+    //     {
+    //         TokenData tokenData = new(token.Name, token.OnCavas, token.XLoc, token.YLoc, token.PlayerMoveable, token.PlayerVisible);
+    //         tokenDataList.Add(tokenData);
+    //     }
+    //     return tokenDataList;
+    // }
 
     /// <summary>
     /// Allows the client (player) to join the game and send out map and token data if the player is not on the waitlist.
     /// </summary>
     private static void JoinGame(NetPeer peer, bool OnWaitList)
     {
+
         NetDataWriter writer = new();
         writer.Put(OnWaitList);
         peer.Send(writer, DeliveryMethod.ReliableOrdered);
@@ -73,18 +86,20 @@ public class Server
             {
                 writer.Put(false);
             }
-            Console.WriteLine("Send map");
-            // Send map data to client
-            MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
-            _netPacketProcessor.Write(writer, md);
-            peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            // Console.WriteLine("Send tokens");
+            // Console.WriteLine("Send map");
+            // // Send map data to client
+            // MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
+            // _netPacketProcessor.Write(writer, md);
+            // peer.Send(writer, DeliveryMethod.ReliableOrdered);
+            Console.WriteLine("Send tokens");
+            byte[] image = File.ReadAllBytes("Images/Decor/Barrel/Barrel_Large_Wood_Ashen_A_Side_3x3.png");
+            peer.Send(image, DeliveryMethod.ReliableOrdered);
             // // Then send all tokens
-            // foreach (Token t in ViewModel.TokensOnCanvas)
+            // foreach (Token t in ViewModel.TokensOnCanvas)//ConvertTokens())
             // {
             //     _netPacketProcessor.Write(writer, t);
             //     peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            // writer.Reset();
+            //     writer.Reset();
             // }
         }
         // Clear the NetDataWriter buffer after sending everything

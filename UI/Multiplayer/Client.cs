@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using LiteNetLib;
 using LiteNetLib.Utils;
@@ -14,8 +15,8 @@ public class Client
 
     static Client()
     {
-        _netPacketProcessor.RegisterNestedType(() => new MapData());
-        _netPacketProcessor.SubscribeReusable<MapData, NetPeer>(OnMapDataReceived);
+        // _netPacketProcessor.RegisterNestedType(() => new MapData());
+        // _netPacketProcessor.SubscribeReusable<MapData, NetPeer>(OnMapDataReceived);
         // _netPacketProcessor.RegisterNestedType(() => new Token());
         // _netPacketProcessor.SubscribeReusable<Token, NetPeer>(OnTokenReceived);
     }
@@ -77,7 +78,12 @@ public class Client
             if (!OnWaitList)
             {
                 _canMove = dataReader.GetBool();
-                _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
+                if (deliveryMethod == DeliveryMethod.ReliableOrdered)
+                {
+                    byte[] image = dataReader.GetBytesWithLength();
+                    File.WriteAllBytes("image.png", image);
+                }
+                // _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
             }
             dataReader.Recycle();
         };
