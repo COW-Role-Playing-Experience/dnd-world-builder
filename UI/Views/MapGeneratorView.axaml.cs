@@ -12,6 +12,7 @@ namespace UI.Views;
 
 public partial class MapGeneratorView : UserControl
 {
+    private Canvas _canvas;
     public MapGeneratorView()
     {
         InitializeComponent();

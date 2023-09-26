@@ -10,6 +10,7 @@ using map_generator.MapMaker;
 using Avalonia.Media.Imaging;
 using Avalonia;
 using System.Drawing.Imaging;
+using Avalonia.Media;
 using Avalonia.Platform;
 
 namespace UI.ViewModels;
@@ -46,13 +47,12 @@ public class MapGeneratorViewModel : ViewModelBase
     public void initMapGen()
     {
         buffer = new WriteableBitmap(
-new PixelSize(1920, 1080),
-new Vector(96, 96),
-Avalonia.Platform.PixelFormat.Rgba8888,
-AlphaFormat.Unpremul
-);
-        pipeline.Rebind(buffer); //pipeline should be given the buffer
-
+            new PixelSize(1920, 1080),
+            new Vector(96, 96),
+            Avalonia.Platform.PixelFormat.Rgba8888,
+            AlphaFormat.Unpremul
+            );
+        pipeline.RebindBitmap(buffer); //pipeline should be given the buffer
     }
 
     public void GenerateMap(Image mapImage)
@@ -63,9 +63,8 @@ AlphaFormat.Unpremul
         int ySize = 40;
         MapBuilder map = new MapBuilder(xSize, ySize, rng, 0.8);
         map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom().fillGaps();
-        pipeline.MapBuilder = map; //bind the finished map to the renderer
+        pipeline.RebindBuilder(map); //bind the finished map to the renderer
         pipeline.Render(xSize / 2.0f, ySize / 2.0f, 1); //call once with the default to update bitmap
-        mapImage.Source = buffer;
     }
 
     //Dynamically add Themes to the map generator view, based on what folders exist in Assets\Data

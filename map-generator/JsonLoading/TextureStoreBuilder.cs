@@ -53,7 +53,7 @@ public class TextureStoreBuilder
     public TextureStoreBuilder AddDebug()
     {
         Image<Rgba32> debug = new Image<Rgba32>(1, 1);
-        debug[0, 0] = new Rgba32(128, 0, 0, 0);
+        debug[0, 0] = new Rgba32(245, 73, 145, 255);
 
         _store.Add("DEBUG", () => debug);
         return this;
