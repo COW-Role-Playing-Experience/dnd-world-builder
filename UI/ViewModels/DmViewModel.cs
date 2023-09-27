@@ -327,6 +327,10 @@ public class DmViewModel : ViewModelBase
 
     public void Decrease()
     {
+        if (Zoom == 10)
+        {
+            return;
+        }
         Zoom -= 10;
         WriteableBitmap buffer = MapHandler.Buffer;
         buffer = new WriteableBitmap(buffer.PixelSize, buffer.Dpi, buffer.Format);
