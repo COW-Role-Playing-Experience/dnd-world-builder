@@ -45,11 +45,13 @@ public class Client
             Console.WriteLine("Token " + t.Name + "'s position hasn't changed");
             return;
         }
+
         if (!t.PlayerMoveable)
         {
             Console.WriteLine("Token " + t.Name + " is not moveable by player");
             return;
         }
+
         if (_canMove)
         {
             t.MoveToken(rand.Next(0, 100), rand.Next(0, 100));
@@ -74,29 +76,55 @@ public class Client
 
         listener.NetworkReceiveEvent += (fromPeer, dataReader, channel, deliveryMethod) =>
         {
-            var OnWaitList = dataReader.GetBool();
-            if (!OnWaitList)
+            if (deliveryMethod == DeliveryMethod.ReliableOrdered)
             {
-                _canMove = dataReader.GetBool();
-                if (deliveryMethod == DeliveryMethod.ReliableOrdered)
+                int commandID = dataReader.GetInt(); // Read id
+
+                if (commandID == 1)
                 {
-                    byte[] image = dataReader.GetBytesWithLength();
-                    File.WriteAllBytes("image.png", image);
+                    int availableBytes = dataReader.AvailableBytes; // Get the available bytes
+
+                    byte[] buffer = new byte[availableBytes]; // Use the correct buffer size
+
+                    dataReader.GetBytes(buffer, 0, availableBytes); // Read the available bytes
+
+                    Console.WriteLine("Received image data with length: " + availableBytes);
+
+                    var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    const string appFolderName = ".worldcrucible";
+                    const string sentFolderName = "Sent";
+
+                    var tokensFolderPath = Path.Combine(documentsDirectory, appFolderName, sentFolderName);
+
+                    // Ensure that the target folder and its parent directories exist
+                    Directory.CreateDirectory(tokensFolderPath);
+
+                    // Use Path.Combine to create the complete file path
+                    var filePath = Path.Combine(tokensFolderPath, "received_image.png");
+
+                    // Save the received data as an image file
+                    File.WriteAllBytes(filePath, buffer);
+
+                    Console.WriteLine("Saved received image to: " + filePath);
                 }
-                // _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
             }
+
             dataReader.Recycle();
         };
+
 
         while (_running)
         {
             _client.PollEvents();
             System.Threading.Thread.Sleep(1000);
-        };
+        }
+
+        ;
 
         // Poll the event in parallel
         // Task.Factory.StartNew(PollEvents);
     }
+
 
     private static void PollEvents()
     {
@@ -104,7 +132,9 @@ public class Client
         {
             _client.PollEvents();
             System.Threading.Thread.Sleep(1000);
-        };
+        }
+
+        ;
     }
 
     public static void StopClient()
