@@ -35,9 +35,7 @@
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
-
-
     <ItemGroup>
-      <ProjectReference Include="..\map-generator\map-generator.csproj" />
+        <ProjectReference Include="..\map-generator\map-generator.csproj" />
     </ItemGroup>
 </Project>

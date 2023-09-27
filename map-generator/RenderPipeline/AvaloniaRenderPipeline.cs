@@ -12,11 +12,11 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     private float _prevZoom = Single.NaN;
 
     public AvaloniaRenderPipeline(MapBuilder? mapBuilder, WriteableBitmap? writeableBitmap) :
-        base(mapBuilder, (int)(writeableBitmap?.Size.Width ?? 0), (int)(writeableBitmap?.Size.Height ?? 0))
+        base(mapBuilder, (int)(writeableBitmap?.Size.Width ?? 1), (int)(writeableBitmap?.Size.Height ?? 1))
     {
         _writeableBitmap = writeableBitmap;
         _bitmapWidth = (int)(writeableBitmap?.Size.Width ?? 1);
-        _bitmapHeight = (int)(writeableBitmap?.Size.Width ?? 1);
+        _bitmapHeight = (int)(writeableBitmap?.Size.Height ?? 1);
     }
 
     /**
@@ -75,7 +75,7 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
         _writeableBitmap = writeableBitmap;
         Canvas = new Image<Rgba32>((int)writeableBitmap.Size.Width, (int)writeableBitmap.Size.Height);
         _bitmapWidth = (int)(writeableBitmap?.Size.Width ?? 1);
-        _bitmapHeight = (int)(writeableBitmap?.Size.Width ?? 1);
+        _bitmapHeight = (int)(writeableBitmap?.Size.Height ?? 1);
     }
 
     /**
