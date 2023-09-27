@@ -209,8 +209,7 @@ public class RoomBuilder
             for (int j = y; j < y + this.ySize; j++)
             {
                 RoomTile tile = this.gridTiles[i, j];
-                //TODO: grab texture from RoomTheme obj
-                tile.setTexture("DEBUG");
+                tile.setTexture(this.roomTheme.floorTexture);
             }
         }
 
