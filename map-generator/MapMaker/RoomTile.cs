@@ -9,31 +9,41 @@ public class RoomTile : ICloneable
     private int x;
     private int y;
     private Direction direction;
-    private string? texture;
-
-
+    private Image<Rgba32> texture;
+    private bool noTexture;
 
     public RoomTile(int x, int y, string? texture, Direction direction = Direction.NONE)
     {
         this.x = x;
         this.y = y;
         this.direction = direction;
+        this.texture = DataLoader.Textures.Get(texture ?? DataLoader.EMPTY);
+        this.noTexture = texture == null;
+    }
+
+    public RoomTile(int x, int y, Image<Rgba32> texture, Direction direction = Direction.NONE)
+    {
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
         this.texture = texture;
+        this.noTexture = false;
     }
 
     public char getChar()
     {
-        return this.texture == null ? '.' : 'X';
+        return this.noTexture ? '.' : 'X';
     }
 
     public bool isEmpty()
     {
-        return this.texture == null;
+        return noTexture;
     }
 
     public void setTexture(string? texture)
     {
-        this.texture = texture;
+        this.texture = DataLoader.Textures.Get(texture ?? DataLoader.EMPTY);
+        this.noTexture = texture == null;
     }
 
     public int getX()
@@ -48,16 +58,22 @@ public class RoomTile : ICloneable
 
     public Image<Rgba32> getTexture()
     {
-        return DataLoader.Textures[texture ?? DataLoader.EMPTY];
-    }
-
-    public string? getTextureName()
-    {
         return texture;
     }
 
     public object Clone()
     {
         return new RoomTile(this.x, this.y, this.texture, this.direction);
+    }
+
+    public override int GetHashCode()
+    {
+        unchecked
+        {
+            int hashcode = 1430287;
+            hashcode = hashcode * 7302013 ^ x;
+            hashcode = hashcode * 7302013 ^ y;
+            return hashcode;
+        }
     }
 }

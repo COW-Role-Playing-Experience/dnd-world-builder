@@ -15,13 +15,11 @@ public record RoomTheme
     public required int minConnectors { get; init; }
     public required int maxConnectors { get; init; }
 
-    public required string floorTexture { private get; init; }
+    public required string floorTexture { get; init; }
 
     public required string decorGroup { private get; init; }
 
     // These are getters rather than properties, as properties should be side-effect free
-
-    public Image<Rgba32> GetFloorTexture() => DataLoader.Textures[floorTexture];
 
     public DecorGroup GetDecorGroup() => DataLoader.DecorGroups[decorGroup];
 }
