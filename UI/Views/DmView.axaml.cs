@@ -1,7 +1,6 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
@@ -41,8 +40,62 @@ public partial class DmView : UserControl
         }
     }
 
+    private void FogOfWarControl_PointerPressed(object sender, PointerPressedEventArgs e)
+    {
+        var vm = DataContext as DmViewModel;
+        var point = e.GetCurrentPoint(sender as Visual).Properties;
+
+        if (vm?.IsFogOfWarVisible == true)
+        {
+            var position = e.GetPosition(this);
+            if (point.IsRightButtonPressed)
+            {
+                vm.HandlePointerFogOfWar(position, true);
+            }
+            else if (point.IsLeftButtonPressed)
+            {
+                vm.HandlePointerFogOfWar(position, false);
+            }
+        }
+    }
 
 
+    private void FogOfWarControl_OnPointerMoved(object sender, PointerEventArgs e)
+    {
+        var vm = DataContext as DmViewModel;
+        var point = e.GetCurrentPoint(sender as Visual).Properties;
+
+        if (vm?.IsFogOfWarVisible == true)
+        {
+            var position = e.GetPosition(this);
+            if (point.IsRightButtonPressed)
+            {
+                vm.HandlePointerMoved(position, true);
+            }
+            else if (point.IsLeftButtonPressed)
+            {
+                vm.HandlePointerMoved(position, false);
+            }
+        }
+    }
 
 
+    private void FogOfWarControl_PointerReleased(object sender, PointerReleasedEventArgs e)
+    {
+        var vm = DataContext as DmViewModel;
+        var point = e.GetCurrentPoint(sender as Visual).Properties;
+
+        if (vm?.IsFogOfWarVisible == true)
+        {
+            var position = e.GetPosition(this);
+            if (point.IsRightButtonPressed)
+            {
+                vm.HandlePointerFogOfWar(position, true);
+            }
+            else if (point.IsLeftButtonPressed)
+            {
+                vm.HandlePointerFogOfWar(position, false);
+            }
+        }
+    }
 }

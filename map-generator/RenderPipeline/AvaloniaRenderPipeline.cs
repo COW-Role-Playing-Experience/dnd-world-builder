@@ -7,13 +7,16 @@ namespace map_generator.RenderPipeline;
 public class AvaloniaRenderPipeline : AbstractRenderPipeline
 {
     private WriteableBitmap? _writeableBitmap;
-    private float _aspectRatio;
+    private int _bitmapWidth;
+    private int _bitmapHeight;
+    private float _prevZoom = Single.NaN;
 
     public AvaloniaRenderPipeline(MapBuilder? mapBuilder, WriteableBitmap? writeableBitmap) :
         base(mapBuilder, (int)(writeableBitmap?.Size.Width ?? 1), (int)(writeableBitmap?.Size.Height ?? 1))
     {
         _writeableBitmap = writeableBitmap;
-        _aspectRatio = (float)(writeableBitmap?.Size.AspectRatio ?? 1.0f);
+        _bitmapWidth = (int)(writeableBitmap?.Size.Width ?? 1);
+        _bitmapHeight = (int)(writeableBitmap?.Size.Height ?? 1);
     }
 
     /**
@@ -24,7 +27,8 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     public AvaloniaRenderPipeline(MapBuilder mapBuilder, int width, int height) :
         base(mapBuilder, width, height)
     {
-        _aspectRatio = width / (float)height;
+        _bitmapWidth = width;
+        _bitmapHeight = height;
     }
 
     /**
@@ -70,23 +74,62 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     {
         _writeableBitmap = writeableBitmap;
         Canvas = new Image<Rgba32>((int)writeableBitmap.Size.Width, (int)writeableBitmap.Size.Height);
-        _aspectRatio = (float)writeableBitmap.Size.AspectRatio;
-    }
-
-    public override void RebindBuilder(MapBuilder mb)
-    {
-        base.RebindBuilder(mb);
-        _aspectRatio = (float)(_writeableBitmap?.Size.AspectRatio ?? 1.0f);
+        _bitmapWidth = (int)(writeableBitmap?.Size.Width ?? 1);
+        _bitmapHeight = (int)(writeableBitmap?.Size.Height ?? 1);
     }
 
     /**
-     * Renders a new frame at the given location.
+     * Converts a location on the WriteableBitmap into a position on the map.
      */
-    public void Render(float x, float y, float zoom)
+    public (float x, float y) ScreenToWorldspace(float x, float y, float zoom, (float x, float y) screenPosition)
+    {
+        (float tilesX, float tilesY) = CalculateConstraints(zoom);
+
+        float tlX = x - tilesX / 2;
+        float tlY = y - tilesY / 2;
+
+        float widthRatio = screenPosition.x / _bitmapWidth;
+        float heightRatio = screenPosition.y / _bitmapHeight;
+
+        return (
+            tlX + tilesX * widthRatio,
+            tlY + tilesY * heightRatio
+        );
+    }
+
+    /**
+     * Converts a position on the map into a location on the WriteableBitmap
+     */
+    public (float x, float y) WorldToScreenspace(float x, float y, float zoom, (float x, float y) worldPosition)
+    {
+        (float tilesX, float tilesY) = CalculateConstraints(zoom);
+
+        float tlX = x - tilesX / 2;
+        float tlY = y - tilesY / 2;
+
+        return (
+            (worldPosition.x - tlX) * _bitmapWidth / tilesX,
+            (worldPosition.y - tlY) * _bitmapHeight / tilesY
+        );
+    }
+
+    /**
+     * Returns the width of a single tile.
+     */
+    public float TileSize(float zoom)
+    {
+        // Note that this only uses the width constraint, and ignores the height. These values should be congruent regardless.
+        return _bitmapWidth / CalculateConstraints(zoom).tilesX;
+    }
+
+    /**
+     * Provides the size of the region of tiles to be rendered.
+     */
+    private (float tilesX, float tilesY) CalculateConstraints(float zoom)
     {
         if (MapBuilder == null)
         {
-            throw new NullReferenceException("Render pipeline failed due to unbound MapBuilder");
+            throw new NullReferenceException("Failed to calculate constraints due to unbound MapBuilder");
         }
 
         RoomTile[,] tiles = MapBuilder.getTiles();
@@ -99,20 +142,31 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
         float tilesX;
         float tilesY;
 
+        float aspectRatio = _bitmapWidth / (float)_bitmapHeight;
 
-
-        if (_aspectRatio > mapAspectRatio)
+        if (aspectRatio > mapAspectRatio)
         {
             // Get the amount of tiles over the axis X to render
             tilesY = 1 / zoom * mapHeight;
-            tilesX = tilesY * _aspectRatio;
+            tilesX = tilesY * aspectRatio;
         }
         else
         {
             tilesX = 1 / zoom * mapWidth;
-            tilesY = tilesX / _aspectRatio;
+            tilesY = tilesX / aspectRatio;
         }
 
+        return (tilesX, tilesY);
+    }
+
+    /**
+     * Renders a new frame at the given location.
+     */
+    public void Render(float x, float y, float zoom)
+    {
+        if (zoom != _prevZoom) base.ClearCache();
+        _prevZoom = zoom;
+        (float tilesX, float tilesY) = CalculateConstraints(zoom);
         base.Render(x - tilesX / 2, y - tilesY / 2, x + tilesX / 2, y + tilesY / 2);
     }
 }

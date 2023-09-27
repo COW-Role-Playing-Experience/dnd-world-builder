@@ -32,7 +32,7 @@ public class MapBuilder
         {
             for (int y = 0; y < this.ySize; y++)
             {
-                RoomTile tile = new RoomTile(x, y, null);
+                RoomTile tile = new RoomTile(x, y, (string?)null);
                 tiles[x, y] = tile;
             }
         }
