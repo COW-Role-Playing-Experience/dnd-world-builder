@@ -52,7 +52,7 @@ public partial class MapGeneratorView : UserControl
     private void GenerateMap(object sender, RoutedEventArgs e)
     {
         Image map = this.FindControl<Image>("Map");
-        (DataContext as MapGeneratorViewModel)?.GenerateMap(map);
+        MapHandler.GenerateMap(map);
     }
 
     private void SeedBoxWritten(object sender, TextChangedEventArgs e)
