@@ -9,6 +9,7 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     private WriteableBitmap? _writeableBitmap;
     private int _bitmapWidth;
     private int _bitmapHeight;
+    private float _prevZoom = Single.NaN;
 
     public AvaloniaRenderPipeline(MapBuilder? mapBuilder, WriteableBitmap? writeableBitmap) :
         base(mapBuilder, (int)(writeableBitmap?.Size.Width ?? 0), (int)(writeableBitmap?.Size.Height ?? 0))
@@ -163,6 +164,8 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
      */
     public void Render(float x, float y, float zoom)
     {
+        if (zoom != _prevZoom) base.ClearCache();
+        _prevZoom = zoom;
         (float tilesX, float tilesY) = CalculateConstraints(zoom);
         base.Render(x - tilesX / 2, y - tilesY / 2, x + tilesX / 2, y + tilesY / 2);
     }
