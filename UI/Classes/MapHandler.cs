@@ -22,8 +22,14 @@ public static class MapHandler
         Pipeline.RebindBitmap(Buffer);
     }
 
+    public static void ClearBitmap()
+    {
+        RebindBitmap(new WriteableBitmap(Buffer.PixelSize, Buffer.Dpi, Buffer.Format));
+    }
+
     public static void GenerateMap(Image mapImage)
     {
+        ClearBitmap();
         Random rng = new Random(MapSeed);
         DataLoader.Random = rng;
         int xSize = 200;
