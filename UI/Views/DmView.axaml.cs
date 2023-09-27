@@ -1,8 +1,11 @@
 using System;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using UI.Classes;
 using UI.ViewModels;
 
@@ -14,9 +17,10 @@ public partial class DmView : UserControl
     {
         InitializeComponent();
         DataContext = new DmViewModel();
-        enterDMView();
         var tokensItemsControl = this.FindControl<ItemsControl>("TokensOnCanvasControl");
         tokensItemsControl?.AddHandler(DragDrop.DropEvent, OnTokenDropped);
+        var map = this.FindControl<Image>("Map");
+        MapHandler.RebindSource(map);
     }
 
     private void InitializeComponent()
@@ -24,10 +28,6 @@ public partial class DmView : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
-    private void enterDMView()
-    {
-        (DataContext as DmViewModel)?.enterDMView();
-    }
 
     private void OnTokenDropped(object sender, DragEventArgs e)
     {

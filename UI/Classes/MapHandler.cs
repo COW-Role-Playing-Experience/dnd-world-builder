@@ -35,4 +35,9 @@ public static class MapHandler
         mapImage.Source = Buffer;
         Console.WriteLine("SHOULD BE DISPLAYING MAP RIGHT NOW");
     }
+
+    public static void RebindSource(Image mapImage)
+    {
+        mapImage.Source = Buffer;
+    }
 }

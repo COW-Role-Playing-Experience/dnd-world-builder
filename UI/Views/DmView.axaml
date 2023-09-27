@@ -10,11 +10,13 @@
     <Grid>
         <!-- Background canvas to be the generated map image -->
 
+    <Canvas>
+        <Image x:Name="Map" Stretch="Uniform"/>
+    </Canvas>
         <ItemsControl Name="TokensOnCanvasControl" ItemsSource="{Binding TokensOnCanvas}" DragDrop.AllowDrop="True">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Background="#403233">
-                        <Image x:Name="Map" Stretch="Uniform"/>
+                    <Canvas Background="Transparent" >
                     </Canvas>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>

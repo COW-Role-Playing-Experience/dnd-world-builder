@@ -301,7 +301,5 @@ public class DmViewModel : ViewModelBase
         TokensOnCanvas.Remove(token);
     }
 
-    public void enterDMView()
-    {
-    }
+
 }

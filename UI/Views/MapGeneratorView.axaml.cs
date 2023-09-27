@@ -51,7 +51,7 @@ public partial class MapGeneratorView : UserControl
 
     private void GenerateMap(object sender, RoutedEventArgs e)
     {
-        Image map = this.FindControl<Image>("Map");
+        Image? map = this.FindControl<Image>("Map");
         MapHandler.GenerateMap(map);
     }
 
