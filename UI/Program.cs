@@ -2,6 +2,7 @@
 using Avalonia.ReactiveUI;
 using map_generator.JsonLoading;
 using System;
+using UI.Classes;
 using UI.ViewModels;
 using UI.Views;
 
@@ -16,7 +17,7 @@ class Program
     public static void Main(string[] args)
     {
         DataLoader.Init(); //load all the textures
-        MapGeneratorViewModel.pipeline = new(null, null); //create a new pipeline with unbound mapbuilder and WritableBuffer
+        MapHandler.Pipeline = new(null, null); //create a new pipeline with unbound mapbuilder and WritableBuffer
         BuildAvaloniaApp()
         .StartWithClassicDesktopLifetime(args);
     }

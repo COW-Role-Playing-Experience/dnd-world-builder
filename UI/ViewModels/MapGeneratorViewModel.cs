@@ -12,15 +12,13 @@ using Avalonia;
 using System.Drawing.Imaging;
 using Avalonia.Media;
 using Avalonia.Platform;
+using UI.Classes;
 
 namespace UI.ViewModels;
 
 
 public class MapGeneratorViewModel : ViewModelBase
 {
-    private int MapSeed = new Random().Next(1, 999999999);
-    public static AvaloniaRenderPipeline pipeline;
-    public static WriteableBitmap buffer;
     public void GenerateSeed(TextBox SeedTextBox)
     {
         Random random = new Random();
@@ -40,32 +38,14 @@ public class MapGeneratorViewModel : ViewModelBase
         }
         else
         {
-            MapSeed = result;
+            MapHandler.MapSeed = result;
         }
     }
 
-    public void initMapGen()
-    {
-        buffer = new WriteableBitmap(
-            new PixelSize(1920, 1080),
-            new Vector(96, 96),
-            Avalonia.Platform.PixelFormat.Rgba8888,
-            AlphaFormat.Unpremul
-            );
-        pipeline.RebindBitmap(buffer); //pipeline should be given the buffer
-    }
 
     public void GenerateMap(Image mapImage)
     {
-        Random rng = new Random(MapSeed);
-        DataLoader.Random = rng;
-        int xSize = 200;
-        int ySize = 40;
-        MapBuilder map = new MapBuilder(xSize, ySize, rng, 0.8);
-        map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom();
-        pipeline.RebindBuilder(map); //bind the finished map to the renderer
-        pipeline.Render(xSize / 2.0f, ySize / 2.0f, 1); //call once with the default to update bitmap
-        mapImage.Source = buffer;
+        MapHandler.GenerateMap(mapImage);
     }
 
     //Dynamically add Themes to the map generator view, based on what folders exist in Assets\Data
