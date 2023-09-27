@@ -28,6 +28,20 @@ public class DmViewModel : ViewModelBase
     private bool _isAddVisible;
     private double _uiButtonOpacity = 1.0;
     private int _tokenCount = 0;
+    private Image _map;
+    private int _zoom = 100;
+    public int Zoom
+    {
+        get => _zoom;
+        set => this.RaiseAndSetIfChanged(ref (_zoom), value);
+    }
+
+    public Image Map
+    {
+        get => _map;
+        set => this.RaiseAndSetIfChanged(ref (_map), value);
+    }
+
     private int ObservableTokenCount => _observableTokenCount.Value;
 
     private readonly ObservableAsPropertyHelper<int> _observableTokenCount;
@@ -301,5 +315,24 @@ public class DmViewModel : ViewModelBase
         TokensOnCanvas.Remove(token);
     }
 
+    public void Increase()
+    {
+        Zoom += 10;
+        WriteableBitmap buffer = MapHandler.Buffer;
+        buffer = new WriteableBitmap(buffer.PixelSize, buffer.Dpi, buffer.Format);
+        MapHandler.RebindBitmap(buffer);
+        MapHandler.Render(100f, 20f, (float)Zoom / 100);
+        MapHandler.RebindSource(Map);
+    }
+
+    public void Decrease()
+    {
+        Zoom -= 10;
+        WriteableBitmap buffer = MapHandler.Buffer;
+        buffer = new WriteableBitmap(buffer.PixelSize, buffer.Dpi, buffer.Format);
+        MapHandler.RebindBitmap(buffer);
+        MapHandler.Render(100f, 20f, (float)Zoom / 100);
+        MapHandler.RebindSource(Map);
+    }
 
 }

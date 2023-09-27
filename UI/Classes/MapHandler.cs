@@ -33,11 +33,15 @@ public static class MapHandler
         Pipeline.RebindBuilder(map); //bind the finished map to the renderer
         Pipeline.Render(xSize / 2.0f, ySize / 2.0f, 1); //call once with the default to update bitmap
         mapImage.Source = Buffer;
-        Console.WriteLine("SHOULD BE DISPLAYING MAP RIGHT NOW");
     }
 
     public static void RebindSource(Image mapImage)
     {
         mapImage.Source = Buffer;
+    }
+
+    public static void Render(float x, float y, float zoom)
+    {
+        Pipeline.Render(x, y, zoom);
     }
 }

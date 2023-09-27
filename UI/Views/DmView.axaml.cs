@@ -21,6 +21,7 @@ public partial class DmView : UserControl
         tokensItemsControl?.AddHandler(DragDrop.DropEvent, OnTokenDropped);
         var map = this.FindControl<Image>("Map");
         MapHandler.RebindSource(map);
+        (DataContext as DmViewModel).Map = map;
     }
 
     private void InitializeComponent()
