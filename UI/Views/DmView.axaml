@@ -11,11 +11,14 @@
     <Grid>
         <!-- Background canvas to be the generated map image -->
 
+    <Canvas x:Name="MapCanvas">
+        <Image x:Name="Map" Stretch="Uniform"/>
+    </Canvas>
         <ItemsControl Name="TokensOnCanvasControl" ItemsSource="{Binding TokensOnCanvas}" DragDrop.AllowDrop="True"
                       PointerPressed="FogOfWarControl_PointerPressed" PointerMoved="FogOfWarControl_OnPointerMoved" PointerReleased="FogOfWarControl_PointerReleased">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Background="#C0C0C0" />
+                    <Canvas Background="Transparent" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -138,16 +141,17 @@
 
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <Button Width="35" Height="35" BorderThickness="2" BorderBrush="Black"
-                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                            Command="{Binding Increase}">
                         +
                     </Button>
                     <Button Width="35" Height="35" BorderThickness="2" BorderBrush="Black"
-                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                            Command="{Binding Decrease}">
                         -
                     </Button>
                     <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
-                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        100%
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Zoom}">
                     </Label>
                 </StackPanel>
             </Grid>
