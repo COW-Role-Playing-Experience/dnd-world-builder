@@ -7,6 +7,10 @@ using UI.ViewModels;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using map_generator.JsonLoading;
+using map_generator.RenderPipeline;
+using UI.Classes;
 
 namespace UI.Views;
 
@@ -18,8 +22,12 @@ public partial class MapGeneratorView : UserControl
         InitializeComponent();
         DataContext = new MapGeneratorViewModel();
         initialiseThemesBox();
-
-
+        MapHandler.RebindBitmap(new WriteableBitmap(
+                new PixelSize(1920, 1080),
+                new Vector(96, 96),
+                Avalonia.Platform.PixelFormat.Rgba8888,
+                AlphaFormat.Unpremul
+                ));
     }
 
     private void InitializeComponent()
@@ -41,20 +49,14 @@ public partial class MapGeneratorView : UserControl
         (DataContext as MapGeneratorViewModel)?.GenerateSeed(SeedTextBox);
     }
 
-    private async void InitCanvas(object sender, VisualTreeAttachmentEventArgs e)
+    private void GenerateMap(object sender, RoutedEventArgs e)
     {
-
+        Image? map = this.FindControl<Image>("Map");
+        MapHandler.GenerateMap(map);
     }
 
     private void SeedBoxWritten(object sender, TextChangedEventArgs e)
     {
         (DataContext as MapGeneratorViewModel)?.SeedBoxWritten(sender, e);
-    }
-
-    private void GenerateFromSeed(object? sender, RoutedEventArgs e)
-    {
-        var mapControl = this.FindControl<Canvas>("Map");
-
-        if (mapControl != null) (DataContext as MapGeneratorViewModel)?.GenerateMap(mapControl);
     }
 }
