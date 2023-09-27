@@ -62,9 +62,10 @@ public class MapGeneratorViewModel : ViewModelBase
         int xSize = 200;
         int ySize = 40;
         MapBuilder map = new MapBuilder(xSize, ySize, rng, 0.8);
-        map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom().fillGaps();
+        map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom();
         pipeline.RebindBuilder(map); //bind the finished map to the renderer
         pipeline.Render(xSize / 2.0f, ySize / 2.0f, 1); //call once with the default to update bitmap
+        mapImage.Source = buffer;
     }
 
     //Dynamically add Themes to the map generator view, based on what folders exist in Assets\Data
