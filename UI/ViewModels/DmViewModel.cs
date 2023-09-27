@@ -319,8 +319,7 @@ public class DmViewModel : ViewModelBase
     {
         Zoom += 10;
         WriteableBitmap buffer = MapHandler.Buffer;
-        buffer = new WriteableBitmap(buffer.PixelSize, buffer.Dpi, buffer.Format);
-        MapHandler.RebindBitmap(buffer);
+        MapHandler.ClearBitmap();
         MapHandler.Render(100f, 20f, (float)Zoom / 100);
         MapHandler.RebindSource(Map);
     }
@@ -333,8 +332,7 @@ public class DmViewModel : ViewModelBase
         }
         Zoom -= 10;
         WriteableBitmap buffer = MapHandler.Buffer;
-        buffer = new WriteableBitmap(buffer.PixelSize, buffer.Dpi, buffer.Format);
-        MapHandler.RebindBitmap(buffer);
+        MapHandler.ClearBitmap();
         MapHandler.Render(100f, 20f, (float)Zoom / 100);
         MapHandler.RebindSource(Map);
     }
