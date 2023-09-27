@@ -144,3 +144,9 @@ the README saying that development has slowed down or stopped completely.
 Someone may choose to fork your project or volunteer to step in as a maintainer
 or owner, allowing your project to keep going. You can also make an explicit
 request for maintainers.
+
+## Attitributions
+
+[Map Background Image by kjpargeter on Freepik](https://www.freepik.com/free-vector/abstract-background-with-vintage-paper-design_18073291.htm#query=parchment&position=5&from_view=keyword&track=sph)
+
+[Thanks to Forgotten Adventures for many map textures.](https://www.forgotten-adventures.net/)
