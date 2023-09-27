@@ -50,7 +50,9 @@ public class DecorGroupStoreBuilder
 
     public DecorGroupStoreBuilder AddDebug()
     {
-        DecorGroup debug = new DecorGroup("DEBUG", 1, 1, new List<DecorPosition>());
+        List<DecorPosition> positions = new();
+        DecorGroup debug = new DecorGroup("DEBUG", 2, 2, positions);
+        positions.Add(new DecorPosition(new Decor("Images/Decor/Corpse/Decayed_Body_A_03_1x2"), 1, 1, 45));
 
         _store.Add("DEBUG", () => debug);
         return this;

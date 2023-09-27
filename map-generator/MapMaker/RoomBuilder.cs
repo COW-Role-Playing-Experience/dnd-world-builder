@@ -124,8 +124,15 @@ public class RoomBuilder
                 return;
             }
 
-            // Console.Clear();
-            // mapBuilder.printMap();
+            try
+            {
+                Console.Clear();
+            }
+            catch (IOException e)
+            {
+                //TODO Unhandled exception occurred when caling console.clear from the UI
+            }
+            //mapBuilder.printMap();
 
 
             RoomBuilder room = new RoomBuilder(xPos, yPos, width, height, prevDir,
@@ -202,8 +209,7 @@ public class RoomBuilder
             for (int j = y; j < y + this.ySize; j++)
             {
                 RoomTile tile = this.gridTiles[i, j];
-                //TODO: grab texture from RoomTheme obj
-                tile.setTexture(roomTheme.floorTexture);
+                tile.setTexture(this.roomTheme.floorTexture);
             }
         }
 
