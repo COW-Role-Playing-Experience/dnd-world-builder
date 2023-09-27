@@ -6,32 +6,44 @@
              mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="450"
              x:Class="UI.Views.DmView"
              x:DataType="vm:DmViewModel">
+
     <!-- Main layout grid -->
     <Grid>
         <!-- Background canvas to be the generated map image -->
 
-        <ItemsControl Name="TokensOnCanvasControl" ItemsSource="{Binding TokensOnCanvas}" DragDrop.AllowDrop="True">
+        <ItemsControl Name="TokensOnCanvasControl" ItemsSource="{Binding TokensOnCanvas}" DragDrop.AllowDrop="True"
+                      PointerPressed="FogOfWarControl_PointerPressed" PointerMoved="FogOfWarControl_OnPointerMoved" PointerReleased="FogOfWarControl_PointerReleased">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Background="#403233" />
+                    <Canvas Background="#C0C0C0" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ContentPresenter Content="{Binding}"
+                    <ContentPresenter Content="{Binding }"
                                       Canvas.Left="{Binding XLoc}"
                                       Canvas.Top="{Binding YLoc}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-
+        </ItemsControl>
+        <ItemsControl Name="FogOfWarControl" ItemsSource="{Binding FogOfWarRectangles}"
+                      IsVisible="{Binding IsFogOfWarVisible}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ContentPresenter Content="{Binding }"
+                                      Canvas.Left="{Binding XLoc}"
+                                      Canvas.Top="{Binding YLoc}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+
+        <Grid RowDefinitions="Auto,*,Auto">
 
             <!-- Top section with title and main UI -->
             <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Margin="20">
@@ -43,7 +55,12 @@
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center"
                             VerticalAlignment="Center" MinWidth="200" IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
                     <Button Classes="green" Background="Coral" Command="{Binding  ToggleAddVisibility}"></Button>
-                    <Button Classes="green"></Button>
+
+                    <ToggleButton Name="ToggleFogOfWarPaintButton" Classes="green"
+                                  IsChecked="{Binding IsFogOfWarVisible, Mode=TwoWay}" />
+
+                    <Slider Minimum="1" Maximum="200" Value="{Binding FogOfWarSize}" Width="200"
+                            IsVisible="{Binding IsFogOfWarVisible}" />
 
                     <Button Classes="green"></Button>
                     <Button Classes="green"></Button>

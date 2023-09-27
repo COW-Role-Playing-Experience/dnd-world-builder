@@ -10,10 +10,12 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Layout;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using ReactiveUI;
 using UI.Classes;
+using Bitmap = Avalonia.Media.Imaging.Bitmap;
+using Point = Avalonia.Point;
+
 
 namespace UI.ViewModels;
 
@@ -27,14 +29,22 @@ public class DmViewModel : ViewModelBase
     private bool _isAddVisible;
     private double _uiButtonOpacity = 1.0;
     private int _tokenCount = 0;
+    private int _fogOfWarSize = 100;
+    private bool _isFogOfWarVisible;
+    public bool _isLeftMouseDown;
+
     private int ObservableTokenCount => _observableTokenCount.Value;
 
     private readonly ObservableAsPropertyHelper<int> _observableTokenCount;
 
-    // Collection to store token borders.
+    // Collection to store tokens
     public ObservableCollection<Token> TokensCollection { get; } = new ObservableCollection<Token>();
 
     public ObservableCollection<Token> TokensOnCanvas { get; } = new ObservableCollection<Token>();
+
+    //Store Fog of War
+    public ObservableCollection<FogOfWarShape> FogOfWarRectangles { get; } =
+        new ObservableCollection<FogOfWarShape>();
 
     // Properties for UI bindings.
     public bool IsUiVisible
@@ -70,6 +80,83 @@ public class DmViewModel : ViewModelBase
         _observableTokenCount = this
             .WhenAnyValue(vm => vm._tokenCount)
             .ToProperty(this, vm => vm.ObservableTokenCount);
+    }
+
+    public int FogOfWarSize
+    {
+        get => _fogOfWarSize;
+        set => this.RaiseAndSetIfChanged(ref _fogOfWarSize, value);
+    }
+
+    public bool IsFogOfWarVisible
+    {
+        get => _isFogOfWarVisible;
+        set => this.RaiseAndSetIfChanged(ref _isFogOfWarVisible, value);
+    }
+
+    private void AddFogRectangleAt(Point position)
+    {
+        if (!_isLeftMouseDown) return;
+        const double tolerance = 0.005;
+        var offset = FogOfWarSize / 2.0;
+        //TODO if shape is bigger place, if its smaller do not
+        if (FogOfWarRectangles.Any(rect => Math.Abs(rect.XLoc - ((int)position.X - offset)) < tolerance &&
+                                           Math.Abs(rect.YLoc - ((int)position.Y - offset)) < tolerance &&
+                                           Math.Abs((int)(rect.Height - FogOfWarSize)) < tolerance &&
+                                           Math.Abs(rect.Width - FogOfWarSize) < tolerance))
+        {
+            return;
+        }
+
+        var shape = new FogOfWarShape((int)position.X - offset, (int)position.Y - offset, FogOfWarSize);
+        Canvas.SetLeft(shape, shape.XLoc);
+        Canvas.SetTop(shape, shape.YLoc);
+        FogOfWarRectangles.Add(shape);
+    }
+
+    public void HandlePointerMoved(Point position, bool isRightPressed)
+    {
+        if (isRightPressed)
+        {
+            _isLeftMouseDown = false;
+            HandleRightClick(position);
+        }
+        else
+        {
+            AddFogRectangleAt(position);
+        }
+    }
+
+    public void HandlePointerFogOfWar(Point position, bool isRightPressed)
+    {
+        if (isRightPressed)
+        {
+            _isLeftMouseDown = false;
+            HandleRightClick(position);
+        }
+        else
+        {
+            _isLeftMouseDown ^= true;
+            AddFogRectangleAt(position);
+        }
+    }
+
+    public void HandleRightClick(Point position)
+    {
+        var rectanglesToRemove = FogOfWarRectangles
+            .Where(rect => IsPointInsideRectangle(position, rect))
+            .ToList();
+
+        foreach (var rect in rectanglesToRemove)
+        {
+            FogOfWarRectangles.Remove(rect);
+        }
+    }
+
+    private bool IsPointInsideRectangle(Point point, FogOfWarShape rect)
+    {
+        return point.X >= rect.XLoc && point.X <= rect.XLoc + rect.Width &&
+               point.Y >= rect.YLoc && point.Y <= rect.YLoc + rect.Height;
     }
 
     // Toggles the visibility of the UI.
