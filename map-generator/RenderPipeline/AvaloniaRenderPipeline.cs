@@ -57,14 +57,16 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
         }
 
         // Obtains the pointer from the WriteableBitmap
-        using var buffer = _writeableBitmap.Lock();
-        IntPtr ptr = buffer.Address;
+        using (var buffer = _writeableBitmap.Lock())
+        {
+            IntPtr ptr = buffer.Address;
 
-        // Writes the image data directly into the address of the byte[] buffer.
-        Canvas.CopyPixelDataTo(new Span<byte>(
-            (void*)ptr,
-            Canvas.Width * Canvas.Height * Unsafe.SizeOf<Rgba32>())
-        );
+            // Writes the image data directly into the address of the byte[] buffer.
+            Canvas.CopyPixelDataTo(new Span<byte>(
+                (void*)ptr,
+                Canvas.Width * Canvas.Height * Unsafe.SizeOf<Rgba32>())
+            );
+        }
     }
 
     /**
