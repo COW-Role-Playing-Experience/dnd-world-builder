@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using UI.Classes;
@@ -181,16 +182,26 @@ public class Server
             {
                 // Read the image file into bytes
                 byte[] imageBytes = File.ReadAllBytes(imagePath);
+                Console.WriteLine("Image bytes: " + imageBytes.Length);
 
-                // Create a message buffer that includes the "ID" (command identifier) and the image data
-                byte[] message = new byte[sizeof(int) + imageBytes.Length];
+                // Get the file name from the image path
+                string fileName = Path.GetFileName(imagePath);
 
-                // Write the "ID" before the image data in the message buffer
+                // Serialize the file name to bytes
+                byte[] fileNameBytes = Encoding.UTF8.GetBytes(fileName);
+
+                // Create a message buffer that includes the "ID" (command identifier), the file name length,
+                // the file name data, and the image data
+                byte[] message = new byte[sizeof(int) + sizeof(int) + fileNameBytes.Length + imageBytes.Length];
+
+                // Write the "ID" before the file name and image data in the message buffer
                 using (MemoryStream ms = new MemoryStream(message))
                 using (BinaryWriter writer = new BinaryWriter(ms))
                 {
-                    writer.Write(imageID); // Write the "ID"
-                    writer.Write(imageBytes); // Write the image data
+                    writer.Write(imageID);                  // Write the "ID"
+                    writer.Write(fileNameBytes.Length);     // Write the file name length
+                    writer.Write(fileNameBytes);            // Write the file name data
+                    writer.Write(imageBytes);               // Write the image data
                 }
 
                 // Send the message to the client
@@ -208,6 +219,8 @@ public class Server
             Console.WriteLine($"Error sending image file: {ex.Message}");
         }
     }
+
+
 
 
     private static void PollEvents()

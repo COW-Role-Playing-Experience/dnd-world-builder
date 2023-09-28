@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using LiteNetLib;
 using LiteNetLib.Utils;
@@ -79,33 +80,45 @@ public class Client
             if (deliveryMethod == DeliveryMethod.ReliableOrdered)
             {
                 int commandID = dataReader.GetInt(); // Read id
+                Console.WriteLine("Command ID: " + commandID);
 
                 if (commandID == 1)
                 {
-                    int availableBytes = dataReader.AvailableBytes; // Get the available bytes
+                    int fileNameLength = dataReader.GetInt(); // Read the file name length
+                    Console.WriteLine("File Name Length" + fileNameLength);
 
+                    byte[] fileNameBytes = new byte[fileNameLength];
+
+                    dataReader.GetBytes(fileNameBytes, 0, fileNameLength); // Read the file name bytes
+                    string fileName = Encoding.UTF8.GetString(fileNameBytes); // Convert bytes to string
+                    Console.WriteLine(fileName);
+
+                    int availableBytes = dataReader.AvailableBytes;
+                    Console.WriteLine("imageBytesLength: " + availableBytes);
                     byte[] buffer = new byte[availableBytes]; // Use the correct buffer size
 
                     dataReader.GetBytes(buffer, 0, availableBytes); // Read the available bytes
 
-                    Console.WriteLine("Received image data with length: " + availableBytes);
+                    dataReader.GetRemainingBytes(); // Read the image data
+
+                    Console.WriteLine($"Received image data with file name: {fileName} and length: {availableBytes}");
 
                     var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     const string appFolderName = ".worldcrucible";
-                    const string sentFolderName = "Sent";
+                    const string receivedFolderName = "Received";
 
-                    var tokensFolderPath = Path.Combine(documentsDirectory, appFolderName, sentFolderName);
+                    var receivedFolderPath = Path.Combine(documentsDirectory, appFolderName, receivedFolderName);
 
                     // Ensure that the target folder and its parent directories exist
-                    Directory.CreateDirectory(tokensFolderPath);
+                    Directory.CreateDirectory(receivedFolderPath);
 
                     // Use Path.Combine to create the complete file path
-                    var filePath = Path.Combine(tokensFolderPath, "received_image.png");
+                    var filePath = Path.Combine(receivedFolderPath, fileName);
 
                     // Save the received data as an image file
                     File.WriteAllBytes(filePath, buffer);
 
-                    Console.WriteLine("Saved received image to: " + filePath);
+                    Console.WriteLine($"Saved received image to: {filePath}");
                 }
             }
 
