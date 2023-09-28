@@ -33,6 +33,29 @@ public class DmViewModel : ViewModelBase
     private int _tokenCount = 0;
     private Image _map;
     private int _zoom = 100;
+    private float _x = 100;
+    private float _y = 20;
+    private Point? _prevPoint = null;
+    private bool _panClicked = false;
+
+    public bool PanClicked
+    {
+        get => _panClicked;
+        set => this.RaiseAndSetIfChanged(ref (_panClicked), value);
+    }
+
+    public float X
+    {
+        get => _x;
+        set => this.RaiseAndSetIfChanged(ref (_x), value);
+    }
+
+    public float Y
+    {
+        get => _y;
+        set => this.RaiseAndSetIfChanged(ref (_y), value);
+    }
+
     public int Zoom
     {
         get => _zoom;
@@ -407,7 +430,7 @@ public class DmViewModel : ViewModelBase
         Zoom += 10;
         WriteableBitmap buffer = MapHandler.Buffer;
         MapHandler.ClearBitmap();
-        MapHandler.Render(100f, 20f, (float)Zoom / 100);
+        MapHandler.Render(X, Y, (float)Zoom / 100);
         MapHandler.RebindSource(Map);
     }
 
@@ -420,8 +443,32 @@ public class DmViewModel : ViewModelBase
         Zoom -= 10;
         WriteableBitmap buffer = MapHandler.Buffer;
         MapHandler.ClearBitmap();
-        MapHandler.Render(100f, 20f, (float)Zoom / 100);
+        MapHandler.Render(X, Y, (float)Zoom / 100);
         MapHandler.RebindSource(Map);
     }
 
+    public void Pan(Point point)
+    {
+        if (!_panClicked)
+        {
+            return;
+        }
+        Console.WriteLine("TEST");
+        if (_prevPoint != null)
+        {
+            X = (float)(X - (point.X - _prevPoint.Value.X));
+            Y = (float)(Y - (point.Y - _prevPoint.Value.Y));
+            MapHandler.ClearBitmap();
+            MapHandler.Render(X, Y, (float)Zoom / 100);
+            MapHandler.RebindSource(Map);
+        }
+
+        _prevPoint = point;
+    }
+
+    public void EndPan()
+    {
+        _panClicked = false;
+        _prevPoint = null;
+    }
 }

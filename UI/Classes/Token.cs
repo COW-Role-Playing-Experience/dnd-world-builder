@@ -13,7 +13,10 @@ namespace UI.Classes
         public bool OnCavas = false;
         public int XLoc { get; set; }
         public int YLoc { get; set; }
+        public int RelativeX { get; private set; }
+        public int RelativeY { get; }
         public double Scaling { get; private set; }
+        public double RelativeScale { get; }
         public double Size { get; set; }
         public TextBlock text;
         public ImageBrush ImageBitMap { get; }
