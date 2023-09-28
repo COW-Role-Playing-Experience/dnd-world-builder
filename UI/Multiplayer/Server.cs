@@ -19,11 +19,13 @@ public class Server
     private static bool _running = true;
     private static readonly NetPacketProcessor _netPacketProcessor = new();
     private static readonly Queue<int> WaitList = new();
+    // public static Dictionary<int, string> FileNameIDs = new();
+    private static int _idCounter = 0;
 
     static Server()
     {
         _netPacketProcessor.RegisterNestedType(() => new MapData());
-        _netPacketProcessor.RegisterNestedType(() => new Token());
+        // _netPacketProcessor.RegisterNestedType(() => new Token());
         // _netPacketProcessor.SubscribeReusable<Token, NetPeer>(OnTokenReceived);
     }
 
@@ -48,7 +50,7 @@ public class Server
 
         var rand = new Random();
         // t.MoveToken(t.X + rand.Next(0, 100), t.Y + rand.Next(0, 100));
-        _netPacketProcessor.Write(writer, t);
+        // _netPacketProcessor.Write(writer, t);
         // peer.Send(writer, DeliveryMethod.ReliableOrdered);
         writer.Reset();
     }
@@ -166,12 +168,20 @@ public class Server
         {
             _server.PollEvents();
             System.Threading.Thread.Sleep(1000);
-        }
-
-        ;
+        };
 
         // Poll the event in parallel
         // Task.Factory.StartNew(PollEvents);
+    }
+
+    private static void SendImageNameWithID(NetPeer peer, string imagePath)
+    {
+        string fileName = Path.GetFileName(imagePath);
+        NetDataWriter writer = new();
+        writer.Put(_idCounter);
+        writer.Put(fileName);
+        peer.Send(writer, DeliveryMethod.ReliableOrdered);
+        writer.Reset();
     }
 
     private static void SendImageFileWithID(NetPeer peer, string imagePath, int imageID)
@@ -229,9 +239,7 @@ public class Server
         {
             _server.PollEvents();
             System.Threading.Thread.Sleep(1000);
-        }
-
-        ;
+        };
     }
 
     public static void StopServer()

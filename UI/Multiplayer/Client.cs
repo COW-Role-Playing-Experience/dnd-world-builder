@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ public class Client
     private static NetManager _client;
     private static bool _canMove;
     private static bool _running = true;
+    private static Dictionary<int, string> FileNameIDs = new();
 
     static Client()
     {
@@ -55,11 +57,11 @@ public class Client
 
         if (_canMove)
         {
-            t.MoveToken(rand.Next(0, 100), rand.Next(0, 100));
-            NetDataWriter writer = new();
-            _netPacketProcessor.Write(writer, t);
-            peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            writer.Reset();
+            // t.MoveToken(rand.Next(0, 100), rand.Next(0, 100));
+            // NetDataWriter writer = new();
+            // _netPacketProcessor.Write(writer, t);
+            // peer.Send(writer, DeliveryMethod.ReliableOrdered);
+            // writer.Reset();
         }
     }
 
@@ -121,7 +123,6 @@ public class Client
                     Console.WriteLine($"Saved received image to: {filePath}");
                 }
             }
-
             dataReader.Recycle();
         };
 

@@ -25,7 +25,7 @@ namespace UI.Classes
         public double Size { get; set; }
         public TextBlock text;
         public ImageBrush ImageBitMap { get; }
-        private new string? Name { get; }
+        private new string? Name { get; set; }
         public event Action<Token> RequestDelete;
         public bool PlayerMoveable { get; set; }
         public bool PlayerVisible { get; set; }
