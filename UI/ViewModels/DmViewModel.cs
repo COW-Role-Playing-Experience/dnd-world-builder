@@ -482,8 +482,8 @@ public class DmViewModel : ViewModelBase
         string HostCode = "1234";
         int Port = 24652;
         //Below code is for testing client connections
-        Console.WriteLine("Starting up 2 new client instances");
-        for (int i = 0; i < 2; i++)
+        Console.WriteLine("Starting up one new client instance");
+        for (int i = 0; i < 1; i++)
         {
             Client.RunClient(Port, HostCode);
             // Start a new client every sec

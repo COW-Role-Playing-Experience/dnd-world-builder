@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using UI.Classes;
@@ -11,7 +12,6 @@ public class Server
 {
     public static DmViewModel ViewModel { get; set; }
     private static EventBasedNetListener? _netListener;
-    private static NetManager? _netManager;
     private static NetManager _server;
     private const int MaxConnections = 1; //10 <- temporary to test the connections and waitlist;
     static bool _clientsCanMove = true;
@@ -19,8 +19,6 @@ public class Server
     private static bool _running = true;
     private static readonly NetPacketProcessor _netPacketProcessor = new();
     private static readonly Queue<int> WaitList = new();
-    // public static Dictionary<int, string> FileNameIDs = new();
-    private static int _idCounter = 0;
 
     static Server()
     {
@@ -41,7 +39,6 @@ public class Server
         if (_clientsCanMove)
         {
             writer.Put(true);
-            // t.PlayerMoveable = false;
         }
         else
         {
@@ -73,37 +70,14 @@ public class Server
     {
         NetDataWriter writer = new();
         writer.Put(OnWaitList);
-        //  peer.Send(writer, DeliveryMethod.ReliableOrdered);
+        peer.Send(writer, DeliveryMethod.ReliableOrdered);
+        writer.Reset();
         if (!OnWaitList)
         {
-            if (_clientsCanMove)
-            {
-                writer.Put(true);
-                // t.PlayerMoveable = false;
-            }
-            else
-            {
-                writer.Put(false);
-            }
-
-            SendImageFileWithID(peer, "Images/Decor/Barrel/Barrel_Large_Wood_Ashen_A_Side_3x3.png", 1);
-
-            // Console.WriteLine("Send map");
-            // // Send map data to client
-            // MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
-            // _netPacketProcessor.Write(writer, md);
-            // peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            // // Then send all tokens
-            // foreach (Token t in ViewModel.TokensOnCanvas)//ConvertTokens())
-            // {
-            //     _netPacketProcessor.Write(writer, t);
-            //     peer.Send(writer, DeliveryMethod.ReliableOrdered);
-            //     writer.Reset();
-            // }
+            writer.Put(_clientsCanMove);
+            peer.Send(writer, DeliveryMethod.ReliableOrdered);
+            writer.Reset();
         }
-
-        // Clear the NetDataWriter buffer after sending everything
-        writer.Reset();
     }
 
     /// <summary>
@@ -112,7 +86,7 @@ public class Server
     public static void RunServer(int PORT, string HOST_CODE)
     {
         _netListener = new EventBasedNetListener();
-        _netManager = new NetManager(_netListener);
+        _server = new NetManager(_netListener);
         Console.WriteLine("Running server");
         EventBasedNetListener listener = new();
         _server = new(listener);
@@ -129,6 +103,18 @@ public class Server
                 Console.WriteLine("Connection: {0} with ID: {1} joined the game", peer.EndPoint, peer.Id);
                 JoinGame(peer, false);
                 ViewModel.PlayerCount = GetPlayerCount();
+                // peer.Send(writer, DeliveryMethod.ReliableOrdered);
+                // writer.Reset();
+                // Console.WriteLine("Send map");
+                // SendMapDataWithID(peer);
+                // SendImageFileWithID(peer, "Images/Decor/Barrel/Barrel_Large_Wood_Ashen_A_Side_3x3.png");
+                // // Then send all tokens
+                // foreach (Token t in ViewModel.TokensOnCanvas)//ConvertTokens())
+                // {
+                //     _netPacketProcessor.Write(writer, t);
+                //     peer.Send(writer, DeliveryMethod.ReliableOrdered);
+                //     writer.Reset();
+                // }
             }
             else
             {
@@ -164,32 +150,29 @@ public class Server
             dataReader.Recycle();
         };
 
-        while (_running)
-        {
-            _server.PollEvents();
-            System.Threading.Thread.Sleep(1000);
-        };
-
         // Poll the event in parallel
-        // Task.Factory.StartNew(PollEvents);
+        Task.Factory.StartNew(PollEvents);
     }
 
-    private static void SendImageNameWithID(NetPeer peer, string imagePath)
+    private static void SendMapDataWithID(NetPeer peer)
     {
-        string fileName = Path.GetFileName(imagePath);
         NetDataWriter writer = new();
-        writer.Put(_idCounter);
-        writer.Put(fileName);
+        // Send command id for map data
+        // List: 0 - map, 1 images, 2 - tokens, 3 - FOW
+        // Send map data to client
+        MapData md = new(0, 200, 40, 0.8, "data/dungeon-theme/");
+        writer.Put(0);
+        _netPacketProcessor.Write(writer, md);
         peer.Send(writer, DeliveryMethod.ReliableOrdered);
-        writer.Reset();
     }
 
-    private static void SendImageFileWithID(NetPeer peer, string imagePath, int imageID)
+    private static void SendImageFileWithID(NetPeer peer, string imagePath)
     {
         try
         {
             if (File.Exists(imagePath))
             {
+                int commandID = 1;
                 // Read the image file into bytes
                 byte[] imageBytes = File.ReadAllBytes(imagePath);
                 Console.WriteLine("Image bytes: " + imageBytes.Length);
@@ -208,7 +191,7 @@ public class Server
                 using (MemoryStream ms = new MemoryStream(message))
                 using (BinaryWriter writer = new BinaryWriter(ms))
                 {
-                    writer.Write(imageID);                  // Write the "ID"
+                    writer.Write(commandID);                  // Write the "ID"
                     writer.Write(fileNameBytes.Length);     // Write the file name length
                     writer.Write(fileNameBytes);            // Write the file name data
                     writer.Write(imageBytes);               // Write the image data
@@ -217,7 +200,7 @@ public class Server
                 // Send the message to the client
                 peer.Send(message, DeliveryMethod.ReliableOrdered);
 
-                Console.WriteLine($"Sent image file '{imagePath}' with ID {imageID} to client {peer.EndPoint}");
+                Console.WriteLine($"Sent image file '{imagePath}' with ID {commandID} to client {peer.EndPoint}");
             }
             else
             {
@@ -229,9 +212,6 @@ public class Server
             Console.WriteLine($"Error sending image file: {ex.Message}");
         }
     }
-
-
-
 
     private static void PollEvents()
     {
