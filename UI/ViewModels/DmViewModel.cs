@@ -358,8 +358,10 @@ public class DmViewModel : ViewModelBase
         }
     }
 
-    public void HandleTokenDrop(Token token, Point position)
+    public void HandleTokenDrop(Token token, Point position, bool isDragging)
     {
+        if (!string.IsNullOrEmpty(token.text.Text) && isDragging) return;
+
         // Calculate the half-width and half-height of the token based on its current size.
         double halfWidth = 40 / 2.0; // Since the width is changed to 40 once added to canvas
         double halfHeight = token.Size / 2.0;
