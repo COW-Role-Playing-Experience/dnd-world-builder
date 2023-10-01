@@ -13,6 +13,10 @@ using System.Drawing.Imaging;
 using Avalonia.Media;
 using Avalonia.Platform;
 using UI.Classes;
+using static System.Net.Mime.MediaTypeNames;
+using Avalonia.Controls.ApplicationLifetimes;
+using System.Diagnostics;
+using Avalonia;
 
 namespace UI.ViewModels;
 
@@ -24,6 +28,7 @@ public class MapGeneratorViewModel : ViewModelBase
         Random random = new Random();
         int randomNumber = random.Next(1, 999999999);
         SeedTextBox.Text = randomNumber.ToString();
+        MapHandler.MapSeed = randomNumber;
     }
 
     public void SeedBoxWritten(object sender, TextChangedEventArgs e)
@@ -65,6 +70,31 @@ public class MapGeneratorViewModel : ViewModelBase
                 themesBox.Items.Add(themeCapitalized);
             }
         }
+    }
+
+    public void ExportMap()
+    {
+        var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        const string appFolderName = ".worldcrucible";
+        const string mapsFolderName = "Maps";
+
+        var appFolderPath = Path.Combine(documentsDirectory, appFolderName);
+        var mapsFolderPath = Path.Combine(appFolderPath, mapsFolderName);
+
+        if (!Directory.Exists(mapsFolderPath))
+        {
+            try
+            {
+                Directory.CreateDirectory(mapsFolderPath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating directory: {ex.Message}");
+            }
+        }
+        var newMapPath = Path.Combine(mapsFolderPath, "map-" + MapHandler.MapSeed + ".jpg");
+        new FileRenderPipeline(MapHandler.map, 96, FileRenderPipeline.JpegEncoder(newMapPath, 90)).Render();
+        Console.WriteLine("File saved to " + newMapPath);
     }
 
 }
