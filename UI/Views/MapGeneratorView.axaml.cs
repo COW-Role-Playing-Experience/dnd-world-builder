@@ -49,6 +49,11 @@ public partial class MapGeneratorView : UserControl
         (DataContext as MapGeneratorViewModel)?.GenerateSeed(SeedTextBox);
     }
 
+    private void ExportMap(object sender, RoutedEventArgs e)
+    {
+        (DataContext as MapGeneratorViewModel)?.ExportMap();
+    }
+
     private void GenerateMap(object sender, RoutedEventArgs e)
     {
         Image? map = this.FindControl<Image>("Map");

@@ -209,7 +209,10 @@ public class RoomBuilder
             for (int j = y; j < y + this.ySize; j++)
             {
                 RoomTile tile = this.gridTiles[i, j];
-                tile.setTexture(this.roomTheme.floorTexture);
+                string floorTexture = this.roomTheme.floorTexture;
+                floorTexture = floorTexture.Replace('\\', Path.DirectorySeparatorChar);
+                floorTexture = floorTexture.Replace('/', Path.DirectorySeparatorChar);
+                tile.setTexture(floorTexture);
             }
         }
 

@@ -27,7 +27,7 @@
 
             <!-- Export/Host Game/Back buttons-->
             <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom">
-                <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Export</Button>
+                <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="ExportMap">Export</Button>
                 <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                         x:CompileBindings="False"
                         Command="{Binding $parent[Window].DataContext.DmView}">
