@@ -19,6 +19,8 @@ public class Client
     {
         _netPacketProcessor.RegisterNestedType(() => new MapData());
         _netPacketProcessor.SubscribeReusable<MapData, NetPeer>(OnMapDataReceived);
+        _netPacketProcessor.RegisterNestedType(() => new ImageData());
+        _netPacketProcessor.SubscribeReusable<ImageData, NetPeer>(OnImageDataReceived);
         // _netPacketProcessor.RegisterNestedType(() => new Token());
         // _netPacketProcessor.SubscribeReusable<Token, NetPeer>(OnTokenReceived);
     }
@@ -33,6 +35,55 @@ public class Client
         // MapBuilder map = new(md.XSize, md.YSize, new Random(md.Seed), md.ExpectedPopulation);
         // map.setTheme(md.Theme).initRoom().fillGaps().printMap();
     }
+
+    private static void OnImageDataReceived(ImageData imgData, NetPeer peer)
+    {
+        int fileNameLength = imgData.FileNameBytesLen; // Read the file name length
+        Console.WriteLine("File Name Length" + fileNameLength);
+
+        byte[] fileNameBytes = new byte[fileNameLength];
+
+        for (int i = 0; i < fileNameLength; i++)
+        {
+            fileNameBytes[i] = imgData.FileNameBytes[i];
+        }
+
+        // dataReader.GetBytes(fileNameBytes, 0, fileNameLength); // Read the file name bytes
+        string fileName = Encoding.UTF8.GetString(fileNameBytes); // Convert bytes to string
+        Console.WriteLine(fileName);
+
+        int availableBytes = imgData.ImageBytes.Length;//dataReader.AvailableBytes;
+        Console.WriteLine("imageBytesLength: " + availableBytes);
+        byte[] buffer = new byte[availableBytes]; // Use the correct buffer size
+
+        for (int i = 0; i < availableBytes; i++)
+        {
+            buffer[i] = imgData.ImageBytes[i];
+        }
+        // dataReader.GetBytes(buffer, 0, availableBytes); // Read the available bytes
+
+        // dataReader.GetRemainingBytes(); // Read the image data
+
+        Console.WriteLine($"Received image data with file name: {fileName} and length: {availableBytes}");
+
+        var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        const string appFolderName = ".worldcrucible";
+        const string receivedFolderName = "Received";
+
+        var receivedFolderPath = Path.Combine(documentsDirectory, appFolderName, receivedFolderName);
+
+        // Ensure that the target folder and its parent directories exist
+        Directory.CreateDirectory(receivedFolderPath);
+
+        // Use Path.Combine to create the complete file path
+        var filePath = Path.Combine(receivedFolderPath, fileName);
+
+        // Save the received data as an image file
+        File.WriteAllBytes(filePath, buffer);
+
+        Console.WriteLine($"Saved received image to: {filePath}");
+    }
+
 
     /// <summary>
     /// Receives token data from the server and calls the draw method for each token. Player can move tokens if allowed by the server (DM).
@@ -75,65 +126,16 @@ public class Client
         _client.Start();
         _client.Connect("localhost", port, HostCode);
         _running = true;
-        bool? OnWaitList = null;
 
         listener.NetworkReceiveEvent += (fromPeer, dataReader, channel, deliveryMethod) =>
         {
-            if (OnWaitList == null)
-            {
-                OnWaitList = dataReader.GetBool();
-                Console.WriteLine("On wait list: " + OnWaitList);
-            }
-            else if ((bool)!OnWaitList)
+            var OnWaitList = dataReader.GetBool();
+            if (!OnWaitList)
             {
                 _canMove = dataReader.GetBool();
                 Console.WriteLine("Can move: " + _canMove);
+                _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
             }
-
-            // int commandID = dataReader.GetInt(); // Read id
-            // Console.WriteLine("Command ID: " + commandID);
-            // if (commandID == 0)
-            // {
-            //     _netPacketProcessor.ReadAllPackets(dataReader, fromPeer);
-            // }
-            // else if (commandID == 1)
-            // {
-            //     int fileNameLength = dataReader.GetInt(); // Read the file name length
-            //     Console.WriteLine("File Name Length" + fileNameLength);
-
-            //     byte[] fileNameBytes = new byte[fileNameLength];
-
-            //     dataReader.GetBytes(fileNameBytes, 0, fileNameLength); // Read the file name bytes
-            //     string fileName = Encoding.UTF8.GetString(fileNameBytes); // Convert bytes to string
-            //     Console.WriteLine(fileName);
-
-            //     int availableBytes = dataReader.AvailableBytes;
-            //     Console.WriteLine("imageBytesLength: " + availableBytes);
-            //     byte[] buffer = new byte[availableBytes]; // Use the correct buffer size
-
-            //     dataReader.GetBytes(buffer, 0, availableBytes); // Read the available bytes
-
-            //     dataReader.GetRemainingBytes(); // Read the image data
-
-            //     Console.WriteLine($"Received image data with file name: {fileName} and length: {availableBytes}");
-
-            //     var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //     const string appFolderName = ".worldcrucible";
-            //     const string receivedFolderName = "Received";
-
-            //     var receivedFolderPath = Path.Combine(documentsDirectory, appFolderName, receivedFolderName);
-
-            //     // Ensure that the target folder and its parent directories exist
-            //     Directory.CreateDirectory(receivedFolderPath);
-
-            //     // Use Path.Combine to create the complete file path
-            //     var filePath = Path.Combine(receivedFolderPath, fileName);
-
-            //     // Save the received data as an image file
-            //     File.WriteAllBytes(filePath, buffer);
-
-            //     Console.WriteLine($"Saved received image to: {filePath}");
-            // }
             dataReader.Recycle();
         };
 
