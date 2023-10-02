@@ -31,6 +31,7 @@ public partial class DmView : UserControl
 
     private void OnTokenDropped(object sender, DragEventArgs e)
     {
+        Console.WriteLine("TEST");
         if (e.Data.Contains("Token") && e.Data.Get("Token") is Token token)
         {
             var position = e.GetPosition(this.FindControl<ItemsControl>("TokensOnCanvasControl"));
