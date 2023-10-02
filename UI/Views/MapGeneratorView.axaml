@@ -21,7 +21,7 @@
             <!-- Theme selection -->
             <StackPanel Grid.Column="0" Grid.Row="1">
                 <ComboBox Name="ThemesBox" PlaceholderText="Theme" Height="50" Width="250" HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center">
+                          VerticalContentAlignment="Center" SelectionChanged="ThemeSelected" >
                 </ComboBox>
             </StackPanel>
 

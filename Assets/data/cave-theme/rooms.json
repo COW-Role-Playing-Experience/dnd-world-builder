@@ -1,0 +1,14 @@
+[
+  {
+    "id": 0,
+    "minWidth": 6,
+    "maxWidth": 8,
+    "minHeight": 6,
+    "maxHeight": 8,
+    "connectorIds": [10, 7, 7],
+    "minConnectors": 2,
+    "maxConnectors": 3,
+    "floorTexture": "Images/Floor/Wooden_Flooring_G_03",
+    "decorGroup": "DEBUG"
+  }
+]
