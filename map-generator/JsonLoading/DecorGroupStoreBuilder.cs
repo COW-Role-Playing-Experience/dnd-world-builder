@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Text.Json;
 using map_generator.DecorHandling;
 
@@ -21,7 +22,6 @@ public class DecorGroupStoreBuilder
 
         foreach (var decorGroup in groups)
         {
-            Console.WriteLine(decorGroup.Name);
             _store.Add(decorGroup.Name, () => decorGroup);
         }
 
@@ -50,11 +50,15 @@ public class DecorGroupStoreBuilder
 
     public DecorGroupStoreBuilder AddDebug()
     {
-        List<DecorPosition> positions = new();
-        DecorGroup debug = new DecorGroup("DEBUG", 2, 2, positions);
-        positions.Add(new DecorPosition(new Decor(Path.Combine("Images", "Decor", "Corpse", "Decayed_Body_A_03_1x2")), 1, 1, 45));
-
+        DecorGroup debug = new DecorGroup("DEBUG", 1, 1, ImmutableList<DecorPosition>.Empty);
         _store.Add("DEBUG", () => debug);
+        return this;
+    }
+
+    public DecorGroupStoreBuilder AddEmpty()
+    {
+        DecorGroup debug = new DecorGroup("EMPTY", 1, 1, ImmutableList<DecorPosition>.Empty);
+        _store.Add("EMPTY", () => debug);
         return this;
     }
 
