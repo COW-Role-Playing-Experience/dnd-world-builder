@@ -9,7 +9,7 @@
     "minConnectors": 2,
     "maxConnectors": 3,
     "floorTexture": "Images/Floor/Wooden_Flooring_G_03",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 1,
@@ -21,7 +21,7 @@
     "minConnectors": 1,
     "maxConnectors": 3,
     "floorTexture": "Images/Floor/Wooden_Flooring_G_03",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 2,
@@ -33,7 +33,7 @@
     "minConnectors": 1,
     "maxConnectors": 3,
     "floorTexture": "Images/Floor/Wooden_Flooring_G_03",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 3,
@@ -45,7 +45,7 @@
     "minConnectors": 1,
     "maxConnectors": 3,
     "floorTexture": "Images/Floor/Large_Flagstone_A_04",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 4,
@@ -56,8 +56,8 @@
     "connectorIds": [5],
     "minConnectors": 1,
     "maxConnectors": 1,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
   {
     "id": 5,
@@ -68,8 +68,8 @@
     "connectorIds": [10, 10, 7, 7],
     "minConnectors": 4,
     "maxConnectors": 4,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
   {
     "id": 6,
@@ -80,8 +80,8 @@
     "connectorIds": [10, 10],
     "minConnectors": 1,
     "maxConnectors": 2,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
 {
     "id": 7,
@@ -92,8 +92,8 @@
     "connectorIds": [10, 7],
     "minConnectors": 1,
     "maxConnectors": 2,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
 {
     "id": 8,
@@ -104,8 +104,8 @@
     "connectorIds": [5],
     "minConnectors": 1,
     "maxConnectors": 1,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
 {
     "id": 9,
@@ -116,8 +116,8 @@
     "connectorIds": [10, 7, 7],
     "minConnectors": 1,
     "maxConnectors": 3,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
 {
     "id": 10,
@@ -128,8 +128,8 @@
     "connectorIds": [10, 7, 7],
     "minConnectors": 1,
     "maxConnectors": 3,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
 {
     "id": 11,
@@ -140,8 +140,8 @@
     "connectorIds": [10, 7, 10],
     "minConnectors": 1,
     "maxConnectors": 3,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
   {
     "id": 12,
@@ -152,8 +152,8 @@
     "connectorIds": [10, 7, 7],
     "minConnectors": 1,
     "maxConnectors": 3,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
    {
     "id": 13,
@@ -164,8 +164,8 @@
     "connectorIds": [10, 10, 7],
     "minConnectors": 1,
     "maxConnectors": 3,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
     {
     "id": 14,
@@ -176,8 +176,8 @@
     "connectorIds": [10, 10, 7],
     "minConnectors": 1,
     "maxConnectors": 3,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
       {
     "id": 15,
@@ -188,8 +188,8 @@
     "connectorIds": [10, 7, 7],
     "minConnectors": 1,
     "maxConnectors": 3,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
         {
     "id": 16,
@@ -200,8 +200,8 @@
     "connectorIds": [5, 6],
     "minConnectors": 1,
     "maxConnectors": 2,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
         {
     "id": 17,
@@ -212,8 +212,8 @@
     "connectorIds": [5, 6],
     "minConnectors": 1,
     "maxConnectors": 2,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
           {
     "id": 18,
@@ -224,8 +224,8 @@
     "connectorIds": [10],
     "minConnectors": 0,
     "maxConnectors": 1,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
           {
     "id": 19,
@@ -236,8 +236,8 @@
     "connectorIds": [5],
     "minConnectors": 1,
     "maxConnectors": 1,
-    "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
           },
         {
   "id": 20,
@@ -248,7 +248,7 @@
   "connectorIds": [5],
   "minConnectors": 1,
   "maxConnectors": 1,
-  "floorTexture": "DEBUG",
-    "decorGroup": "DEBUG"
+  "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
         }
 ]
