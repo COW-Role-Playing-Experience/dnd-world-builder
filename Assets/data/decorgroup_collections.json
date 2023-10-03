@@ -1,5 +1,83 @@
 {
-  "demo_group": {
-    "DEBUG": 1
-  }
+    "corpses": {
+        "corpses_1": 1,
+        "corpses_2": 1,
+        "corpses_3": 1,
+        "corpses_4": 1,
+        "corpses_5": 1,
+        "corpses_6": 1
+    },
+    "rubble": {
+        "rubble_1": 1,
+        "rubble_2": 1,
+        "rubble_3": 1
+    },
+    "treasure": {
+        "treasure_1": 1,
+        "treasure_2": 1,
+        "treasure_3": 1,
+        "treasure_4": 1
+    },
+    "toilet": {
+        "toilet_1": 1,
+        "toilet_2": 1,
+        "toilet_3": 1,
+        "toilet_4": 1,
+        "toilet_5": 1
+    },
+    "table_and_chairs": {
+        "table_and_chairs_1": 1
+    },
+    "dining": {
+        "dining_table_1": 1,
+        "dining_table_2": 1,
+        "dining_table_3": 1,
+        "dining_table_4": 1,
+        "dining_table_5": 1
+    },
+    "coffee": {
+        "coffee_table_1": 1,
+        "coffee_table_2": 1,
+        "coffee_table_3": 1,
+        "coffee_table_4": 1
+    },
+    "barrels": {
+        "barrels_1": 1,
+        "barrels_2": 1,
+        "barrels_3": 1,
+        "barrels_4": 1,
+        "barrels_5": 1,
+        "barrels_6": 1,
+        "barrels_7": 1
+    },
+    "chest": {
+        "chest_1": 1,
+        "chest_2": 1,
+        "chest_3": 1
+    },
+    "firepit": {
+        "firepit_1": 1,
+        "firepit_2": 1,
+        "firepit_3": 1,
+        "firepit_4": 1,
+        "firepit_5": 1,
+        "firepit_6": 1,
+        "firepit_7": 1
+    },
+    "pillar": {
+        "pillar_1": 1
+    },
+    "ALL": {
+        "corpses" : 1,
+        "rubble" : 1,
+        "treasure" : 1,
+        "toilet" : 1,
+        "table_and_chairs" : 1,
+        "dining" : 1,
+        "coffee" : 1,
+        "barrels" : 1,
+        "chest" : 1,
+        "firepit" : 1,
+        "pillar" : 1
+    }
 }
