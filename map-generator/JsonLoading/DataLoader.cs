@@ -18,7 +18,8 @@ public static class DataLoader
 
     public static Random Random
     {
-        set => _randomSource.Random = value;
+        set => _randomSource.Random = new Random(0);
+        //_randomSource.Random = value;
     }
 
     public static readonly JsonSerializerOptions CaseInsensitive = new()
@@ -45,6 +46,7 @@ public static class DataLoader
 
     public static void Init()
     {
+        _randomSource.Random = new Random(0);
         _textures = new TextureStoreBuilder()
             .AddDebug()
             .AddEmpty()
@@ -53,6 +55,7 @@ public static class DataLoader
             .Get();
         _decorGroups = new DecorGroupStoreBuilder()
             .AddDebug()
+            .AddEmpty()
             .BindConcreteDecorGroups(ConcreteDecorGroupPath)
             .BindRandomisedDecorGroups(RandomDecorGroupPath, _randomSource)
             .Get();
