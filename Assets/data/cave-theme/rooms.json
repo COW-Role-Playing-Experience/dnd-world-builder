@@ -9,7 +9,7 @@
     "minConnectors": 0,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 1,
@@ -21,7 +21,7 @@
     "minConnectors": 0,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 2,
@@ -33,7 +33,7 @@
     "minConnectors": 0,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 3,
@@ -45,7 +45,7 @@
     "minConnectors": 0,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 4,
@@ -57,7 +57,7 @@
     "minConnectors": 0,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 5,
@@ -69,6 +69,6 @@
     "minConnectors": 4,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   }
 ]
