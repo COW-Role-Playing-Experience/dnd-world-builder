@@ -1,14 +1,1290 @@
 [
     {
-        "name": "example",
+        "name": "corpses_1",
+        "width": 4,
+        "height": 3,
+        "elements": [
+            {
+                "name": "corpse_decayed",
+                "x": 1.08,
+                "y": 1.36,
+                "rotation": 330
+            },
+            {
+                "name": "corpse_decayed",
+                "x": 3.02,
+                "y": 1.6,
+                "rotation": 15
+            }
+        ]
+    },
+    {
+        "name": "corpses_2",
+        "width": 4,
+        "height": 4,
+        "elements": [
+            {
+                "name": "corpse_decayed",
+                "x": 1.42,
+                "y": 1.02,
+                "rotation": 99
+            },
+            {
+                "name": "corpse_decayed",
+                "x": 0.94,
+                "y": 2.76,
+                "rotation": 336
+            },
+            {
+                "name": "corpse_decayed",
+                "x": 3.04,
+                "y": 2.66,
+                "rotation": 21
+            },
+            {
+                "name": "rubble_low",
+                "x": 3.26,
+                "y": 0.82,
+                "rotation": 342
+            },
+            {
+                "name": "rubble_low",
+                "x": 2.04,
+                "y": 2.28,
+                "rotation": 36
+            }
+        ]
+    },
+    {
+        "name": "corpses_3",
+        "width": 4,
+        "height": 3,
+        "elements": [
+            {
+                "name": "campfire",
+                "x": 0.92,
+                "y": 1.04,
+                "rotation": 333
+            },
+            {
+                "name": "corpse_guard",
+                "x": 2.92,
+                "y": 1.24,
+                "rotation": 351
+            },
+            {
+                "name": "corpse_guard",
+                "x": 1.22,
+                "y": 2.2,
+                "rotation": 258
+            }
+        ]
+    },
+    {
+        "name": "corpses_4",
+        "width": 4,
+        "height": 5,
+        "elements": [
+            {
+                "name": "chair_broken",
+                "x": 0.9,
+                "y": 1.08,
+                "rotation": 339
+            },
+            {
+                "name": "corpse_decayed",
+                "x": 2.66,
+                "y": 1.04,
+                "rotation": 282
+            },
+            {
+                "name": "chair_broken",
+                "x": 3.08,
+                "y": 2.5,
+                "rotation": 63
+            },
+            {
+                "name": "table_busted",
+                "x": 1.36,
+                "y": 3.26,
+                "rotation": 81
+            },
+            {
+                "name": "chair_wooden",
+                "x": 3.3,
+                "y": 4.28,
+                "rotation": 99
+            }
+        ]
+    },
+    {
+        "name": "corpses_5",
+        "width": 2,
+        "height": 3,
+        "elements": [
+            {
+                "name": "corpse_guard",
+                "x": 0.98,
+                "y": 1.5,
+                "rotation": 348
+            }
+        ]
+    },
+    {
+        "name": "corpses_6",
+        "width": 3,
+        "height": 2,
+        "elements": [
+            {
+                "name": "corpse_guard",
+                "x": 1.5,
+                "y": 1.02,
+                "rotation": 246
+            }
+        ]
+    },
+    {
+        "name": "rubble_1",
+        "width": 3,
+        "height": 2,
+        "elements": [
+            {
+                "name": "rubble_medium",
+                "x": 1.38,
+                "y": 1.3,
+                "rotation": 108
+            },
+            {
+                "name": "rubble_low",
+                "x": 1.92,
+                "y": 1.12,
+                "rotation": 30
+            },
+            {
+                "name": "rubble_low",
+                "x": 0.84,
+                "y": 0.84,
+                "rotation": 333
+            }
+        ]
+    },
+    {
+        "name": "rubble_2",
+        "width": 3,
+        "height": 4,
+        "elements": [
+            {
+                "name": "rubble_high",
+                "x": 1.5,
+                "y": 1.82,
+                "rotation": 18
+            },
+            {
+                "name": "rubble_low",
+                "x": 2.36,
+                "y": 3.38,
+                "rotation": 84
+            },
+            {
+                "name": "rubble_medium",
+                "x": 0.76,
+                "y": 3.32,
+                "rotation": 339
+            }
+        ]
+    },
+    {
+        "name": "rubble_3",
+        "width": 3,
+        "height": 3,
+        "elements": [
+            {
+                "name": "rubble_medium",
+                "x": 0.88,
+                "y": 0.88,
+                "rotation": 339
+            },
+            {
+                "name": "rubble_medium",
+                "x": 2.14,
+                "y": 1.02,
+                "rotation": 75
+            },
+            {
+                "name": "rubble_medium",
+                "x": 1.32,
+                "y": 2.24,
+                "rotation": 285
+            }
+        ]
+    },
+    {
+        "name": "treasure_1",
+        "width": 4,
+        "height": 4,
+        "elements": [
+            {
+                "name": "treasure_chest",
+                "x": 0.9,
+                "y": 0.9,
+                "rotation": 267
+            },
+            {
+                "name": "treasure_chest",
+                "x": 0.94,
+                "y": 2.04,
+                "rotation": 270
+            },
+            {
+                "name": "treasure_chest",
+                "x": 1.0,
+                "y": 3.24,
+                "rotation": 261
+            },
+            {
+                "name": "treasure_chest",
+                "x": 2.96,
+                "y": 0.86,
+                "rotation": 99
+            },
+            {
+                "name": "treasure_chest",
+                "x": 2.94,
+                "y": 2.08,
+                "rotation": 93
+            },
+            {
+                "name": "treasure_chest",
+                "x": 2.98,
+                "y": 3.26,
+                "rotation": 84
+            }
+        ]
+    },
+    {
+        "name": "treasure_2",
+        "width": 4,
+        "height": 4,
+        "elements": [
+            {
+                "name": "treasure_chest",
+                "x": 0.78,
+                "y": 1.02,
+                "rotation": 6
+            },
+            {
+                "name": "treasure_chest",
+                "x": 2.06,
+                "y": 0.98,
+                "rotation": 357
+            },
+            {
+                "name": "treasure_chest",
+                "x": 3.24,
+                "y": 1.06,
+                "rotation": 9
+            },
+            {
+                "name": "treasure_chest",
+                "x": 0.82,
+                "y": 3.02,
+                "rotation": 171
+            },
+            {
+                "name": "treasure_chest",
+                "x": 2.0,
+                "y": 2.9,
+                "rotation": 177
+            },
+            {
+                "name": "treasure_chest",
+                "x": 3.22,
+                "y": 2.96,
+                "rotation": 189
+            }
+        ]
+    },
+    {
+        "name": "treasure_3",
+        "width": 3,
+        "height": 3,
+        "elements": [
+            {
+                "name": "treasure_chest",
+                "x": 0.88,
+                "y": 0.8,
+                "rotation": 312
+            },
+            {
+                "name": "treasure_chest",
+                "x": 2.28,
+                "y": 0.72,
+                "rotation": 354
+            },
+            {
+                "name": "treasure_chest",
+                "x": 0.92,
+                "y": 2.3,
+                "rotation": 210
+            }
+        ]
+    },
+    {
+        "name": "treasure_4",
+        "width": 4,
+        "height": 4,
+        "elements": [
+            {
+                "name": "treasure_chest",
+                "x": 3.0,
+                "y": 1.04,
+                "rotation": 75
+            },
+            {
+                "name": "treasure_chest",
+                "x": 1.48,
+                "y": 1.06,
+                "rotation": 318
+            },
+            {
+                "name": "treasure_chest",
+                "x": 3.04,
+                "y": 2.92,
+                "rotation": 108
+            },
+            {
+                "name": "treasure_chest",
+                "x": 0.96,
+                "y": 2.76,
+                "rotation": 243
+            }
+        ]
+    },
+    {
+        "name": "toilet_1",
+        "width": 3,
+        "height": 3,
+        "elements": [
+            {
+                "name": "toilet",
+                "x": 0.9,
+                "y": 1.04,
+                "rotation": 345
+            },
+            {
+                "name": "toilet",
+                "x": 2.24,
+                "y": 1.0,
+                "rotation": 9
+            },
+            {
+                "name": "Images/Decor/Cookware/Pot_Metal_Gray_Filled_A3_1x1",
+                "x": 0.86,
+                "y": 2.28,
+                "rotation": 69
+            }
+        ]
+    },
+    {
+        "name": "toilet_2",
+        "width": 4,
+        "height": 2,
+        "elements": [
+            {
+                "name": "Images/Decor/Table/Table_Rectangle_Wood_Red_J_2x1",
+                "x": 1.18,
+                "y": 0.68,
+                "rotation": 0
+            },
+            {
+                "name": "toilet",
+                "x": 3.06,
+                "y": 0.8,
+                "rotation": 9
+            },
+            {
+                "name": "Images/Decor/Cookware/Pot_Metal_Gray_Filled_A3_1x1",
+                "x": 1.84,
+                "y": 0.8,
+                "rotation": 300
+            }
+        ]
+    },
+    {
+        "name": "toilet_3",
+        "width": 2,
+        "height": 2,
+        "elements": [
+            {
+                "name": "toilet",
+                "x": 0.9,
+                "y": 0.96,
+                "rotation": 327
+            },
+            {
+                "name": "Images/Decor/Corpse/Decayed_Body_Torso_02_1x1",
+                "x": 1.02,
+                "y": 1.16,
+                "rotation": 330
+            }
+        ]
+    },
+    {
+        "name": "toilet_4",
+        "width": 2,
+        "height": 2,
+        "elements": [
+            {
+                "name": "toilet",
+                "x": 1.2,
+                "y": 1.22,
+                "rotation": 126
+            },
+            {
+                "name": "Images/Decor/Corpse/Decayed_Body_Torso_02_1x1",
+                "x": 0.96,
+                "y": 1.06,
+                "rotation": 126
+            }
+        ]
+    },
+    {
+        "name": "toilet_5",
+        "width": 3,
+        "height": 3,
+        "elements": [
+            {
+                "name": "toilet",
+                "x": 2.12,
+                "y": 0.98,
+                "rotation": 84
+            },
+            {
+                "name": "toilet",
+                "x": 2.14,
+                "y": 2.24,
+                "rotation": 96
+            },
+            {
+                "name": "Images/Decor/Chest/Chest_Wood_Light_C_1x1",
+                "x": 0.6599999999999999,
+                "y": 0.64,
+                "rotation": 0
+            }
+        ]
+    },
+    {
+        "name": "table_and_chairs_1",
+        "width": 5,
+        "height": 5,
+        "elements": [
+            {
+                "name": "table_busted",
+                "x": 1.62,
+                "y": 2.02,
+                "rotation": 252
+            },
+            {
+                "name": "chair_broken",
+                "x": 3.84,
+                "y": 0.76,
+                "rotation": 33
+            },
+            {
+                "name": "chair_broken",
+                "x": 3.86,
+                "y": 2.48,
+                "rotation": 102
+            },
+            {
+                "name": "corpse_guard",
+                "x": 3.42,
+                "y": 4.18,
+                "rotation": 84
+            }
+        ]
+    },
+    {
+        "name": "faillol",
+        "width": 3,
+        "height": 3,
+        "elements": [
+            {
+                "name": "corpse_guard",
+                "x": 0.98,
+                "y": 1.46,
+                "rotation": 0
+            },
+            {
+                "name": "corpse_guard",
+                "x": 1.74,
+                "y": 1.6,
+                "rotation": 114
+            }
+        ]
+    },
+    {
+        "name": "dining_table_1",
+        "width": 5,
+        "height": 4,
+        "elements": [
+            {
+                "name": "table_wooden",
+                "x": 2.32,
+                "y": 1.72,
+                "rotation": 0
+            },
+            {
+                "name": "chair_wooden",
+                "x": 4.0,
+                "y": 2.3333333333333335,
+                "rotation": 93
+            },
+            {
+                "name": "chair_wooden",
+                "x": 2.25,
+                "y": 3.5,
+                "rotation": 180
+            },
+            {
+                "name": "chair_wooden",
+                "x": 0.75,
+                "y": 1.25,
+                "rotation": 267
+            },
+            {
+                "name": "chair_wooden",
+                "x": 4.0,
+                "y": 1.0,
+                "rotation": 90
+            },
+            {
+                "name": "chair_wooden",
+                "x": 0.75,
+                "y": 2.5,
+                "rotation": 270
+            }
+        ]
+    },
+    {
+        "name": "dining_table_2",
+        "width": 5,
+        "height": 2,
+        "elements": [
+            {
+                "name": "table_wooden",
+                "x": 2.333333333333333,
+                "y": 1.0,
+                "rotation": 0
+            },
+            {
+                "name": "chair_wooden",
+                "x": 4.0,
+                "y": 1.0,
+                "rotation": 90
+            },
+            {
+                "name": "chair_wooden",
+                "x": 0.666666666666667,
+                "y": 1.0,
+                "rotation": 264
+            }
+        ]
+    },
+    {
+        "name": "dining_table_3",
+        "width": 3,
+        "height": 5,
+        "elements": [
+            {
+                "name": "table_wooden",
+                "x": 2.0,
+                "y": 2.333333333333333,
+                "rotation": 270
+            },
+            {
+                "name": "chair_wooden",
+                "x": 2.0,
+                "y": 0.666666666666667,
+                "rotation": 0
+            },
+            {
+                "name": "chair_wooden",
+                "x": 2.0,
+                "y": 4.0,
+                "rotation": 174
+            }
+        ]
+    },
+    {
+        "name": "dining_table_4",
+        "width": 5,
+        "height": 3,
+        "elements": [
+            {
+                "name": "table_wooden",
+                "x": 2.5,
+                "y": 1.5,
+                "rotation": 0
+            },
+            {
+                "name": "chair_fancy",
+                "x": 0.75,
+                "y": 2.0,
+                "rotation": 270
+            },
+            {
+                "name": "chair_fancy",
+                "x": 4.25,
+                "y": 2.0,
+                "rotation": 93
+            },
+            {
+                "name": "chair_fancy",
+                "x": 0.75,
+                "y": 0.75,
+                "rotation": 273
+            },
+            {
+                "name": "chair_fancy",
+                "x": 4.25,
+                "y": 0.75,
+                "rotation": 87
+            }
+        ]
+    },
+    {
+        "name": "dining_table_5",
+        "width": 3,
+        "height": 5,
+        "elements": [
+            {
+                "name": "table_wooden",
+                "x": 1.5,
+                "y": 2.5,
+                "rotation": 0
+            },
+            {
+                "name": "chair_fancy",
+                "x": 1.0,
+                "y": 0.75,
+                "rotation": 0
+            },
+            {
+                "name": "chair_fancy",
+                "x": 2.25,
+                "y": 0.75,
+                "rotation": 3
+            },
+            {
+                "name": "chair_fancy",
+                "x": 1.0,
+                "y": 4.25,
+                "rotation": 183
+            },
+            {
+                "name": "chair_fancy",
+                "x": 2.25,
+                "y": 4.25,
+                "rotation": 168
+            }
+        ]
+    },
+    {
+        "name": "coffee_table_1",
+        "width": 5,
+        "height": 2,
+        "elements": [
+            {
+                "name": "table_coffee",
+                "x": 2.75,
+                "y": 1.0,
+                "rotation": 0
+            },
+            {
+                "name": "chair_wooden",
+                "x": 4.0,
+                "y": 0.75,
+                "rotation": 90
+            },
+            {
+                "name": "chair_wooden",
+                "x": 1.5,
+                "y": 1.0,
+                "rotation": 264
+            }
+        ]
+    },
+    {
+        "name": "coffee_table_2",
+        "width": 3,
+        "height": 4,
+        "elements": [
+            {
+                "name": "chair_wooden",
+                "x": 2.0,
+                "y": 3.25,
+                "rotation": 180
+            },
+            {
+                "name": "chair_wooden",
+                "x": 2.0,
+                "y": 0.75,
+                "rotation": 0
+            },
+            {
+                "name": "table_coffee",
+                "x": 2.0,
+                "y": 2.0,
+                "rotation": 270
+            }
+        ]
+    },
+    {
+        "name": "coffee_table_3",
+        "width": 5,
+        "height": 2,
+        "elements": [
+            {
+                "name": "table_coffee",
+                "x": 2.75,
+                "y": 1.0,
+                "rotation": 0
+            },
+            {
+                "name": "chair_fancy",
+                "x": 1.25,
+                "y": 1.0,
+                "rotation": 249
+            },
+            {
+                "name": "chair_fancy",
+                "x": 4.0,
+                "y": 1.0,
+                "rotation": 0
+            }
+        ]
+    },
+    {
+        "name": "coffee_table_4",
+        "width": 3,
+        "height": 6,
+        "elements": [
+            {
+                "name": "table_coffee",
+                "x": 2.0,
+                "y": 3.0,
+                "rotation": 270
+            },
+            {
+                "name": "chair_fancy",
+                "x": 2.0,
+                "y": 1.5,
+                "rotation": 18
+            },
+            {
+                "name": "chair_fancy",
+                "x": 2.0,
+                "y": 4.5,
+                "rotation": 165
+            }
+        ]
+    },
+    {
+        "name": "barrels_1",
+        "width": 3,
+        "height": 3,
+        "elements": [
+            {
+                "name": "Images/Decor/Barrel/Barrel_Lid_Wood_Dark_B2_1x1",
+                "x": 2.5,
+                "y": 2.5,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Lid_Wood_Dark_B2_1x1",
+                "x": 1.5,
+                "y": 2.5,
+                "rotation": 270
+            },
+            {
+                "name": "Images/Decor/Barrel/Keg_Wood_Ashen_E_Rusty_2x1",
+                "x": 2.0,
+                "y": 1.5,
+                "rotation": 180
+            }
+        ]
+    },
+    {
+        "name": "barrels_2",
+        "width": 3,
+        "height": 2,
+        "elements": [
+            {
+                "name": "Images/Decor/Barrel/Barrel_Wood_Dark_F_TNT_1x1",
+                "x": 2.5,
+                "y": 1.5,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Rubble/Rubble_Pile_Stone_Slate_D8_1x1",
+                "x": 1.4800000000000004,
+                "y": 1.0,
+                "rotation": 270
+            },
+            {
+                "name": "Images/Decor/Rubble/Rubble_Pile_Stone_Slate_B21_1x1",
+                "x": 2.46,
+                "y": 0.54,
+                "rotation": 0
+            }
+        ]
+    },
+    {
+        "name": "barrels_3",
+        "width": 6,
+        "height": 4,
+        "elements": [
+            {
+                "name": "Images/Decor/Barrel/Barrel_Large_Wood_Ashen_A_Side_3x3",
+                "x": 4.48,
+                "y": 1.5199999999999996,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Side_Wood_Ashen_B_Rusty_1x1",
+                "x": 1.2199999999999998,
+                "y": 0.9800000000000004,
+                "rotation": 276
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Side_Wood_Ashen_B_Rusty_1x1",
+                "x": 2.34,
+                "y": 0.5199999999999996,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Barrel/Keg_Wood_Ashen_E_Rusty_2x1",
+                "x": 1.9000000000000004,
+                "y": 2.2200000000000006,
+                "rotation": 9
+            }
+        ]
+    },
+    {
+        "name": "barrels_4",
+        "width": 3,
+        "height": 3,
+        "elements": [
+            {
+                "name": "Images/Decor/Barrel/Keg_Wood_Ashen_E_Rusty_2x1",
+                "x": 1.04,
+                "y": 2.46,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Lid_Wood_Dark_B2_1x1",
+                "x": 0.7199999999999998,
+                "y": 1.2800000000000002,
+                "rotation": 315
+            }
+        ]
+    },
+    {
+        "name": "barrels_5",
+        "width": 3,
+        "height": 6,
+        "elements": [
+            {
+                "name": "Images/Decor/Barrel/Barrel_Large_Wood_Ashen_A_Top_3x3",
+                "x": 1.5,
+                "y": 4.5,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Side_Wood_Ashen_B_Rusty_1x1",
+                "x": 0.5800000000000001,
+                "y": 2.34,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Barrel/Keg_Wood_Ashen_E_Rusty_2x1",
+                "x": 1.88,
+                "y": 2.0,
+                "rotation": 219
+            }
+        ]
+    },
+    {
+        "name": "barrels_6",
+        "width": 2,
+        "height": 3,
+        "elements": [
+            {
+                "name": "Images/Decor/Barrel/Barrel_Wood_Dark_F_TNT_1x1",
+                "x": 1.5,
+                "y": 2.5,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Wood_Dark_F_TNT_1x1",
+                "x": 0.5199999999999996,
+                "y": 2.0599999999999996,
+                "rotation": 270
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Side_Wood_Ashen_B_Rusty_1x1",
+                "x": 1.2999999999999998,
+                "y": 1.2800000000000002,
+                "rotation": 27
+            }
+        ]
+    },
+    {
+        "name": "barrels_7",
+        "width": 3,
+        "height": 2,
+        "elements": [
+            {
+                "name": "Images/Decor/Barrel/Keg_Wood_Ashen_E_Rusty_2x1",
+                "x": 1.5,
+                "y": 1.5,
+                "rotation": 180
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Side_Wood_Ashen_B_Rusty_1x1",
+                "x": 1.3200000000000003,
+                "y": 0.5,
+                "rotation": 0
+            }
+        ]
+    },
+    {
+        "name": "chest_1",
+        "width": 3,
+        "height": 4,
+        "elements": [
+            {
+                "name": "treasure_chest",
+                "x": 1.38,
+                "y": 2.4000000000000004,
+                "rotation": 120
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Lid_Wood_Dark_B2_1x1",
+                "x": 0.54,
+                "y": 1.62,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Lid_Wood_Dark_B2_1x1",
+                "x": 1.5199999999999996,
+                "y": 1.1799999999999997,
+                "rotation": 0
+            }
+        ]
+    },
+    {
+        "name": "chest_2",
+        "width": 4,
+        "height": 4,
+        "elements": [
+            {
+                "name": "treasure_chest",
+                "x": 2.5,
+                "y": 2.5,
+                "rotation": 177
+            },
+            {
+                "name": "rubble_low",
+                "x": 1.6399999999999997,
+                "y": 1.6600000000000001,
+                "rotation": 330
+            }
+        ]
+    },
+    {
+        "name": "chest_3",
+        "width": 3,
+        "height": 2,
+        "elements": [
+            {
+                "name": "treasure_chest",
+                "x": 2.5,
+                "y": 1.5,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Side_Wood_Ashen_B_Rusty_1x1",
+                "x": 1.42,
+                "y": 1.4000000000000004,
+                "rotation": 279
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Lid_Wood_Dark_B2_1x1",
+                "x": 2.5,
+                "y": 0.5,
+                "rotation": 0
+            }
+        ]
+    },
+    {
+        "name": "firepit_1",
+        "width": 3,
+        "height": 3,
+        "elements": [
+            {
+                "name": "campfire",
+                "x": 2.5,
+                "y": 2.5,
+                "rotation": 0
+            },
+            {
+                "name": "corpse_decayed",
+                "x": 1.9400000000000004,
+                "y": 1.3600000000000003,
+                "rotation": 39
+            }
+        ]
+    },
+    {
+        "name": "firepit_2",
         "width": 1,
         "height": 1,
         "elements": [
             {
-                "name": "DEBUG",
-                "x": 1.0,
-                "y": 1.0,
+                "name": "firepit",
+                "x": 0.5,
+                "y": 0.5,
                 "rotation": 0
+            },
+            {
+                "name": "cooking_pot",
+                "x": 0.5,
+                "y": 0.5,
+                "rotation": 0
+            }
+        ]
+    },
+    {
+        "name": "firepit_3",
+        "width": 4,
+        "height": 3,
+        "elements": [
+            {
+                "name": "firepit",
+                "x": 2.5,
+                "y": 0.5,
+                "rotation": 0
+            },
+            {
+                "name": "chair_broken",
+                "x": 1.5,
+                "y": 1.0,
+                "rotation": 261
+            },
+            {
+                "name": "chair_broken",
+                "x": 2.5199999999999996,
+                "y": 1.6400000000000006,
+                "rotation": 177
+            }
+        ]
+    },
+    {
+        "name": "firepit_4",
+        "width": 3,
+        "height": 3,
+        "elements": [
+            {
+                "name": "firepit",
+                "x": 2.5,
+                "y": 0.5,
+                "rotation": 0
+            },
+            {
+                "name": "weaponry",
+                "x": 1.9400000000000004,
+                "y": 1.5,
+                "rotation": 276
+            }
+        ]
+    },
+    {
+        "name": "firepit_5",
+        "width": 3,
+        "height": 4,
+        "elements": [
+            {
+                "name": "rubble_low",
+                "x": 0.7599999999999998,
+                "y": 2.4400000000000004,
+                "rotation": 162
+            },
+            {
+                "name": "rubble_low",
+                "x": 1.5999999999999996,
+                "y": 1.2400000000000002,
+                "rotation": 93
+            },
+            {
+                "name": "firepit",
+                "x": 0.5,
+                "y": 1.3200000000000003,
+                "rotation": 0
+            }
+        ]
+    },
+    {
+        "name": "firepit_6",
+        "width": 3,
+        "height": 5,
+        "elements": [
+            {
+                "name": "firepit",
+                "x": 0.7199999999999998,
+                "y": 1.4800000000000004,
+                "rotation": 0
+            },
+            {
+                "name": "corpse_guard",
+                "x": 1.5,
+                "y": 2.6999999999999993,
+                "rotation": 252
+            },
+            {
+                "name": "weaponry",
+                "x": 1.7999999999999998,
+                "y": 3.5999999999999996,
+                "rotation": 252
+            },
+            {
+                "name": "chair_broken",
+                "x": 2.1999999999999993,
+                "y": 1.2400000000000002,
+                "rotation": 60
+            }
+        ]
+    },
+    {
+        "name": "firepit_7",
+        "width": 5,
+        "height": 6,
+        "elements": [
+            {
+                "name": "firepit",
+                "x": 2.5,
+                "y": 3.5,
+                "rotation": 0
+            },
+            {
+                "name": "corpse_decayed",
+                "x": 1.6600000000000001,
+                "y": 4.359999999999999,
+                "rotation": 303
+            },
+            {
+                "name": "corpse_decayed",
+                "x": 3.460000000000001,
+                "y": 2.6799999999999997,
+                "rotation": 342
+            },
+            {
+                "name": "corpse_decayed",
+                "x": 1.6399999999999997,
+                "y": 2.46,
+                "rotation": 45
+            },
+            {
+                "name": "weaponry",
+                "x": 3.4399999999999995,
+                "y": 4.84,
+                "rotation": 48
+            },
+            {
+                "name": "weaponry",
+                "x": 2.4800000000000004,
+                "y": 0.9400000000000004,
+                "rotation": 276
+            }
+        ]
+    },
+    {
+        "name": "pillar_1",
+        "width": 4,
+        "height": 9,
+        "elements": [
+            {
+                "name": "pillar_light",
+                "x": 3.5,
+                "y": 6.5,
+                "rotation": 0
+            },
+            {
+                "name": "pillar_light",
+                "x": 3.5,
+                "y": 4.5,
+                "rotation": 0
+            },
+            {
+                "name": "pillar_light",
+                "x": 0.5,
+                "y": 6.5,
+                "rotation": 0
+            },
+            {
+                "name": "pillar_light",
+                "x": 0.5,
+                "y": 4.5,
+                "rotation": 0
+            },
+            {
+                "name": "pillar_light",
+                "x": 3.5,
+                "y": 8.5,
+                "rotation": 0
+            },
+            {
+                "name": "pillar_light",
+                "x": 0.5,
+                "y": 8.5,
+                "rotation": 0
+            },
+            {
+                "name": "pillar_light",
+                "x": 3.5,
+                "y": 2.5,
+                "rotation": 0
+            },
+            {
+                "name": "pillar_light",
+                "x": 0.5,
+                "y": 2.5,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Chest/Treasure_Chest_Wood_Red_A2_Coins_Silver_1x1",
+                "x": 2.0,
+                "y": 1.5,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Fire/Campfire_A_Lit_1x1",
+                "x": 3.25,
+                "y": 1.25,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Fire/Campfire_A_Lit_1x1",
+                "x": 0.75,
+                "y": 1.25,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Corpse/Guard_Corpse_Blue_B_Bloody_1x2",
+                "x": 2.0,
+                "y": 3.25,
+                "rotation": 345
             }
         ]
     }
