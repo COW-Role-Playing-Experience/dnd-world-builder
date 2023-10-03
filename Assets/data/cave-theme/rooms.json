@@ -1,14 +1,74 @@
 [
   {
     "id": 0,
-    "minWidth": 6,
-    "maxWidth": 8,
-    "minHeight": 6,
-    "maxHeight": 8,
-    "connectorIds": [10, 7, 7],
-    "minConnectors": 2,
-    "maxConnectors": 3,
-    "floorTexture": "Images/Floor/Wooden_Flooring_G_03",
+    "minWidth": 1,
+    "maxWidth": 3,
+    "minHeight": 1,
+    "maxHeight": 3,
+    "connectorIds": [0, 0, 0, 0],
+    "minConnectors": 0,
+    "maxConnectors": 4,
+    "floorTexture": "Images/Floor/Rock_Ground_C_05",
+    "decorGroup": "DEBUG"
+  },
+  {
+    "id": 1,
+    "minWidth": 3,
+    "maxWidth": 5,
+    "minHeight": 3,
+    "maxHeight": 5,
+    "connectorIds": [0, 0, 0, 0],
+    "minConnectors": 0,
+    "maxConnectors": 4,
+    "floorTexture": "Images/Floor/Rock_Ground_C_05",
+    "decorGroup": "DEBUG"
+  },
+  {
+    "id": 2,
+    "minWidth": 2,
+    "maxWidth": 4,
+    "minHeight": 4,
+    "maxHeight": 6,
+    "connectorIds": [0, 0, 0, 0],
+    "minConnectors": 0,
+    "maxConnectors": 4,
+    "floorTexture": "Images/Floor/Rock_Ground_C_05",
+    "decorGroup": "DEBUG"
+  },
+  {
+    "id": 3,
+    "minWidth": 4,
+    "maxWidth": 6,
+    "minHeight": 2,
+    "maxHeight": 4,
+    "connectorIds": [0, 0, 0, 0],
+    "minConnectors": 0,
+    "maxConnectors": 4,
+    "floorTexture": "Images/Floor/Rock_Ground_C_05",
+    "decorGroup": "DEBUG"
+  },
+  {
+    "id": 4,
+    "minWidth": 4,
+    "maxWidth": 6,
+    "minHeight": 4,
+    "maxHeight": 6,
+    "connectorIds": [0, 0, 0, 0],
+    "minConnectors": 0,
+    "maxConnectors": 4,
+    "floorTexture": "Images/Floor/Rock_Ground_C_05",
+    "decorGroup": "DEBUG"
+  },
+  {
+    "id": 5,
+    "minWidth": 10,
+    "maxWidth": 10,
+    "minHeight": 10,
+    "maxHeight": 10,
+    "connectorIds": [0, 0, 0, 0],
+    "minConnectors": 4,
+    "maxConnectors": 4,
+    "floorTexture": "Images/Floor/Rock_Ground_C_05",
     "decorGroup": "DEBUG"
   }
 ]

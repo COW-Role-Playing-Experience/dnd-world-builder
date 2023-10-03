@@ -3,7 +3,7 @@
   {
     "id": 0,
     "padding": 0,
-    "themeIds": [],
-    "themeChances": []
+    "themeIds": [0, 1, 2, 3, 4, 5],
+    "themeChances": [0.3, 0.5, 0.6, 0.7, 0.8, 0.9]
   }
 ]
