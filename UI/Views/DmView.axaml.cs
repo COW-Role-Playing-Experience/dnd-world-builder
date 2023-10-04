@@ -18,6 +18,7 @@ public partial class DmView : UserControl
         DataContext = new DmViewModel();
         var tokensItemsControl = this.FindControl<ItemsControl>("TokensOnCanvasControl");
         tokensItemsControl?.AddHandler(DragDrop.DropEvent, OnTokenDropped);
+        tokensItemsControl?.AddHandler(DragDrop.DragOverEvent, OnTokenDragged);
         var map = this.FindControl<Image>("Map");
         MapHandler.RebindSource(map);
         (DataContext as DmViewModel).Map = map;
@@ -28,6 +29,17 @@ public partial class DmView : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
+    private void OnTokenDragged(object sender, DragEventArgs e)
+    {
+        if (e.Data.Contains("Token") && e.Data.Get("Token") is Token token)
+        {
+            var position = e.GetPosition(this.FindControl<ItemsControl>("TokensOnCanvasControl"));
+
+            // Delegate the logic to the ViewModel
+            (DataContext as DmViewModel)?.HandleTokenDrop(token, position, true);
+        }
+
+    }
 
     private void OnTokenDropped(object sender, DragEventArgs e)
     {
@@ -37,7 +49,7 @@ public partial class DmView : UserControl
             var position = e.GetPosition(this.FindControl<ItemsControl>("TokensOnCanvasControl"));
 
             // Delegate the logic to the ViewModel
-            (DataContext as DmViewModel)?.HandleTokenDrop(token, position);
+            (DataContext as DmViewModel)?.HandleTokenDrop(token, position, false);
         }
     }
 

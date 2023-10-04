@@ -17,6 +17,8 @@ public static class MapHandler
     public static AvaloniaRenderPipeline Pipeline { set; get; }
     public static WriteableBitmap Buffer { set; get; }
 
+    public static MapBuilder map { set; get; }
+
     public static void RebindBitmap(WriteableBitmap buffer)
     {
         Buffer = buffer;
@@ -40,6 +42,7 @@ public static class MapHandler
         Pipeline.RebindBuilder(map); //bind the finished map to the renderer
         Pipeline.Render(xSize / 2.0f, ySize / 2.0f, 1); //call once with the default to update bitmap
         mapImage.Source = Buffer;
+        MapHandler.map = map;
     }
 
     public static void RebindSource(Image mapImage)

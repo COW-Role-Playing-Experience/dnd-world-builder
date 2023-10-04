@@ -28,5 +28,53 @@
     "padding": 0.2,
     "themeIds": [4],
     "themeChances": [1]
+  },
+  {
+    "id": 5,
+    "padding": 0,
+    "themeIds": [9],
+    "themeChances": [0]
+  },
+    {
+    "id": 6,
+    "padding": 0.5,
+    "themeIds": [15, 14, 13, 12, 11],
+    "themeChances": [0.8, 0.6, 0.4, 0.2, 0]
+  },
+    {
+    "id": 7,
+    "padding": 0.5,
+    "themeIds": [8, 4],
+    "themeChances": [0.5, 0]
+  },
+    {
+    "id": 8,
+    "padding": 0.5,
+    "themeIds": [16, 17],
+    "themeChances": [0.5, 0]
+  },
+    {
+    "id": 9,
+    "padding": 0.3,
+    "themeIds": [7, 10],
+    "themeChances": [0.5, 0]
+  },
+    {
+    "id": 10,
+    "padding": 0.3,
+    "themeIds": [15, 16],
+    "themeChances": [0.5, 0]
+  },
+    {
+    "id": 11,
+    "padding": 0.5,
+    "themeIds": [6, 9, 18],
+    "themeChances": [0.5, 0.1, 0]
+  },
+    {
+    "id": 12,
+    "padding": 0,
+    "themeIds": [19, 20],
+    "themeChances": [0.5, 0]
   }
 ]

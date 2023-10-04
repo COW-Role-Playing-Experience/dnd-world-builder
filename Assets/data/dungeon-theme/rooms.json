@@ -5,11 +5,11 @@
     "maxWidth": 8,
     "minHeight": 6,
     "maxHeight": 8,
-    "connectorIds": [4, 4, 4],
+    "connectorIds": [10, 7, 7],
     "minConnectors": 2,
     "maxConnectors": 3,
     "floorTexture": "Images/Floor/Wooden_Flooring_G_03",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 1,
@@ -17,11 +17,11 @@
     "maxWidth": 8,
     "minHeight": 8,
     "maxHeight": 10,
-    "connectorIds": [4, 4, 4],
+    "connectorIds": [10, 7, 7],
     "minConnectors": 1,
     "maxConnectors": 3,
     "floorTexture": "Images/Floor/Wooden_Flooring_G_03",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 2,
@@ -29,11 +29,11 @@
     "maxWidth": 6,
     "minHeight": 5,
     "maxHeight": 6,
-    "connectorIds": [4, 4],
+    "connectorIds": [10, 7, 7],
     "minConnectors": 1,
-    "maxConnectors": 2,
+    "maxConnectors": 3,
     "floorTexture": "Images/Floor/Wooden_Flooring_G_03",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 3,
@@ -41,11 +41,11 @@
     "maxWidth": 10,
     "minHeight": 6,
     "maxHeight": 8,
-    "connectorIds": [4, 4],
+    "connectorIds": [10, 10, 7],
     "minConnectors": 1,
-    "maxConnectors": 2,
+    "maxConnectors": 3,
     "floorTexture": "Images/Floor/Large_Flagstone_A_04",
-    "decorGroup": "DEBUG"
+    "decorGroup": "ALL"
   },
   {
     "id": 4,
@@ -53,11 +53,11 @@
     "maxWidth": 2,
     "minHeight": 14,
     "maxHeight": 20,
-    "connectorIds": [0],
+    "connectorIds": [5],
     "minConnectors": 1,
     "maxConnectors": 1,
-    "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "DEBUG"
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
   },
   {
     "id": 5,
@@ -65,10 +65,190 @@
     "maxWidth": 5,
     "minHeight": 5,
     "maxHeight": 5,
-    "connectorIds": [4,4,4,4],
+    "connectorIds": [10, 10, 7, 7],
     "minConnectors": 4,
     "maxConnectors": 4,
-    "floorTexture": "Images/Floor/Forest_Floor_Leaves_A_01",
-    "decorGroup": "DEBUG"
-  }
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+  {
+    "id": 6,
+    "minWidth": 20,
+    "maxWidth": 25,
+    "minHeight": 20,
+    "maxHeight": 25,
+    "connectorIds": [10, 10],
+    "minConnectors": 1,
+    "maxConnectors": 2,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+{
+    "id": 7,
+    "minWidth": 12,
+    "maxWidth": 18,
+    "minHeight": 6,
+    "maxHeight": 10,
+    "connectorIds": [10, 7],
+    "minConnectors": 1,
+    "maxConnectors": 2,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+{
+    "id": 8,
+    "minWidth": 14,
+    "maxWidth": 20,
+    "minHeight": 2,
+    "maxHeight": 4,
+    "connectorIds": [5],
+    "minConnectors": 1,
+    "maxConnectors": 1,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+{
+    "id": 9,
+    "minWidth": 6,
+    "maxWidth": 10,
+    "minHeight": 6,
+    "maxHeight": 25,
+    "connectorIds": [10, 7, 7],
+    "minConnectors": 1,
+    "maxConnectors": 3,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+{
+    "id": 10,
+    "minWidth": 8,
+    "maxWidth": 10,
+    "minHeight": 10,
+    "maxHeight": 15,
+    "connectorIds": [10, 7, 7],
+    "minConnectors": 1,
+    "maxConnectors": 3,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+{
+    "id": 11,
+    "minWidth": 4,
+    "maxWidth": 6,
+    "minHeight": 6,
+    "maxHeight": 12,
+    "connectorIds": [10, 7, 10],
+    "minConnectors": 1,
+    "maxConnectors": 3,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+  {
+    "id": 12,
+    "minWidth": 8,
+    "maxWidth": 12,
+    "minHeight": 6,
+    "maxHeight": 8,
+    "connectorIds": [10, 7, 7],
+    "minConnectors": 1,
+    "maxConnectors": 3,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+   {
+    "id": 13,
+    "minWidth": 5,
+    "maxWidth": 10,
+    "minHeight": 5,
+    "maxHeight": 10,
+    "connectorIds": [10, 10, 7],
+    "minConnectors": 1,
+    "maxConnectors": 3,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+    {
+    "id": 14,
+    "minWidth": 4,
+    "maxWidth": 6,
+    "minHeight": 10,
+    "maxHeight": 12,
+    "connectorIds": [10, 10, 7],
+    "minConnectors": 1,
+    "maxConnectors": 3,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+      {
+    "id": 15,
+    "minWidth": 10,
+    "maxWidth": 12,
+    "minHeight": 4,
+    "maxHeight": 6,
+    "connectorIds": [10, 7, 7],
+    "minConnectors": 1,
+    "maxConnectors": 3,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+        {
+    "id": 16,
+    "minWidth": 2,
+    "maxWidth": 2,
+    "minHeight": 2,
+    "maxHeight": 6,
+    "connectorIds": [5, 6],
+    "minConnectors": 1,
+    "maxConnectors": 2,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+        {
+    "id": 17,
+    "minWidth": 2,
+    "maxWidth": 6,
+    "minHeight": 2,
+    "maxHeight": 2,
+    "connectorIds": [5, 6],
+    "minConnectors": 1,
+    "maxConnectors": 2,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+          {
+    "id": 18,
+    "minWidth": 20,
+    "maxWidth": 30,
+    "minHeight": 20,
+    "maxHeight": 30,
+    "connectorIds": [10],
+    "minConnectors": 0,
+    "maxConnectors": 1,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+  },
+          {
+    "id": 19,
+    "minWidth": 2,
+    "maxWidth": 3,
+    "minHeight": 1,
+    "maxHeight": 5,
+    "connectorIds": [5],
+    "minConnectors": 1,
+    "maxConnectors": 1,
+    "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+          },
+        {
+  "id": 20,
+  "minWidth": 1,
+  "maxWidth": 5,
+  "minHeight": 2,
+  "maxHeight": 3,
+  "connectorIds": [5],
+  "minConnectors": 1,
+  "maxConnectors": 1,
+  "floorTexture": "Images/Floor/Large_Flagstone_A_04",
+    "decorGroup": "ALL"
+        }
 ]

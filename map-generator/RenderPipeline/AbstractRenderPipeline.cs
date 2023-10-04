@@ -45,7 +45,7 @@ public abstract class AbstractRenderPipeline
     public void Clear()
     {
         Canvas.Mutate(ftx => ftx.Fill(
-            new Rgba32(0, 0, 0, 0),
+            new Rgba32(255, 255, 255, 0),
             new Rectangle(0, 0, Canvas.Size.Width, Canvas.Size.Width))
         );
     }
@@ -110,9 +110,9 @@ public abstract class AbstractRenderPipeline
                     {
                         canvas.DrawImage(texture, new Point(x1, y1), 1f);
                     }
-                    catch
+                    catch (ImageProcessingException ex)
                     {
-
+                        // Skip tile if out of bounds. Should not occur often
                     }
                 }
             }
@@ -126,8 +126,8 @@ public abstract class AbstractRenderPipeline
             foreach (MetaTile tile in MapBuilder!.getMetaTiles())
             {
                 if (
-                    tile.XPos - tile.DecorGroup.Width < tlX
-                    || tile.YPos - tile.DecorGroup.Height < tlY
+                    tile.XPos + tile.DecorGroup.Width < tlX
+                    || tile.YPos + tile.DecorGroup.Height < tlY
                     || tile.XPos > brX
                     || tile.YPos > brY
                 )
