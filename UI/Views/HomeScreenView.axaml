@@ -1,4 +1,4 @@
-    <UserControl xmlns="https://github.com/avaloniaui"
+<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,26 +7,26 @@
              x:Class="UI.Views.HomeScreenView"
              x:DataType="vm:HomeScreenViewModel">
 
-    <Border BorderThickness="100">
+    <Border BorderThickness="100" Background="#D4BF88" BorderBrush="#D4BF88">
         <Grid RowDefinitions="Auto, *, Auto">
-            <TextBlock Grid.Row="0" FontSize="80" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="50">World Crucible</TextBlock>
+            <TextBlock Grid.Row="0"  FontSize="80" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="50" Foreground="#61452d">World Crucible</TextBlock>
             <Grid Grid.Row="1" HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Spacing="100">
 
                     <!-- Button to Create Map -->
-                    <Button MinHeight="80" MinWidth="80" x:CompileBindings="False"
+                    <Button Classes="homeButton" MinHeight="80" MinWidth="80" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.CreateView}">
-                        Create New Map
+                        Create
                     </Button>
 
                     <!-- Button to Host Game -->
-                    <Button MinHeight="80" MinWidth="80" x:CompileBindings="False"
+                    <Button Classes="homeButton" MinHeight="80" MinWidth="80" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.DmView} ">
                         Host Game
                     </Button>
 
                     <!-- Button to Join Game -->
-                    <Button MinHeight="80" MinWidth="80" x:CompileBindings="False"
+                    <Button Classes="homeButton" MinHeight="80" MinWidth="80" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.PlayerView}">
                         Join Game
                     </Button>
