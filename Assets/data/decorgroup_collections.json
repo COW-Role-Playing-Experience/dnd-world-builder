@@ -79,5 +79,12 @@
         "chest" : 1,
         "firepit" : 1,
         "pillar" : 1
+    },
+    "Cave":{
+        "corpses" : 4,
+        "rubble" : 8,
+        "treasure" : 1,
+        "barrels" : 2,
+        "chest" : 1
     }
 }

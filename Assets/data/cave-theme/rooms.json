@@ -9,7 +9,7 @@
     "minConnectors": 0,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "ALL"
+    "decorGroup": "Cave"
   },
   {
     "id": 1,
@@ -21,7 +21,7 @@
     "minConnectors": 0,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "ALL"
+    "decorGroup": "Cave"
   },
   {
     "id": 2,
@@ -33,7 +33,7 @@
     "minConnectors": 0,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "ALL"
+    "decorGroup": "Cave"
   },
   {
     "id": 3,
@@ -42,10 +42,10 @@
     "minHeight": 2,
     "maxHeight": 4,
     "connectorIds": [0, 0, 0, 0],
-    "minConnectors": 0,
+    "minConnectors": 1,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "ALL"
+    "decorGroup": "Cave"
   },
   {
     "id": 4,
@@ -54,10 +54,10 @@
     "minHeight": 4,
     "maxHeight": 6,
     "connectorIds": [0, 0, 0, 0],
-    "minConnectors": 0,
+    "minConnectors": 1,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "ALL"
+    "decorGroup": "Cave"
   },
   {
     "id": 5,
@@ -69,6 +69,6 @@
     "minConnectors": 4,
     "maxConnectors": 4,
     "floorTexture": "Images/Floor/Rock_Ground_C_05",
-    "decorGroup": "ALL"
+    "decorGroup": "Cave"
   }
 ]
