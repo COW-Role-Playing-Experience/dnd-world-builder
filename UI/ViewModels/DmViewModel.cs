@@ -389,6 +389,8 @@ public class DmViewModel : ViewModelBase
 
         (double x, double y) pos =
                 MapHandler.ScreenToWorldspace(X, Y, (float)Zoom / 100, (position.X - halfWidth, position.Y - halfHeight));
+
+        (double x, double y) Rpos = MapHandler.WorldToScreenspace(X, Y, (float)Zoom / 100, (pos.x, pos.y));
         // Create a copy of the original token
         if (!token.OnCavas)
         {
@@ -396,8 +398,8 @@ public class DmViewModel : ViewModelBase
             {
                 XLoc = pos.x,
                 YLoc = pos.y,
-                RelativeX = position.X - halfWidth,
-                RelativeY = position.Y - halfHeight
+                RelativeX = Rpos.x,
+                RelativeY = Rpos.y
             };
             // Add the token copy to the collection
             tokenCopy.Width = 40;
@@ -412,13 +414,14 @@ public class DmViewModel : ViewModelBase
         else
         {
             token.XLoc = pos.x;
-            token.YLoc = pos.x;
-            token.RelativeX = position.X - halfWidth;
-            token.RelativeY = position.Y - halfHeight;
+            token.YLoc = pos.y;
+            token.RelativeX = Rpos.x;
+            token.RelativeY = Rpos.y;
             Canvas.SetLeft(token, token.RelativeX);
             Canvas.SetTop(token, token.RelativeY);
             Console.WriteLine($"Token moved at X: {position.X}, Y: {position.Y}");
             token.OnCavas = true;
+            token.Pressed = false;
         }
 
         token.RequestDelete += OnTokenRequestDelete;
@@ -431,7 +434,7 @@ public class DmViewModel : ViewModelBase
         TokensOnCanvas.Remove(token);
     }
 
-    private bool IsTokenPressed()
+    public bool IsTokenPressed()
     {
         foreach (Token token in TokensOnCanvas)
         {
@@ -449,8 +452,8 @@ public class DmViewModel : ViewModelBase
         foreach (Token token in TokensOnCanvas)
         {
             (double x, double y) pos = MapHandler.WorldToScreenspace(X, Y, (float)Zoom / 100, (token.XLoc, token.YLoc));
-            token.RelativeX = pos.x - token.Size / 2;
-            token.RelativeY = pos.y - token.Size / 2;
+            token.RelativeX = pos.x;
+            token.RelativeY = pos.y;
             token.updateScaling((double)Zoom / 100);
             Canvas.SetLeft(token, token.RelativeX);
             Canvas.SetTop(token, token.RelativeY);
@@ -482,6 +485,10 @@ public class DmViewModel : ViewModelBase
     {
         if (!_panClicked || IsTokenPressed())
         {
+            if (IsTokenPressed())
+            {
+                EndPan();
+            }
             return;
         }
         if (_prevPoint != null)
