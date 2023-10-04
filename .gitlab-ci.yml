@@ -42,3 +42,32 @@ build:
     - shell
   script:
     - dotnet build
+
+deploy_win:
+  stage: deploy
+  image: $CI_REGISTRY_IMAGE/ci:deploy
+  tags:
+    - shell
+  # Set the deploy jobs to manual since each the pipeline runs, the artifacts will take up too much space
+  when: manual
+  script:
+    # Build for windows
+    - dotnet publish ${CI_PROJECT_DIR}/UI/UI.csproj -c Release -r win-x64 --self-contained true
+  artifacts:
+    name: "$CI_COMMIT_REF_NAME"
+    paths:
+      - "UI/bin/Release/net7.0/win-x64/publish/"
+
+deploy_linux:
+  stage: deploy
+  image: $CI_REGISTRY_IMAGE/ci:deploy
+  tags:
+    - shell
+  when: manual
+  script:
+    # Build for Linux
+    - dotnet publish ${CI_PROJECT_DIR}/UI/UI.csproj -c Release -r linux-x64 --self-contained true
+  artifacts:
+    name: "$CI_COMMIT_REF_NAME"
+    paths:
+      - "UI/bin/Release/net7.0/linux-x64/publish/"
