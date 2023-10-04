@@ -9,7 +9,7 @@
 
     <Border BorderThickness="100" Background="#D4BF88" BorderBrush="#D4BF88">
         <Grid RowDefinitions="Auto, *, Auto">
-            <TextBlock Grid.Row="0"  FontSize="80" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="50" Foreground="#61452d">World Crucible</TextBlock>
+            <TextBlock Grid.Row="0"   FontSize="80" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="50" Foreground="#61452d">World Crucible</TextBlock>
             <Grid Grid.Row="1" HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Spacing="100">
 
