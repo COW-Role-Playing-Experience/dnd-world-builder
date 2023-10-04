@@ -19,6 +19,7 @@ namespace UI.Classes
         public double Scaling { get; private set; }
         public double Zoom { get; set; }
         public double Size { get; set; }
+        public bool Pressed { get; set; }
         public TextBlock text;
         public ImageBrush ImageBitMap { get; }
         private new string? Name { get; }
@@ -135,6 +136,7 @@ namespace UI.Classes
 
             if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
+                Pressed = true;
                 var data = new DataObject();
                 data.Set("Token", this);
                 DragDrop.DoDragDrop(e, data, DragDropEffects.Copy);

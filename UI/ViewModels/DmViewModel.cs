@@ -431,6 +431,19 @@ public class DmViewModel : ViewModelBase
         TokensOnCanvas.Remove(token);
     }
 
+    private bool IsTokenPressed()
+    {
+        foreach (Token token in TokensOnCanvas)
+        {
+            if (token.Pressed)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void updateTokens()
     {
         foreach (Token token in TokensOnCanvas)
@@ -467,18 +480,19 @@ public class DmViewModel : ViewModelBase
 
     public void Pan(Point point)
     {
-        if (!_panClicked)
+        if (!_panClicked || IsTokenPressed())
         {
             return;
         }
         if (_prevPoint != null)
         {
-            updateTokens();
             X = (float)(X - (point.X - _prevPoint.Value.X));
             Y = (float)(Y - (point.Y - _prevPoint.Value.Y));
             MapHandler.ClearBitmap();
             MapHandler.Render(X, Y, (float)Zoom / 100);
             MapHandler.RebindSource(Map);
+
+            updateTokens();
         }
 
         _prevPoint = point;
