@@ -1,4 +1,4 @@
-    <UserControl xmlns="https://github.com/avaloniaui"
+<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,11 +11,12 @@
     <Grid>
         <!-- Background canvas to be the generated map image -->
 
-    <Canvas x:Name="MapCanvas">
-        <Image x:Name="Map" Stretch="Uniform"/>
-    </Canvas>
+        <Canvas x:Name="MapCanvas" Background="#f4efe0">
+            <Image x:Name="Map" Stretch="Uniform" />
+        </Canvas>
         <ItemsControl Name="TokensOnCanvasControl" ItemsSource="{Binding TokensOnCanvas}" DragDrop.AllowDrop="True"
-                      PointerPressed="FogOfWarControl_PointerPressed" PointerMoved="FogOfWarControl_OnPointerMoved" PointerReleased="FogOfWarControl_PointerReleased">
+                      PointerPressed="FogOfWarControl_PointerPressed" PointerMoved="FogOfWarControl_OnPointerMoved"
+                      PointerReleased="FogOfWarControl_PointerReleased">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas Background="Transparent" />
@@ -57,17 +58,13 @@
                 <!-- Main Toggles -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center"
                             VerticalAlignment="Center" MinWidth="200" IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
-                    <Button Classes="green" Background="Coral" Command="{Binding  ToggleAddVisibility}"></Button>
-
-                    <ToggleButton Name="ToggleFogOfWarPaintButton" Classes="green"
-                                  IsChecked="{Binding IsFogOfWarVisible, Mode=TwoWay}" />
+                    <Button Classes="windowButtons" Command="{Binding  ToggleAddVisibility}"></Button>
 
                     <Slider Minimum="1" Maximum="200" Value="{Binding FogOfWarSize}" Width="200"
                             IsVisible="{Binding IsFogOfWarVisible}" />
-
-                    <Button Classes="green"></Button>
-                    <Button Classes="green"></Button>
-                </StackPanel>
+                    <ToggleButton Name="ToggleFogOfWarPaintButton" Classes="openSlider"
+                                  IsChecked="{Binding IsFogOfWarVisible, Mode=TwoWay}" />
+                    </StackPanel>
 
                 <!-- Util buttons -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="25" HorizontalAlignment="Right"
@@ -151,7 +148,8 @@
                         -
                     </Button>
                     <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
-                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Zoom}">
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                           Content="{Binding Zoom}">
                     </Label>
                 </StackPanel>
             </Grid>

@@ -22,13 +22,13 @@
                     <!-- Button to Host Game -->
                     <Button Classes="homeButton" MinHeight="80" MinWidth="80" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.DmView} ">
-                        Host Game
+                        Host
                     </Button>
 
                     <!-- Button to Join Game -->
                     <Button Classes="homeButton" MinHeight="80" MinWidth="80" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.PlayerView}">
-                        Join Game
+                        Join
                     </Button>
                 </StackPanel>
             </Grid>
