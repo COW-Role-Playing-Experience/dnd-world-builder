@@ -436,8 +436,8 @@ public class DmViewModel : ViewModelBase
         foreach (Token token in TokensOnCanvas)
         {
             (double x, double y) pos = MapHandler.WorldToScreenspace(X, Y, (float)Zoom / 100, (token.XLoc, token.YLoc));
-            token.RelativeX = pos.x - token.Size;
-            token.RelativeY = pos.y - token.Size;
+            token.RelativeX = pos.x - token.Size / 2;
+            token.RelativeY = pos.y - token.Size / 2;
             token.updateScaling((double)Zoom / 100);
             Canvas.SetLeft(token, token.RelativeX);
             Canvas.SetTop(token, token.RelativeY);
