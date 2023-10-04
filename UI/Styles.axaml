@@ -15,18 +15,26 @@
 
     <!-- Buttons DM View -->
 
-    <Style Selector="Button.windowButtons /template/ ContentPresenter">
+    <Style Selector="Button.windowButtons">
         <Setter Property="Width" Value="50" />
         <Setter Property="Height" Value="50" />
-        <Setter Property="Background" Value="#be9551" /> <!-- Dark Brown -->
-        <Setter Property="Foreground" Value="#faf8f2" />  <!--  Gold Text -->
+        <Setter Property="Background" Value="#b18145" />
+        <Setter Property="FontSize"  Value="12"/>
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+
+    </Style>
+
+    <Style Selector="Button.windowButtons /template/ ContentPresenter">
+        <Setter Property="Background" Value="#be9551" /> <!-- Dark Brown -->
+        <Setter Property="Foreground" Value="#faf8f2" />  <!--  Gold Text -->
         <Setter Property="FontSize"  Value="12"/>
+
     </Style>
     <Style Selector="Button.windowButtons:pointerover /template/ ContentPresenter">
         <Setter Property="Background" Value="#b18145" /> <!-- Medium Brown on Hover -->
         <!--     <Setter Property="Foreground" Value="#FFEB3B" />  Gold Text -->
+
     </Style>
     <Style Selector="Button.windowButtons:pressed /template/ ContentPresenter">
         <Setter Property="Background" Value="#93683b" /> <!-- Darker Brown on Press -->
@@ -39,6 +47,8 @@
         <Setter Property="Height" Value="50" />
         <Setter Property="Background" Value="#b18145" />
         <Setter Property="FontSize"  Value="12"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
 
     </Style>
     <Style Selector="ToggleButton.openSlider /template/ ContentPresenter">

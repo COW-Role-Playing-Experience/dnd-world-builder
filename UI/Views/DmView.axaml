@@ -53,19 +53,22 @@
             <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Margin="20">
 
                 <!-- Title label, should be changeable later? -->
-                <Label Grid.Column="0" Width="300" FontSize="40" IsVisible="{Binding IsUiVisible, Mode=TwoWay}"> Map Generator</Label>
+                <Label Grid.Column="0" Width="300" FontSize="40" IsVisible="{Binding IsUiVisible, Mode=TwoWay}"
+                       Foreground="#6E8894">
+                    World Crucible
+                </Label>
 
                 <!-- Main Toggles -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center"
                             VerticalAlignment="Center" MinWidth="200" IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
                     <Button Classes="windowButtons" Command="{Binding  ToggleAddVisibility}">ADD</Button>
-
-                    <Slider Minimum="1" Maximum="200" Value="{Binding FogOfWarSize}" Width="200"
-                            IsVisible="{Binding IsFogOfWarVisible}" />
                     <ToggleButton Name="ToggleFogOfWarPaintButton" Classes="openSlider"
                                   IsChecked="{Binding IsFogOfWarVisible, Mode=TwoWay}">
                         FOW
                     </ToggleButton>
+                    <Slider Minimum="1" Maximum="200" Value="{Binding FogOfWarSize}" Width="200"
+                            IsVisible="{Binding IsFogOfWarVisible}" />
+
                     <Button Classes="windowButtons" IsEnabled="False">NA</Button>
                     <Button Classes="windowButtons" IsEnabled="False">NA</Button>
 
@@ -75,12 +78,12 @@
                 <!-- Util buttons -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="25" HorizontalAlignment="Right"
                             FlowDirection="RightToLeft" MinWidth="300">
-                    <Button Width="50" Height="50" Background="#006494" HorizontalContentAlignment="Center"
+                    <Button Width="50" Height="50" Background="#6E8894" HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center" Command="{Binding  ToggleUiVisibility}"
                             Opacity="{Binding UiButtonOpacity}">
                         UI
                     </Button>
-                    <Button Width="50" Height="50" Background="#006494" HorizontalContentAlignment="Center"
+                    <Button Width="50" Height="50" Background="#6E8894" HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.ReturnHome}"
                             IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
@@ -130,7 +133,7 @@
             </Grid>
 
             <!-- Bottom section to have zoom controls -->
-            <Grid Grid.Row="2" VerticalAlignment="Bottom" Background="Aqua"
+            <Grid Grid.Row="2" VerticalAlignment="Bottom"
                   IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
 
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
