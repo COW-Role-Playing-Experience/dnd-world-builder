@@ -42,7 +42,8 @@ public partial class MapGeneratorView : UserControl
         (DataContext as MapGeneratorViewModel)?.makeThemeBoxes(themeBox);
     }
 
-    private void ThemeSelected(object sender, SelectionChangedEventArgs e){
+    private void ThemeSelected(object sender, SelectionChangedEventArgs e)
+    {
         ComboBox themeBox = this.FindControl<ComboBox>("ThemesBox");
         (DataContext as MapGeneratorViewModel)?.SelectTheme(themeBox);
     }

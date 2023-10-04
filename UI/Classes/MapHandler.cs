@@ -18,7 +18,7 @@ public static class MapHandler
 
     public static MapBuilder map { set; get; }
 
- public static String Theme { set; get; }
+    public static String Theme { set; get; }
 
     public static void RebindBitmap(WriteableBitmap buffer)
     {
