@@ -58,13 +58,19 @@
                 <!-- Main Toggles -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center"
                             VerticalAlignment="Center" MinWidth="200" IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
-                    <Button Classes="windowButtons" Command="{Binding  ToggleAddVisibility}"></Button>
+                    <Button Classes="windowButtons" Command="{Binding  ToggleAddVisibility}">ADD</Button>
 
                     <Slider Minimum="1" Maximum="200" Value="{Binding FogOfWarSize}" Width="200"
                             IsVisible="{Binding IsFogOfWarVisible}" />
                     <ToggleButton Name="ToggleFogOfWarPaintButton" Classes="openSlider"
-                                  IsChecked="{Binding IsFogOfWarVisible, Mode=TwoWay}" />
-                    </StackPanel>
+                                  IsChecked="{Binding IsFogOfWarVisible, Mode=TwoWay}">
+                        FOW
+                    </ToggleButton>
+                    <Button Classes="windowButtons" IsEnabled="False">NA</Button>
+                    <Button Classes="windowButtons" IsEnabled="False">NA</Button>
+
+                </StackPanel>
+
 
                 <!-- Util buttons -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="25" HorizontalAlignment="Right"
@@ -89,16 +95,7 @@
                   MaxWidth="300" IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
                 <Border VerticalAlignment="Top" Background="#657153" BorderBrush="Black" BorderThickness="1"
                         Margin="0,10" IsVisible="{Binding IsAddVisible, Mode=TwoWay}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
                         <TextBlock Grid.Row="0" Text="Add to the game" FontSize="18" FontWeight="Bold"
                                    HorizontalAlignment="Center" VerticalAlignment="Center" />
                         <Rectangle Grid.Row="1" Height="1" Fill="Black" HorizontalAlignment="Stretch"

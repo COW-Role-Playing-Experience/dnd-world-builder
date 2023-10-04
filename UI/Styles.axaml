@@ -14,17 +14,44 @@
     </Design.PreviewWith>
 
     <!-- Buttons DM View -->
-    <Style Selector="Button.windowButtons">
+
+    <Style Selector="Button.windowButtons /template/ ContentPresenter">
         <Setter Property="Width" Value="50" />
         <Setter Property="Height" Value="50" />
-        <Setter Property="Background" Value="#b18145" />
+        <Setter Property="Background" Value="#be9551" /> <!-- Dark Brown -->
+        <Setter Property="Foreground" Value="#faf8f2" />  <!--  Gold Text -->
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize"  Value="12"/>
+    </Style>
+    <Style Selector="Button.windowButtons:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#b18145" /> <!-- Medium Brown on Hover -->
+        <!--     <Setter Property="Foreground" Value="#FFEB3B" />  Gold Text -->
+    </Style>
+    <Style Selector="Button.windowButtons:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="#93683b" /> <!-- Darker Brown on Press -->
+        <!--  <Setter Property="Foreground" Value="#FFEB3B" /> Gold Text -->
     </Style>
 
-    <!-- Toggle Buttons DM View -->
+    <!-- Toggle Fog of War DM View -->
     <Style Selector="ToggleButton.openSlider">
         <Setter Property="Width" Value="50" />
         <Setter Property="Height" Value="50" />
         <Setter Property="Background" Value="#b18145" />
+        <Setter Property="FontSize"  Value="12"/>
+
+    </Style>
+    <Style Selector="ToggleButton.openSlider /template/ ContentPresenter">
+        <Setter Property="Background" Value="#be9551" /> <!-- Dark Brown -->
+        <Setter Property="Foreground" Value="#faf8f2" />  <!--  Gold Text -->
+    </Style>
+    <Style Selector="ToggleButton.openSlider:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#b18145" /> <!-- Medium Brown on Hover -->
+        <!--     <Setter Property="Foreground" Value="#FFEB3B" />  Gold Text -->
+    </Style>
+    <Style Selector="Button.windowButtons:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="#93683b" /> <!-- Darker Brown on Press -->
+        <!--  <Setter Property="Foreground" Value="#FFEB3B" /> Gold Text -->
     </Style>
 
 
