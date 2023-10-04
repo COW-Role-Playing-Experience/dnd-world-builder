@@ -40,7 +40,6 @@ public static class MapHandler
         int ySize = 40;
         MapBuilder map = new MapBuilder(xSize, ySize, rng, 0.8);
         map.setTheme($"{DataLoader.RootPath}/data/" + Theme + "-theme/").initRoom();
-        Console.WriteLine(Theme);
         Pipeline.RebindBuilder(map); //bind the finished map to the renderer
         Pipeline.Render(xSize / 2.0f, ySize / 2.0f, 1); //call once with the default to update bitmap
         mapImage.Source = Buffer;
