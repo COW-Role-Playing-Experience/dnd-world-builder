@@ -11,7 +11,7 @@
     <Grid>
         <!-- Background canvas to be the generated map image -->
 
-    <Canvas x:Name="MapCanvas">
+    <Canvas x:Name="MapCanvas" >
         <Image x:Name="Map" Stretch="Uniform"/>
     </Canvas>
         <ItemsControl Name="TokensOnCanvasControl" ItemsSource="{Binding TokensOnCanvas}" DragDrop.AllowDrop="True"
@@ -24,8 +24,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <ContentPresenter Content="{Binding }"
-                                      Canvas.Left="{Binding XLoc}"
-                                      Canvas.Top="{Binding YLoc}" />
+                                      Canvas.Left="{Binding RelativeX}"
+                                      Canvas.Top="{Binding RelativeY}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -139,6 +139,12 @@
             <Grid Grid.Row="2" VerticalAlignment="Bottom" Background="Aqua"
                   IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
 
+                <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
+                    <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding X}"/>
+                    <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding Y}"/>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                     <Button Width="35" Height="35" BorderThickness="2" BorderBrush="Black"
                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"

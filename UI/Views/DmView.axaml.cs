@@ -43,6 +43,7 @@ public partial class DmView : UserControl
 
     private void OnTokenDropped(object sender, DragEventArgs e)
     {
+        Console.WriteLine("TEST");
         if (e.Data.Contains("Token") && e.Data.Get("Token") is Token token)
         {
             var position = e.GetPosition(this.FindControl<ItemsControl>("TokensOnCanvasControl"));
@@ -69,6 +70,10 @@ public partial class DmView : UserControl
                 vm.HandlePointerFogOfWar(position, false);
             }
         }
+        else
+        {
+            Panning_Pressed(sender, e);
+        }
     }
 
 
@@ -88,6 +93,10 @@ public partial class DmView : UserControl
             {
                 vm.HandlePointerMoved(position, false);
             }
+        }
+        else
+        {
+            Panning_Moved(sender, e);
         }
     }
 
@@ -109,5 +118,24 @@ public partial class DmView : UserControl
                 vm.HandlePointerFogOfWar(position, false);
             }
         }
+        else
+        {
+            Panning_Released(sender, e);
+        }
+    }
+
+    private void Panning_Pressed(object? sender, PointerPressedEventArgs e)
+    {
+        (DataContext as DmViewModel).PanClicked = true;
+    }
+
+    private void Panning_Moved(object? sender, PointerEventArgs e)
+    {
+        (DataContext as DmViewModel).Pan(e.GetPosition(sender as Visual));
+    }
+
+    private void Panning_Released(object? sender, PointerReleasedEventArgs e)
+    {
+        (DataContext as DmViewModel).EndPan();
     }
 }

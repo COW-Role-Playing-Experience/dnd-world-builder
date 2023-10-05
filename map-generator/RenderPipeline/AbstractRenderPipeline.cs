@@ -83,9 +83,9 @@ public abstract class AbstractRenderPipeline
 
         Canvas.Mutate(canvas =>
         {
-            for (int x = tileOriginX; x < tileDestX; x++)
+            for (int x = tileOriginX; x < tileDestX - 1; x++)
             {
-                for (int y = tileOriginY; y < tileDestY; y++)
+                for (int y = tileOriginY; y < tileDestY - 1; y++)
                 {
                     // Skip if tile is out of bounds
                     if (
