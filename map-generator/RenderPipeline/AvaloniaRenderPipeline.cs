@@ -57,14 +57,16 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
         }
 
         // Obtains the pointer from the WriteableBitmap
-        using var buffer = _writeableBitmap.Lock();
-        IntPtr ptr = buffer.Address;
+        using (var buffer = _writeableBitmap.Lock())
+        {
+            IntPtr ptr = buffer.Address;
 
-        // Writes the image data directly into the address of the byte[] buffer.
-        Canvas.CopyPixelDataTo(new Span<byte>(
-            (void*)ptr,
-            Canvas.Width * Canvas.Height * Unsafe.SizeOf<Rgba32>())
-        );
+            // Writes the image data directly into the address of the byte[] buffer.
+            Canvas.CopyPixelDataTo(new Span<byte>(
+                (void*)ptr,
+                Canvas.Width * Canvas.Height * Unsafe.SizeOf<Rgba32>())
+            );
+        }
     }
 
     /**
@@ -81,15 +83,15 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     /**
      * Converts a location on the WriteableBitmap into a position on the map.
      */
-    public (float x, float y) ScreenToWorldspace(float x, float y, float zoom, (float x, float y) screenPosition)
+    public (double x, double y) ScreenToWorldspace(double x, double y, float zoom, (double x, double y) screenPosition)
     {
         (float tilesX, float tilesY) = CalculateConstraints(zoom);
 
-        float tlX = x - tilesX / 2;
-        float tlY = y - tilesY / 2;
+        double tlX = x - tilesX / 2;
+        double tlY = y - tilesY / 2;
 
-        float widthRatio = screenPosition.x / _bitmapWidth;
-        float heightRatio = screenPosition.y / _bitmapHeight;
+        double widthRatio = screenPosition.x / _bitmapWidth;
+        double heightRatio = screenPosition.y / _bitmapHeight;
 
         return (
             tlX + tilesX * widthRatio,
@@ -100,12 +102,11 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
     /**
      * Converts a position on the map into a location on the WriteableBitmap
      */
-    public (float x, float y) WorldToScreenspace(float x, float y, float zoom, (float x, float y) worldPosition)
+    public (double x, double y) WorldToScreenspace(double x, double y, float zoom, (double x, double y) worldPosition)
     {
         (float tilesX, float tilesY) = CalculateConstraints(zoom);
-
-        float tlX = x - tilesX / 2;
-        float tlY = y - tilesY / 2;
+        double tlX = x - tilesX / 2;
+        double tlY = y - tilesY / 2;
 
         return (
             (worldPosition.x - tlX) * _bitmapWidth / tilesX,
@@ -142,7 +143,7 @@ public class AvaloniaRenderPipeline : AbstractRenderPipeline
         float tilesX;
         float tilesY;
 
-        float aspectRatio = _bitmapWidth / (float)_bitmapHeight;
+        float aspectRatio = (float)_bitmapWidth / (float)_bitmapHeight;
 
         if (aspectRatio > mapAspectRatio)
         {

@@ -1,4 +1,5 @@
 using System;
+using System.IO.Pipelines;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -15,6 +16,10 @@ public static class MapHandler
     public static int MapSeed { set; get; }
     public static AvaloniaRenderPipeline Pipeline { set; get; }
     public static WriteableBitmap Buffer { set; get; }
+
+    public static MapBuilder map { set; get; }
+
+    public static String Theme { set; get; }
 
     public static void RebindBitmap(WriteableBitmap buffer)
     {
@@ -35,10 +40,11 @@ public static class MapHandler
         int xSize = 200;
         int ySize = 40;
         MapBuilder map = new MapBuilder(xSize, ySize, rng, 0.8);
-        map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom();
+        map.setTheme($"{DataLoader.RootPath}/data/" + Theme + "-theme/").initRoom();
         Pipeline.RebindBuilder(map); //bind the finished map to the renderer
         Pipeline.Render(xSize / 2.0f, ySize / 2.0f, 1); //call once with the default to update bitmap
         mapImage.Source = Buffer;
+        MapHandler.map = map;
     }
 
     public static void RebindSource(Image mapImage)
@@ -49,5 +55,15 @@ public static class MapHandler
     public static void Render(float x, float y, float zoom)
     {
         Pipeline.Render(x, y, zoom);
+    }
+
+    public static (double x, double y) ScreenToWorldspace(double x, double y, float zoom, (double x, double y) screenPosition)
+    {
+        return Pipeline.ScreenToWorldspace(x, y, zoom, screenPosition);
+    }
+
+    public static (double x, double y) WorldToScreenspace(double x, double y, float zoom, (double x, double y) worldPosition)
+    {
+        return Pipeline.WorldToScreenspace(x, y, zoom, worldPosition);
     }
 }

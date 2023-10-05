@@ -18,6 +18,7 @@ public partial class DmView : UserControl
         DataContext = new DmViewModel();
         var tokensItemsControl = this.FindControl<ItemsControl>("TokensOnCanvasControl");
         tokensItemsControl?.AddHandler(DragDrop.DropEvent, OnTokenDropped);
+        tokensItemsControl?.AddHandler(DragDrop.DragOverEvent, OnTokenDragged);
         var map = this.FindControl<Image>("Map");
         MapHandler.RebindSource(map);
         (DataContext as DmViewModel).Map = map;
@@ -28,15 +29,27 @@ public partial class DmView : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
-
-    private void OnTokenDropped(object sender, DragEventArgs e)
+    private void OnTokenDragged(object sender, DragEventArgs e)
     {
         if (e.Data.Contains("Token") && e.Data.Get("Token") is Token token)
         {
             var position = e.GetPosition(this.FindControl<ItemsControl>("TokensOnCanvasControl"));
 
             // Delegate the logic to the ViewModel
-            (DataContext as DmViewModel)?.HandleTokenDrop(token, position);
+            (DataContext as DmViewModel)?.HandleTokenDrop(token, position, true);
+        }
+
+    }
+
+    private void OnTokenDropped(object sender, DragEventArgs e)
+    {
+        Console.WriteLine("TEST");
+        if (e.Data.Contains("Token") && e.Data.Get("Token") is Token token)
+        {
+            var position = e.GetPosition(this.FindControl<ItemsControl>("TokensOnCanvasControl"));
+
+            // Delegate the logic to the ViewModel
+            (DataContext as DmViewModel)?.HandleTokenDrop(token, position, false);
         }
     }
 
@@ -56,6 +69,10 @@ public partial class DmView : UserControl
             {
                 vm.HandlePointerFogOfWar(position, false);
             }
+        }
+        else
+        {
+            Panning_Pressed(sender, e);
         }
     }
 
@@ -77,6 +94,10 @@ public partial class DmView : UserControl
                 vm.HandlePointerMoved(position, false);
             }
         }
+        else
+        {
+            Panning_Moved(sender, e);
+        }
     }
 
 
@@ -97,5 +118,24 @@ public partial class DmView : UserControl
                 vm.HandlePointerFogOfWar(position, false);
             }
         }
+        else
+        {
+            Panning_Released(sender, e);
+        }
+    }
+
+    private void Panning_Pressed(object? sender, PointerPressedEventArgs e)
+    {
+        (DataContext as DmViewModel).PanClicked = true;
+    }
+
+    private void Panning_Moved(object? sender, PointerEventArgs e)
+    {
+        (DataContext as DmViewModel).Pan(e.GetPosition(sender as Visual));
+    }
+
+    private void Panning_Released(object? sender, PointerReleasedEventArgs e)
+    {
+        (DataContext as DmViewModel).EndPan();
     }
 }

@@ -13,7 +13,7 @@
 
             <!-- Seed generation controls -->
             <StackPanel Grid.Column="0" Grid.Row="0">
-                <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Click="GenerateMap">Generate From Seed</Button>
+                <Button Name="MapGenButton" Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Click="GenerateMap" IsEnabled="False">Generate From Seed</Button>
                 <TextBox Name="SeedTextBox" Width="250" MaxLength ="9" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextChanged="SeedBoxWritten"></TextBox>
                 <Button Width="250" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="GenerateSeed">Generate New Seed</Button>
             </StackPanel>
@@ -21,13 +21,13 @@
             <!-- Theme selection -->
             <StackPanel Grid.Column="0" Grid.Row="1">
                 <ComboBox Name="ThemesBox" PlaceholderText="Theme" Height="50" Width="250" HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center">
+                          VerticalContentAlignment="Center" SelectionChanged="ThemeSelected" >
                 </ComboBox>
             </StackPanel>
 
             <!-- Export/Host Game/Back buttons-->
             <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom">
-                <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Export</Button>
+                <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="ExportMap">Export</Button>
                 <Button Height="50" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                         x:CompileBindings="False"
                         Command="{Binding $parent[Window].DataContext.DmView}">

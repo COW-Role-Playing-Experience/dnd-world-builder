@@ -45,7 +45,7 @@ public abstract class AbstractRenderPipeline
     public void Clear()
     {
         Canvas.Mutate(ftx => ftx.Fill(
-            new Rgba32(0, 0, 0, 0),
+            new Rgba32(255, 255, 255, 0),
             new Rectangle(0, 0, Canvas.Size.Width, Canvas.Size.Width))
         );
     }
@@ -83,9 +83,9 @@ public abstract class AbstractRenderPipeline
 
         Canvas.Mutate(canvas =>
         {
-            for (int x = tileOriginX; x < tileDestX; x++)
+            for (int x = tileOriginX; x < tileDestX - 1; x++)
             {
-                for (int y = tileOriginY; y < tileDestY; y++)
+                for (int y = tileOriginY; y < tileDestY - 1; y++)
                 {
                     // Skip if tile is out of bounds
                     if (
@@ -106,7 +106,14 @@ public abstract class AbstractRenderPipeline
                     int x1 = Convert.ToInt32((x - tileOriginX) * tileSizeX - tileOffsetX);
                     int y1 = Convert.ToInt32((y - tileOriginY) * tileSizeY - tileOffsetY);
 
-                    canvas.DrawImage(texture, new Point(x1, y1), 1f);
+                    try
+                    {
+                        canvas.DrawImage(texture, new Point(x1, y1), 1f);
+                    }
+                    catch (ImageProcessingException ex)
+                    {
+                        // Skip tile if out of bounds. Should not occur often
+                    }
                 }
             }
         });
@@ -119,8 +126,8 @@ public abstract class AbstractRenderPipeline
             foreach (MetaTile tile in MapBuilder!.getMetaTiles())
             {
                 if (
-                    tile.XPos - tile.DecorGroup.Width < tlX
-                    || tile.YPos - tile.DecorGroup.Height < tlY
+                    tile.XPos + tile.DecorGroup.Width < tlX
+                    || tile.YPos + tile.DecorGroup.Height < tlY
                     || tile.XPos > brX
                     || tile.YPos > brY
                 )

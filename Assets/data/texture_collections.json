@@ -1,5 +1,108 @@
 {
-    "demo_group": {
-        "DEBUG": 1
+    "barrel_horizontal": {
+        "Images/Decor/Barrel/Barrel_Large_Wood_Ashen_A_Side_3x3": 1,
+        "Images/Decor/Barrel/Barrel_Side_Wood_Ashen_B_Rusty_1x1": 2,
+        "Images/Decor/Barrel/Keg_Wood_Ashen_E_Rusty_2x1": 2
+    },
+    "barrel_vertical": {
+        "Images/Decor/Barrel/Barrel_Large_Wood_Ashen_A_Top_3x3": 2,
+        "Images/Decor/Barrel/Barrel_Lid_Wood_Dark_B2_1x1": 2,
+        "Images/Decor/Barrel/Barrel_Wood_Dark_F_TNT_1x1": 1
+    },
+    "chair_broken": {
+        "Images/Decor/Chair/Chair_Broken_Wood_Walnut_B3_1x1": 1,
+        "Images/Decor/Chair/Chair_Broken_Wood_Red_B3_1x1": 1
+    },
+    "chair_fancy": {
+        "Images/Decor/Chair/Fancy_Chair_Leather_Black_A1_1x1": 1,
+        "Images/Decor/Chair/Fancy_Chair_Leather_Blue_Metal_Black_B1_1x1": 1,
+        "Images/Decor/Chair/Fancy_Chair_Leather_Tan_Wood_Dark_A1_1x1": 1
+    },
+    "chair_wooden": {
+        "Images/Decor/Chair/Chair_Wood_Light_A_1x1": 1,
+        "Images/Decor/Chair/Chair_Wood_Red_F_1x1": 1
+    },
+    "treasure_chest": {
+        "Images/Decor/Chest/Chest_Wood_Light_C_1x1": 1,
+        "Images/Decor/Chest/Treasure_Chest_Wood_Ashen_A2_Rusty_Coins_Gold_1x1": 2,
+        "Images/Decor/Chest/Treasure_Chest_Wood_Red_A1_1x1": 1,
+        "Images/Decor/Chest/Treasure_Chest_Wood_Red_A2_Coins_Silver_1x1": 2
+    },
+    "cooking_pot": {
+        "Images/Decor/Cookware/Pot_Metal_Gray_Filled_A3_1x1": 1,
+        "Images/Decor/Cookware/Pot_Metal_Grey_A_1x1": 1,
+        "Images/Decor/Cookware/Pot_Metal_Rusty_Filled_B1_1x1": 2
+    },
+    "corpse_decayed": {
+        "Images/Decor/Corpse/Decayed_Body_A_03_1x2": 1,
+        "Images/Decor/Corpse/Decayed_Body_Sitting_B_01_1x2": 1,
+        "Images/Decor/Corpse/Decayed_Body_Torso_02_1x1": 1
+    },
+    "corpse_guard": {
+        "Images/Decor/Corpse/Guard_Corpse_Blue_B_Bloody_1x2": 1,
+        "Images/Decor/Corpse/Guard_Corpse_Yellow_C_1x2": 1
+    },
+    "campfire": {
+        "Images/Decor/Fire/Campfire_A_Cold_1x1": 1,
+        "Images/Decor/Fire/Campfire_A_Embers2_1x1": 2,
+        "Images/Decor/Fire/Campfire_A_Lit_1x1": 2,
+        "Images/Decor/Fire/Campfire_Stone_Sandstone_A1_1x1": 1
+    },
+    "firepit": {
+        "Images/Decor/Fire/Firepit_Stone_Redrock_A2_Lit_1x1": 1,
+        "Images/Decor/Fire/Firepit_Stone_Volcanic_A2_Lit_1x1": 1
+    },
+    "pillar_dark": {
+        "Images/Decor/Pillar/Dungeon_Pillar_1x1_B": 1,
+        "Images/Decor/Pillar/Dungeon_Pillar_2x2_A": 1,
+        "Images/Decor/Pillar/Pillar_Solid_Volcanic_D1_1x1": 1
+    },
+    "pillar_light": {
+        "Images/Decor/Pillar/Pillar_PlasterWood_Light_A1_1x1": 1,
+        "Images/Decor/Pillar/Pillar_StoneWood_Slate_Light_A3_1x1": 1,
+        "Images/Decor/Pillar/Pillar_StoneWood_Slate_Light_B1_1x1": 1
+    },
+    "rubble_low": {
+        "Images/Decor/Rubble/Stone_Slate_A12_1x1": 1,
+        "Images/Decor/Rubble/Stone_Volcanic_A8_1x1": 1
+    },
+    "rubble_medium": {
+        "Images/Decor/Rubble/Rubble_Pile_Stone_Slate_B21_1x1": 1,
+        "Images/Decor/Rubble/Rubble_Pile_Stone_Slate_D8_1x1": 1
+    },
+    "rubble_high": {
+        "Images/Decor/Rubble/Rubble_Pile_Stone_Volcanic_E9_2x3": 1,
+        "Images/Decor/Rubble/Rubble_Pile_Stone_Volcanic_F9_2x2": 1
+    },
+    "table_busted": {
+        "Images/Decor/Table/Table_Rectangle_Broken_Wood_Red_K1_3x2": 2,
+        "Images/Decor/Table/Table_Rectangle_Fallen_Wood_Red_F1_3x1": 1
+    },
+    "table_wooden": {
+        "Images/Decor/Table/Table_Fancy_Rectangle_Wood_Light_A2_2x2": 1,
+        "Images/Decor/Table/Table_Rectangle_Wood_Light_E_2x1": 1,
+        "Images/Decor/Table/Table_Rectangle_Wood_Red_J_2x1": 1
+    },
+    "table_coffee": {
+        "Images/Decor/Table/Coffee_Table_Fancy_Wood_Ashen_D3_1x2": 1,
+        "Images/Decor/Table/Table_Glass_2x2": 1
+    },
+    "toilet": {
+        "Images/Decor/Toilet/Toilet_Wood_Light_A_1x1": 1,
+        "Images/Decor/Toilet/Toilet_Wood_Walnut_I_1x1": 1
+    },
+    "weaponry": {
+        "Images/Decor/Weaponry/Arrow_Wood_Black_E_1x1": 1,
+        "Images/Decor/Weaponry/Arrow_Wood_Dark_D_1x1": 1,
+        "Images/Decor/Weaponry/Bomb_Metal_Brass_C_1x1": 1,
+        "Images/Decor/Weaponry/Club_A_03_1x1": 1,
+        "Images/Decor/Weaponry/Crossbow_Wood_Red_A_1x1": 1,
+        "Images/Decor/Weaponry/Dagger_Metal_Gray_Red_ B_1x1": 1,
+        "Images/Decor/Weaponry/Light_Hammer_A_01_1x1": 1,
+        "Images/Decor/Weaponry/Morningstar_A_04_1x1": 1,
+        "Images/Decor/Weaponry/Shield_Metal_Rusty_C_1x1": 1,
+        "Images/Decor/Weaponry/Sickle_A_01_1x1": 1,
+        "Images/Decor/Weaponry/Sword_Metal_Gray_Blue_A_1x2": 1,
+        "Images/Decor/Weaponry/Sword_Radiant_A_Violet_1x2": 1
     }
 }
