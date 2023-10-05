@@ -24,8 +24,7 @@ public class TextureStoreBuilder
             string id = relativePathRegex.Match(filePath).Value;
 
             // fix silly issue with paths on windows >:(
-            id = id.Replace(@"\\", "/");
-            id = id.Replace(@"\", "/");
+            id = id.Replace("\\", "/");
             _store.Add(id, new LazyTextureProvider(filePath).Texture);
         }
 
