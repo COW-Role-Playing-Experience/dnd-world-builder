@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
+using Avalonia.LogicalTree;
 using Avalonia.Media;
 using Brushes = Avalonia.Media.Brushes;
 
@@ -11,10 +12,14 @@ namespace UI.Classes
     public class Token : StackPanel
     {
         public bool OnCavas = false;
-        public int XLoc { get; set; }
-        public int YLoc { get; set; }
+        public double XLoc { get; set; }
+        public double YLoc { get; set; }
+        public double RelativeX { get; set; }
+        public double RelativeY { get; set; }
         public double Scaling { get; private set; }
+        public double Zoom { get; set; }
         public double Size { get; set; }
+        public bool Pressed { get; set; }
         public TextBlock text;
         public ImageBrush ImageBitMap { get; }
         private new string? Name { get; }
@@ -29,6 +34,7 @@ namespace UI.Classes
             Scaling = 1;
             Size = 40;
             Name = fileName;
+            Zoom = 1;
 
             text = new TextBlock
             {
@@ -72,13 +78,7 @@ namespace UI.Classes
             slider.ValueChanged += (s, e) =>
             {
                 Scaling = e.NewValue;
-                Size = 40 * Scaling;
-                border.Height = Size;
-                border.Width = Size;
-                border.CornerRadius = new CornerRadius(Size / 2);
-                outerBorder.CornerRadius = new CornerRadius(Size / 2);
-                outerBorder.Height = Size;
-                outerBorder.Width = Size;
+                updateScaling(Zoom);
             };
 
 
@@ -103,6 +103,19 @@ namespace UI.Classes
             ContextMenu.Items.Add(stackPanel);
         }
 
+        public void updateScaling(double zoom)
+        {
+            Size = 40 * Scaling * zoom;
+            Zoom = zoom;
+            Border outerBorder = (Border)Children[0];
+            Border border = (Border)outerBorder.Child;
+            border.Height = Size;
+            border.Width = Size;
+            border.CornerRadius = new CornerRadius(Size / 2);
+            outerBorder.CornerRadius = new CornerRadius(Size / 2);
+            outerBorder.Height = Size;
+            outerBorder.Width = Size;
+        }
         protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
         {
             base.OnAttachedToVisualTree(e);
@@ -123,6 +136,7 @@ namespace UI.Classes
 
             if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
+                Pressed = true;
                 var data = new DataObject();
                 data.Set("Token", this);
                 DragDrop.DoDragDrop(e, data, DragDropEffects.Copy);
