@@ -1,4 +1,5 @@
 using System;
+using System.IO.Pipelines;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -54,5 +55,15 @@ public static class MapHandler
     public static void Render(float x, float y, float zoom)
     {
         Pipeline.Render(x, y, zoom);
+    }
+
+    public static (double x, double y) ScreenToWorldspace(double x, double y, float zoom, (double x, double y) screenPosition)
+    {
+        return Pipeline.ScreenToWorldspace(x, y, zoom, screenPosition);
+    }
+
+    public static (double x, double y) WorldToScreenspace(double x, double y, float zoom, (double x, double y) worldPosition)
+    {
+        return Pipeline.WorldToScreenspace(x, y, zoom, worldPosition);
     }
 }
