@@ -18,6 +18,8 @@ public static class MapHandler
 
     public static MapBuilder map { set; get; }
 
+    public static String Theme { set; get; }
+
     public static void RebindBitmap(WriteableBitmap buffer)
     {
         Buffer = buffer;
@@ -37,7 +39,7 @@ public static class MapHandler
         int xSize = 200;
         int ySize = 40;
         MapBuilder map = new MapBuilder(xSize, ySize, rng, 0.8);
-        map.setTheme($"{DataLoader.RootPath}/data/dungeon-theme/").initRoom();
+        map.setTheme($"{DataLoader.RootPath}/data/" + Theme + "-theme/").initRoom();
         Pipeline.RebindBuilder(map); //bind the finished map to the renderer
         Pipeline.Render(xSize / 2.0f, ySize / 2.0f, 1); //call once with the default to update bitmap
         mapImage.Source = Buffer;
