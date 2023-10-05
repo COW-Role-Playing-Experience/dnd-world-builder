@@ -47,6 +47,13 @@ public class MapGeneratorViewModel : ViewModelBase
         }
     }
 
+    public void SelectTheme(ComboBox themeBox, Button mapGenButton)
+    {
+        string selectedTheme = (String)themeBox.SelectedItem;
+        selectedTheme = selectedTheme.ToLower();
+        MapHandler.Theme = selectedTheme;
+        mapGenButton.IsEnabled = true;
+    }
 
 
     //Dynamically add Themes to the map generator view, based on what folders exist in Assets\Data
