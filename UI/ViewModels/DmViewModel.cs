@@ -33,6 +33,29 @@ public class DmViewModel : ViewModelBase
     private int _tokenCount = 0;
     private Image _map;
     private int _zoom = 100;
+    private float _x = 100;
+    private float _y = 20;
+    private Point? _prevPoint = null;
+    private bool _panClicked = false;
+
+    public bool PanClicked
+    {
+        get => _panClicked;
+        set => this.RaiseAndSetIfChanged(ref (_panClicked), value);
+    }
+
+    public float X
+    {
+        get => _x;
+        set => this.RaiseAndSetIfChanged(ref (_x), value);
+    }
+
+    public float Y
+    {
+        get => _y;
+        set => this.RaiseAndSetIfChanged(ref (_y), value);
+    }
+
     public int Zoom
     {
         get => _zoom;
@@ -363,35 +386,44 @@ public class DmViewModel : ViewModelBase
         if (!string.IsNullOrEmpty(token.text.Text) && isDragging) return;
 
         // Calculate the half-width and half-height of the token based on its current size.
-        double halfWidth = 40 / 2.0; // Since the width is changed to 40 once added to canvas
+        double halfWidth = token.Size / 2.0; // Since the width is changed to 40 once added to canvas
         double halfHeight = token.Size / 2.0;
 
+        (double x, double y) pos =
+                MapHandler.ScreenToWorldspace(X, Y, (float)Zoom / 100, (position.X - halfWidth, position.Y - halfHeight));
+
+        (double x, double y) Rpos = MapHandler.WorldToScreenspace(X, Y, (float)Zoom / 100, (pos.x, pos.y));
         // Create a copy of the original token
         if (!token.OnCavas)
         {
             var tokenCopy = new Token(token.Name, token.ImageBitMap)
             {
-                XLoc = (int)(position.X - halfWidth),
-                YLoc = (int)(position.Y - halfHeight)
+                XLoc = pos.x,
+                YLoc = pos.y,
+                RelativeX = Rpos.x,
+                RelativeY = Rpos.y
             };
             // Add the token copy to the collection
             tokenCopy.Width = 40;
             tokenCopy.Children.Remove(token.text);
             TokensOnCanvas.Add(tokenCopy);
-            Canvas.SetLeft(tokenCopy, tokenCopy.XLoc);
-            Canvas.SetTop(tokenCopy, tokenCopy.YLoc);
+            Canvas.SetLeft(tokenCopy, tokenCopy.RelativeX);
+            Canvas.SetTop(tokenCopy, tokenCopy.RelativeY);
             Console.WriteLine($"Token added at X: {position.X}, Y: {position.Y}");
             tokenCopy.OnCavas = true;
             tokenCopy.RequestDelete += OnTokenRequestDelete;
         }
         else
         {
-            token.XLoc = (int)(position.X - halfWidth);
-            token.YLoc = (int)(position.Y - halfHeight);
-            Canvas.SetLeft(token, token.XLoc);
-            Canvas.SetTop(token, token.YLoc);
+            token.XLoc = pos.x;
+            token.YLoc = pos.y;
+            token.RelativeX = Rpos.x;
+            token.RelativeY = Rpos.y;
+            Canvas.SetLeft(token, token.RelativeX);
+            Canvas.SetTop(token, token.RelativeY);
             Console.WriteLine($"Token moved at X: {position.X}, Y: {position.Y}");
             token.OnCavas = true;
+            token.Pressed = false;
         }
 
         token.RequestDelete += OnTokenRequestDelete;
@@ -404,26 +436,80 @@ public class DmViewModel : ViewModelBase
         TokensOnCanvas.Remove(token);
     }
 
+    public bool IsTokenPressed()
+    {
+        foreach (Token token in TokensOnCanvas)
+        {
+            if (token.Pressed)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void updateTokens()
+    {
+        foreach (Token token in TokensOnCanvas)
+        {
+            (double x, double y) pos = MapHandler.WorldToScreenspace(X, Y, (float)Zoom / 100, (token.XLoc, token.YLoc));
+            token.RelativeX = pos.x - (token.Scaling) / ((double)Zoom / 800.0);
+            token.RelativeY = pos.y;
+            token.updateScaling((double)Zoom / 100);
+            Canvas.SetLeft(token, token.RelativeX);
+            Canvas.SetTop(token, token.RelativeY);
+        }
+    }
     public void Increase()
     {
-        Zoom += 10;
-        WriteableBitmap buffer = MapHandler.Buffer;
+        Zoom += 40;
+        updateTokens();
         MapHandler.ClearBitmap();
-        MapHandler.Render(100f, 20f, (float)Zoom / 100);
+        MapHandler.Render(X, Y, (float)Zoom / 100);
         MapHandler.RebindSource(Map);
     }
 
     public void Decrease()
     {
-        if (Zoom == 10)
+        if (Zoom == 20)
         {
             return;
         }
-        Zoom -= 10;
-        WriteableBitmap buffer = MapHandler.Buffer;
+        Zoom -= 40;
+        updateTokens();
         MapHandler.ClearBitmap();
-        MapHandler.Render(100f, 20f, (float)Zoom / 100);
+        MapHandler.Render(X, Y, (float)Zoom / 100);
         MapHandler.RebindSource(Map);
     }
 
+    public void Pan(Point point)
+    {
+        if (!_panClicked || IsTokenPressed())
+        {
+            if (IsTokenPressed())
+            {
+                EndPan();
+            }
+            return;
+        }
+        if (_prevPoint != null)
+        {
+            X = (float)(X - (point.X - _prevPoint.Value.X));
+            Y = (float)(Y - (point.Y - _prevPoint.Value.Y));
+            MapHandler.ClearBitmap();
+            MapHandler.Render(X, Y, (float)Zoom / 100);
+            MapHandler.RebindSource(Map);
+
+            updateTokens();
+        }
+
+        _prevPoint = point;
+    }
+
+    public void EndPan()
+    {
+        _panClicked = false;
+        _prevPoint = null;
+    }
 }
