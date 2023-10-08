@@ -1,4 +1,4 @@
-    <UserControl xmlns="https://github.com/avaloniaui"
+<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,12 +10,12 @@
     <!-- Main layout grid -->
     <Grid>
         <!-- Background canvas to be the generated map image -->
-
-    <Canvas x:Name="MapCanvas" >
-        <Image x:Name="Map" Stretch="Uniform"/>
-    </Canvas>
+        <Canvas x:Name="MapCanvas" Background="#f4f6f7">
+            <Image x:Name="Map" Stretch="Uniform" />
+        </Canvas>
         <ItemsControl Name="TokensOnCanvasControl" ItemsSource="{Binding TokensOnCanvas}" DragDrop.AllowDrop="True"
-                      PointerPressed="FogOfWarControl_PointerPressed" PointerMoved="FogOfWarControl_OnPointerMoved" PointerReleased="FogOfWarControl_PointerReleased">
+                      PointerPressed="FogOfWarControl_PointerPressed" PointerMoved="FogOfWarControl_OnPointerMoved"
+                      PointerReleased="FogOfWarControl_PointerReleased">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas Background="Transparent" />
@@ -52,36 +52,39 @@
             <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Margin="20">
 
                 <!-- Title label, should be changeable later? -->
-                <Label Grid.Column="0" Width="300" FontSize="40" IsVisible="{Binding IsUiVisible, Mode=TwoWay}" Content="DM View"/>
+                <Label Grid.Column="0" Width="300" FontSize="40" IsVisible="{Binding IsUiVisible, Mode=TwoWay}"
+                       Foreground="#6E8894">
+                    World Crucible
+                </Label>
 
                 <!-- Main Toggles -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center"
                             VerticalAlignment="Center" MinWidth="200" IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
-                    <Button Classes="green" Background="Coral" Command="{Binding  ToggleAddVisibility}"></Button>
-
-                    <ToggleButton Name="ToggleFogOfWarPaintButton" Classes="green"
-                                  IsChecked="{Binding IsFogOfWarVisible, Mode=TwoWay}" />
-
-                    <Slider Minimum="1" Maximum="200" Value="{Binding FogOfWarSize}" Width="200"
+                    <Button Classes="windowButtons" Command="{Binding  ToggleAddVisibility}">ADD</Button>
+                    <ToggleButton Name="ToggleFogOfWarPaintButton" Classes="openSlider"
+                                  IsChecked="{Binding IsFogOfWarVisible, Mode=TwoWay}">
+                        FOW
+                    </ToggleButton>
+                    <Slider Classes="DmSliders" Minimum="1" Maximum="200" Value="{Binding FogOfWarSize}"
                             IsVisible="{Binding IsFogOfWarVisible}" />
 
-                    <Button Classes="green"></Button>
-                    <Button Classes="green"></Button>
+                    <Button Classes="windowButtons" IsEnabled="False">NA</Button>
+                    <Button Classes="windowButtons" IsEnabled="False">NA</Button>
+
                 </StackPanel>
+
 
                 <!-- Util buttons -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="25" HorizontalAlignment="Right"
                             FlowDirection="RightToLeft" MinWidth="300">
-                    <Button Width="50" Height="50" Background="#006494" HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center" Command="{Binding  ToggleUiVisibility}"
+                    <Button Classes="windowButtons" Command="{Binding  ToggleUiVisibility}"
                             Opacity="{Binding UiButtonOpacity}">
                         UI
                     </Button>
-                    <Button Width="50" Height="50" Background="#006494" HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center" x:CompileBindings="False"
+                    <Button Classes="windowButtons" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.ReturnHome}"
                             IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
-                        Back
+                        Home
                     </Button>
                 </StackPanel>
             </Grid>
@@ -90,21 +93,12 @@
             <!-- Middle section for adding extra overlays -->
             <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,20,0" MinWidth="300"
                   MaxWidth="300" IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
-                <Border VerticalAlignment="Top" Background="#657153" BorderBrush="Black" BorderThickness="1"
+                <Border VerticalAlignment="Top" Background="#a3b5bd" BorderBrush="#4e606c" BorderThickness="1"
                         Margin="0,10" IsVisible="{Binding IsAddVisible, Mode=TwoWay}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="Add to the game" FontSize="18" FontWeight="Bold"
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                        <TextBlock Grid.Row="0" Text="Tokens" FontSize="18" FontWeight="Bold"
                                    HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        <Rectangle Grid.Row="1" Height="1" Fill="Black" HorizontalAlignment="Stretch"
+                        <Rectangle Grid.Row="1" Height="1" Fill="#4e606c" HorizontalAlignment="Stretch"
                                    VerticalAlignment="Top" />
                         <ScrollViewer Grid.Row="2" HorizontalAlignment="Center" Margin="5"
                                       VerticalScrollBarVisibility="Auto" MinHeight="60" MaxHeight="200">
@@ -123,33 +117,29 @@
                             </ItemsControl>
                         </ScrollViewer>
 
-                        <Rectangle Grid.Row="3" Height="1" Fill="Black" HorizontalAlignment="Stretch"
+                        <Rectangle Grid.Row="3" Height="1" Fill="#4e606c" HorizontalAlignment="Stretch"
                                    VerticalAlignment="Top" />
                         <TextBlock Grid.Row="4" Text="Import" FontSize="18" FontWeight="Bold"
                                    HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        <Rectangle Grid.Row="5" Height="1" Fill="Black" HorizontalAlignment="Stretch"
+                        <Rectangle Grid.Row="5" Height="1" Fill="#4e606c" HorizontalAlignment="Stretch"
                                    VerticalAlignment="Top" Margin="0" />
-                        <Button Grid.Row="6" Content="Add" Width="50" Height="50" HorizontalAlignment="Center"
+                        <Button Grid.Row="6" Content="Choose New Token"  HorizontalAlignment="Center"
                                 Margin="0,10" Command="{Binding AddTokenCommand}" />
                     </Grid>
                 </Border>
             </Grid>
 
             <!-- Bottom section to have zoom controls -->
-            <Grid Grid.Row="2" VerticalAlignment="Bottom" Background="Aqua"
-                  IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
-
-                <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
-                    <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
-                           HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding X}"/>
-                    <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
-                           HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding Y}"/>
+            <Grid Grid.Row="2" VerticalAlignment="Bottom"
+                  IsVisible="{Binding IsUiVisible, Mode=TwoWay}" Margin="10">
+                <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Spacing="5">
+                    <Label Classes="bottomButtons" Content="{Binding X}"/>
+                    <Label Classes="bottomButtons" Content="{Binding Y}"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                    <Slider Minimum="0" Maximum="6" Value="{Binding Zoom}" Width="200"
+                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Spacing="5">
+                    <Slider Classes="DmSliders" Minimum="0" Maximum="6" Value="{Binding Zoom}"
                             IsSnapToTickEnabled="True" TickFrequency="1" IsDirectionReversed="True"/>
-                    <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
-                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding ZoomString}">
+                    <Label Classes="bottomButtons" Content="{Binding ZoomString}">
                     </Label>
                 </StackPanel>
             </Grid>
