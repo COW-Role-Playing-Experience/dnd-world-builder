@@ -100,6 +100,11 @@ public partial class DmView : UserControl
         }
     }
 
+    private void FogOfWarControl_OnPointerZoomed(object sender, PointerWheelEventArgs e)
+    {
+        (DataContext as DmViewModel).OnScrollWheel(-Convert.ToInt32(e.Delta.Y));
+    }
+
 
     private void FogOfWarControl_PointerReleased(object sender, PointerReleasedEventArgs e)
     {

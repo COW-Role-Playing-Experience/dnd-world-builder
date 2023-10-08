@@ -27,6 +27,8 @@ namespace UI.ViewModels;
 public class DmViewModel : ViewModelBase
 {
     private const float PanFactor = 0.1f;
+    private const int MinZoom = 0;
+    private const int MaxZoom = 6;
 
     // Private fields for UI state and token count.
     private bool _isUiVisible = true;
@@ -500,6 +502,14 @@ public class DmViewModel : ViewModelBase
         _panClicked = false;
         _prevPoint = null;
     }
+
+    public void OnScrollWheel(int scrollValue)
+    {
+        if (scrollValue > 0 && _zoom <= MinZoom || scrollValue < 0 && _zoom >= MaxZoom) return;
+        Zoom -= scrollValue;
+        OnZoom();
+    }
+
     public void OnZoom()
     {
         WriteableBitmap buffer = MapHandler.Buffer;

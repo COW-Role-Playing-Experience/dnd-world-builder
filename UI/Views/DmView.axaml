@@ -15,7 +15,7 @@
         </Canvas>
         <ItemsControl Name="TokensOnCanvasControl" ItemsSource="{Binding TokensOnCanvas}" DragDrop.AllowDrop="True"
                       PointerPressed="FogOfWarControl_PointerPressed" PointerMoved="FogOfWarControl_OnPointerMoved"
-                      PointerReleased="FogOfWarControl_PointerReleased">
+                      PointerReleased="FogOfWarControl_PointerReleased" PointerWheelChanged="FogOfWarControl_OnPointerZoomed">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas Background="Transparent" />
