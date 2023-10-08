@@ -81,7 +81,7 @@ public class MapGeneratorViewModel : ViewModelBase
 
     public void ExportMap()
     {
-        var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        var documentsDirectory = Directory.GetCurrentDirectory();
         const string appFolderName = ".worldcrucible";
         const string mapsFolderName = "Maps";
 
