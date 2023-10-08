@@ -1,5 +1,6 @@
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
+using Avalonia.Media.Immutable;
 
 namespace UI.Classes;
 
@@ -17,7 +18,7 @@ public class FogOfWarShape : Rectangle
         YLoc = yLoc;
         Height = Size;
         Width = Size;
-        Fill = Brushes.LemonChiffon;
+        Fill = new SolidColorBrush(Color.Parse("#21262b"));
         IsHitTestVisible = false;
     }
 }
