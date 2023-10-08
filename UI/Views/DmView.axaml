@@ -146,18 +146,10 @@
                            HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding Y}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                    <Button Width="35" Height="35" BorderThickness="2" BorderBrush="Black"
-                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                            Command="{Binding Increase}">
-                        +
-                    </Button>
-                    <Button Width="35" Height="35" BorderThickness="2" BorderBrush="Black"
-                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                            Command="{Binding Decrease}">
-                        -
-                    </Button>
+                    <Slider Minimum="0" Maximum="6" Value="{Binding Zoom}" Width="200"
+                            IsSnapToTickEnabled="True" TickFrequency="1" IsDirectionReversed="True"/>
                     <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
-                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Zoom}">
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding ZoomString}">
                     </Label>
                 </StackPanel>
             </Grid>
