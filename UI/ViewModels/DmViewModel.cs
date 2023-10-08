@@ -32,7 +32,6 @@ public class DmViewModel : ViewModelBase
     private double _uiButtonOpacity = 1.0;
     private int _tokenCount = 0;
     private Image _map;
-    private int _zoom = 100;
     private float _x = 100;
     private float _y = 20;
     private Point? _prevPoint = null;
@@ -56,10 +55,18 @@ public class DmViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref (_y), value);
     }
 
-    public int Zoom
+    private float _zoom = 1.0f;
+    public float TrueZoom => float.Pow(2, _zoom - 1);
+    public string ZoomString => $"{TrueZoom:F1}x";
+    public float Zoom
     {
         get => _zoom;
-        set => this.RaiseAndSetIfChanged(ref (_zoom), value);
+        set
+        {
+            if (value == _zoom) return;
+            this.RaiseAndSetIfChanged(ref _zoom, value);
+            OnZoom();
+        }
     }
 
     public Image Map
@@ -239,7 +246,7 @@ public class DmViewModel : ViewModelBase
                     return; // Exit the method early since the file is not valid.
                 }
 
-                var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                var documentsDirectory = Directory.GetCurrentDirectory();
                 const string appFolderName = ".worldcrucible";
                 const string tokensFolderName = "Tokens";
 
@@ -355,7 +362,7 @@ public class DmViewModel : ViewModelBase
     private void LoadExistingImages()
     {
         // Define the path to the tokens folder currently in documents, should probably change.
-        var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        var documentsDirectory = Directory.GetCurrentDirectory();
         const string appFolderName = ".worldcrucible";
         const string tokensFolderName = "Tokens";
 
@@ -390,9 +397,9 @@ public class DmViewModel : ViewModelBase
         double halfHeight = token.Size / 2.0;
 
         (double x, double y) pos =
-                MapHandler.ScreenToWorldspace(X, Y, (float)Zoom / 100, (position.X - halfWidth, position.Y - halfHeight));
+                MapHandler.ScreenToWorldspace(X, Y, TrueZoom, (position.X - halfWidth, position.Y - halfHeight));
 
-        (double x, double y) Rpos = MapHandler.WorldToScreenspace(X, Y, (float)Zoom / 100, (pos.x, pos.y));
+        (double x, double y) Rpos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (pos.x, pos.y));
         // Create a copy of the original token
         if (!token.OnCavas)
         {
@@ -453,36 +460,14 @@ public class DmViewModel : ViewModelBase
     {
         foreach (Token token in TokensOnCanvas)
         {
-            (double x, double y) pos = MapHandler.WorldToScreenspace(X, Y, (float)Zoom / 100, (token.XLoc, token.YLoc));
-            token.RelativeX = pos.x - (token.Scaling) / ((double)Zoom / 800.0);
+            (double x, double y) pos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (token.XLoc, token.YLoc));
+            token.RelativeX = pos.x - (token.Scaling) / (TrueZoom / 8);
             token.RelativeY = pos.y;
-            token.updateScaling((double)Zoom / 100);
+            token.updateScaling(TrueZoom);
             Canvas.SetLeft(token, token.RelativeX);
             Canvas.SetTop(token, token.RelativeY);
         }
     }
-    public void Increase()
-    {
-        Zoom += 40;
-        updateTokens();
-        MapHandler.ClearBitmap();
-        MapHandler.Render(X, Y, (float)Zoom / 100);
-        MapHandler.RebindSource(Map);
-    }
-
-    public void Decrease()
-    {
-        if (Zoom == 20)
-        {
-            return;
-        }
-        Zoom -= 40;
-        updateTokens();
-        MapHandler.ClearBitmap();
-        MapHandler.Render(X, Y, (float)Zoom / 100);
-        MapHandler.RebindSource(Map);
-    }
-
     public void Pan(Point point)
     {
         if (!_panClicked || IsTokenPressed())
@@ -498,7 +483,7 @@ public class DmViewModel : ViewModelBase
             X = (float)(X - (point.X - _prevPoint.Value.X));
             Y = (float)(Y - (point.Y - _prevPoint.Value.Y));
             MapHandler.ClearBitmap();
-            MapHandler.Render(X, Y, (float)Zoom / 100);
+            MapHandler.Render(X, Y, TrueZoom);
             MapHandler.RebindSource(Map);
 
             updateTokens();
@@ -511,5 +496,13 @@ public class DmViewModel : ViewModelBase
     {
         _panClicked = false;
         _prevPoint = null;
+    }
+    public void OnZoom()
+    {
+        WriteableBitmap buffer = MapHandler.Buffer;
+        MapHandler.ClearBitmap();
+        MapHandler.Render(X, Y, TrueZoom);
+        MapHandler.RebindSource(Map);
+        this.RaisePropertyChanged(nameof(ZoomString));
     }
 }
