@@ -10,7 +10,7 @@
     <!-- Main layout grid -->
     <Grid>
         <!-- Background canvas to be the generated map image -->
-        <Canvas x:Name="MapCanvas" Background="#f4efe0">
+        <Canvas x:Name="MapCanvas" Background="#f4f6f7">
             <Image x:Name="Map" Stretch="Uniform" />
         </Canvas>
         <ItemsControl Name="TokensOnCanvasControl" ItemsSource="{Binding TokensOnCanvas}" DragDrop.AllowDrop="True"
@@ -77,13 +77,11 @@
                 <!-- Util buttons -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="25" HorizontalAlignment="Right"
                             FlowDirection="RightToLeft" MinWidth="300">
-                    <Button Width="50" Height="50" Background="#6E8894" HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center" Command="{Binding  ToggleUiVisibility}"
+                    <Button Classes="windowButtons" Command="{Binding  ToggleUiVisibility}"
                             Opacity="{Binding UiButtonOpacity}">
                         UI
                     </Button>
-                    <Button Width="50" Height="50" Background="#6E8894" HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center" x:CompileBindings="False"
+                    <Button Classes="windowButtons" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.ReturnHome}"
                             IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
                         Back

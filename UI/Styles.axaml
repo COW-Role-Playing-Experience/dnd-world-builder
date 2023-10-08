@@ -17,21 +17,24 @@
         <Style Selector="Button.windowButtons">
             <Setter Property="Width" Value="50" />
             <Setter Property="Height" Value="50" />
-            <Setter Property="Background" Value="#b18145" />
+            <Setter Property="Background" Value="#5b737f" />
             <Setter Property="FontSize" Value="12" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
         <Style Selector="Button.windowButtons /template/ ContentPresenter">
-            <Setter Property="Background" Value="#be9551" />
-            <Setter Property="Foreground" Value="#faf8f2" />
+            <Setter Property="Foreground" Value="#f4f6f7" />
             <Setter Property="FontSize" Value="12" />
         </Style>
         <Style Selector="Button.windowButtons:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="#b18145" />
+            <Setter Property="Background" Value="#4e606c" />
         </Style>
         <Style Selector="Button.windowButtons:pressed /template/ ContentPresenter">
-            <Setter Property="Background" Value="#93683b" />
+            <Setter Property="Background" Value="#44525a" />
+        </Style>
+        <Style Selector="Button.windowButtons:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="#c9d4d8" />
+            <Setter Property="Foreground" Value="#44525a" />
         </Style>
     </Styles>
 
@@ -40,20 +43,20 @@
         <Style Selector="ToggleButton.openSlider">
             <Setter Property="Width" Value="50" />
             <Setter Property="Height" Value="50" />
-            <Setter Property="Background" Value="#b18145" />
+            <Setter Property="Background" Value="#5b737f" />
             <Setter Property="FontSize" Value="12" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
         <Style Selector="ToggleButton.openSlider /template/ ContentPresenter">
-            <Setter Property="Background" Value="#be9551" />
+            <Setter Property="Background" Value="#5b737f" />
             <Setter Property="Foreground" Value="#faf8f2" />
         </Style>
         <Style Selector="ToggleButton.openSlider:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="#b18145" />
+            <Setter Property="Background" Value="#4e606c" />
         </Style>
         <Style Selector="Button.windowButtons:pressed /template/ ContentPresenter">
-            <Setter Property="Background" Value="#93683b" />
+            <Setter Property="Background" Value="#44525a" />
         </Style>
     </Styles>
 
@@ -67,18 +70,19 @@
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="#6E8894" />
             <Setter Property="CornerRadius" Value="5" />
             <Setter Property="Padding" Value="10" />
         </Style>
         <Style Selector="Button.homeButton /template/ ContentPresenter">
-            <Setter Property="Background" Value="#be9551" />
+            <Setter Property="Background" Value="#5b737f" />
             <Setter Property="Foreground" Value="#faf8f2" />
         </Style>
         <Style Selector="Button.homeButton:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="#b18145" />
+            <Setter Property="Background" Value="#4e606c" />
         </Style>
         <Style Selector="Button.homeButton:pressed /template/ ContentPresenter">
-            <Setter Property="Background" Value="#93683b" />
+            <Setter Property="Background" Value="#44525a" />
         </Style>
 
     </Styles>
@@ -142,4 +146,7 @@
         </Style>
 
     </Styles>
+    <!-- Map Generator Textbox -->
+
+
 </Styles>
