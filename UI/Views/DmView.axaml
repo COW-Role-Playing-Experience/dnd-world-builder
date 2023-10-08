@@ -65,7 +65,7 @@
                                   IsChecked="{Binding IsFogOfWarVisible, Mode=TwoWay}">
                         FOW
                     </ToggleButton>
-                    <Slider Minimum="1" Maximum="200" Value="{Binding FogOfWarSize}" Width="200"
+                    <Slider Classes="DmSliders" Minimum="1" Maximum="200" Value="{Binding FogOfWarSize}"
                             IsVisible="{Binding IsFogOfWarVisible}" />
 
                     <Button Classes="windowButtons" IsEnabled="False">NA</Button>
@@ -131,19 +131,15 @@
 
             <!-- Bottom section to have zoom controls -->
             <Grid Grid.Row="2" VerticalAlignment="Bottom"
-                  IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
-
-                <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
-                    <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
-                           HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding X}"/>
-                    <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
-                           HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding Y}"/>
+                  IsVisible="{Binding IsUiVisible, Mode=TwoWay}" Margin="10">
+                <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Spacing="5">
+                    <Label Classes="bottomButtons" Content="{Binding X}"/>
+                    <Label Classes="bottomButtons" Content="{Binding Y}"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                    <Slider Minimum="0" Maximum="6" Value="{Binding Zoom}" Width="200"
+                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Spacing="5">
+                    <Slider Classes="DmSliders" Minimum="0" Maximum="6" Value="{Binding Zoom}"
                             IsSnapToTickEnabled="True" TickFrequency="1" IsDirectionReversed="True"/>
-                    <Label Width="50" Height="35" BorderThickness="2" BorderBrush="Black"
-                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding ZoomString}">
+                    <Label Classes="bottomButtons" Content="{Binding ZoomString}">
                     </Label>
                 </StackPanel>
             </Grid>

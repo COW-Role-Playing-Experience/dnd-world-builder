@@ -18,7 +18,7 @@ public class FogOfWarShape : Rectangle
         YLoc = yLoc;
         Height = Size;
         Width = Size;
-        Fill = new SolidColorBrush(Color.Parse("#332317"));
+        Fill = new SolidColorBrush(Color.Parse("#21262b"));
         IsHitTestVisible = false;
     }
 }
