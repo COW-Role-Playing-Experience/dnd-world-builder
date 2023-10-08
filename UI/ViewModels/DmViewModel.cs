@@ -26,6 +26,8 @@ namespace UI.ViewModels;
 /// </summary>
 public class DmViewModel : ViewModelBase
 {
+    private const float PanFactor = 0.1f;
+
     // Private fields for UI state and token count.
     private bool _isUiVisible = true;
     private bool _isAddVisible;
@@ -481,8 +483,8 @@ public class DmViewModel : ViewModelBase
         }
         if (_prevPoint != null)
         {
-            X = (float)(X - (point.X - _prevPoint.Value.X));
-            Y = (float)(Y - (point.Y - _prevPoint.Value.Y));
+            X = (float)(X - (point.X - _prevPoint.Value.X) * PanFactor / TrueZoom);
+            Y = (float)(Y - (point.Y - _prevPoint.Value.Y) * PanFactor / TrueZoom);
             MapHandler.ClearBitmap();
             MapHandler.Render(X, Y, TrueZoom);
             MapHandler.RebindSource(Map);
