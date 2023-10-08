@@ -419,6 +419,7 @@ public class DmViewModel : ViewModelBase
             Console.WriteLine($"Token added at X: {position.X}, Y: {position.Y}");
             tokenCopy.OnCavas = true;
             tokenCopy.RequestDelete += OnTokenRequestDelete;
+            updateTokens();
         }
         else
         {
@@ -504,5 +505,6 @@ public class DmViewModel : ViewModelBase
         MapHandler.Render(X, Y, TrueZoom);
         MapHandler.RebindSource(Map);
         this.RaisePropertyChanged(nameof(ZoomString));
+        updateTokens();
     }
 }
