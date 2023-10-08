@@ -32,8 +32,8 @@
   {
     "id": 5,
     "padding": 0,
-    "themeIds": [9],
-    "themeChances": [0]
+    "themeIds": [9, 21],
+    "themeChances": [0.05,0]
   },
     {
     "id": 6,
