@@ -128,11 +128,13 @@
             <Setter Property="Background" Value="#5b737f" />
             <Setter Property="Foreground" Value="#5b737f" />
         </Style>
-        <Style Selector="Slider.DmSliders:pointerover /template/ Track#PART_Track /template/ RepeatButton#PART_DecreaseButton">
+        <Style
+            Selector="Slider.DmSliders:pointerover /template/ Track#PART_Track /template/ RepeatButton#PART_DecreaseButton">
             <Setter Property="Background" Value="#4e606c" />
             <Setter Property="Foreground" Value="#4e606c" />
         </Style>
-        <Style Selector="Slider.DmSliders:pressed /template/ Track#PART_Track /template/ RepeatButton#PART_DecreaseButton">
+        <Style
+            Selector="Slider.DmSliders:pressed /template/ Track#PART_Track /template/ RepeatButton#PART_DecreaseButton">
             <Setter Property="Background" Value="#44515a" />
             <Setter Property="Foreground" Value="#44515a" />
         </Style>
@@ -142,25 +144,31 @@
             <Setter Property="Background" Value="#5b737f" />
             <Setter Property="Foreground" Value="#5b737f" />
         </Style>
-        <Style Selector="Slider.DmSliders:pointerover /template/ Track#PART_Track /template/ RepeatButton#PART_IncreaseButton">
+        <Style
+            Selector="Slider.DmSliders:pointerover /template/ Track#PART_Track /template/ RepeatButton#PART_IncreaseButton">
             <Setter Property="Background" Value="#4e606c" />
             <Setter Property="Foreground" Value="#4e606c" />
         </Style>
-        <Style Selector="Slider.DmSliders:pressed /template/ Track#PART_Track /template/ RepeatButton#PART_IncreaseButton">
+        <Style
+            Selector="Slider.DmSliders:pressed /template/ Track#PART_Track /template/ RepeatButton#PART_IncreaseButton">
             <Setter Property="Background" Value="#44515a" />
             <Setter Property="Foreground" Value="#44515a" />
         </Style>
         <Style Selector="Slider.DmSliders:pointerover /template/ Track#PART_Track /template/ RepeatButton">
             <Setter Property="Background" Value="#4e606c" />
+            <Setter Property="Foreground" Value="#44515a" />
         </Style>
-        <Style Selector="Slider.DmSliders:pointerover /template/ Track#PART_Track /template/ RepeatButton#PART_DecreaseButton">
+        <Style
+            Selector="Slider.DmSliders:pointerover /template/ Track#PART_Track /template/ RepeatButton#PART_DecreaseButton">
             <Setter Property="Background" Value="#6e808c" />
+            <Setter Property="Foreground" Value="#44515a" />
         </Style>
 
-        <Style Selector="Slider.DmSliders:pointerover /template/ Track#PART_Track /template/ RepeatButton#PART_IncreaseButton">
+        <Style
+            Selector="Slider.DmSliders:pointerover /template/ Track#PART_Track /template/ RepeatButton#PART_IncreaseButton">
             <Setter Property="Background" Value="#6e808c" />
+            <Setter Property="Foreground" Value="#44515a" />
         </Style>
-
 
     </Styles>
 

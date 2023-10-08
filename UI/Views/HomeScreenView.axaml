@@ -16,13 +16,13 @@
                     <!-- Button to Create Map -->
                     <Button Classes="homeButton" MinHeight="80" MinWidth="80" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.CreateView}">
-                        Create
+                        Create Map
                     </Button>
 
                     <!-- Button to Host Game -->
                     <Button Classes="homeButton" MinHeight="80" MinWidth="80" x:CompileBindings="False"
                             Command="{Binding $parent[Window].DataContext.DmView} ">
-                        Host
+                        Resume Map
                     </Button>
 
                     <!-- Button to Join Game -->

@@ -8,7 +8,7 @@
              x:DataType="vm:PlayerViewModel">
 
     <!-- Main layout grid -->
-    <Grid>
+    <Grid Background="#f4f6f7">
         <!-- Background canvas to be the generated map image -->
         <ItemsControl Name="TokensOnCanvasControl" ItemsSource="{Binding TokensVisible}" DragDrop.AllowDrop="True">
             <ItemsControl.ItemsPanel>

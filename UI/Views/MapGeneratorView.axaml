@@ -8,9 +8,8 @@
              x:DataType="vm:MapGeneratorViewModel">
 
 
-    <Grid ColumnDefinitions="250,Auto">
+    <Grid ColumnDefinitions="250,Auto" Background="#f4f6f7">
         <Grid RowDefinitions="2*,3*,2*" Background="#e2e8eb">
-
             <!-- Seed generation controls -->
             <StackPanel Grid.Column="0" Grid.Row="0">
                 <Button Name="MapGenButton" Classes="mapGenButton" Click="GenerateMap" IsEnabled="False">Generate From Seed</Button>
