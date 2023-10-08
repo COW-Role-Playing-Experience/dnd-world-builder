@@ -32,7 +32,7 @@
             <!-- Top section with title and main UI -->
             <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Margin="20">
                 <!-- Title label, should be changeable later? -->
-                <Label Grid.Column="0" Width="300" FontSize="40" IsVisible="{Binding IsUiVisible, Mode=TwoWay}"> Map Generator</Label>
+                <Label Grid.Column="0" Width="300" FontSize="40" IsVisible="{Binding IsUiVisible, Mode=TwoWay}" Content="Player View"/>
 
                 <!-- Main Toggles -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center"
