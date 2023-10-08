@@ -239,7 +239,7 @@ public class DmViewModel : ViewModelBase
                     return; // Exit the method early since the file is not valid.
                 }
 
-                var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                var documentsDirectory = Directory.GetCurrentDirectory();
                 const string appFolderName = ".worldcrucible";
                 const string tokensFolderName = "Tokens";
 
@@ -355,7 +355,7 @@ public class DmViewModel : ViewModelBase
     private void LoadExistingImages()
     {
         // Define the path to the tokens folder currently in documents, should probably change.
-        var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        var documentsDirectory = Directory.GetCurrentDirectory();
         const string appFolderName = ".worldcrucible";
         const string tokensFolderName = "Tokens";
 
