@@ -20,6 +20,7 @@ class Program
         MapHandler.Pipeline = new(null, null); //create a new pipeline with unbound mapbuilder and WritableBuffer
         BuildAvaloniaApp()
         .StartWithClassicDesktopLifetime(args);
+
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.

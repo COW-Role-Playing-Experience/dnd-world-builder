@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="450"
         x:Class="UI.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/Chair_Broken_Wood_Red_B3_1x1.ico"
         Title="World Crucible"
         Content="{Binding Current}"
         MinWidth="1000"
