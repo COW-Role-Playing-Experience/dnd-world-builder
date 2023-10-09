@@ -1,5 +1,6 @@
 using System;
 using System.IO.Pipelines;
+using System.Runtime.Intrinsics.X86;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -21,9 +22,9 @@ public static class MapHandler
 
     public static String Theme { set; get; }
 
-    public static int XSize { set; get; }
+    public static int XSize { set; get; } = 100;
 
-    public static int YSize { set; get; }
+    public static int YSize { set; get; } = 100;
 
 
     public static void RebindBitmap(WriteableBitmap buffer)
@@ -42,7 +43,6 @@ public static class MapHandler
         ClearBitmap();
         Random rng = new Random(MapSeed);
         DataLoader.Random = rng;
-
 
         MapBuilder map = new MapBuilder(XSize, YSize, rng, 0.8);
         map.setTheme($"{DataLoader.RootPath}/data/" + Theme + "-theme/").initRoom();
