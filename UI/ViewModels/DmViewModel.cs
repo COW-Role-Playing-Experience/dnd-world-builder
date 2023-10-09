@@ -411,7 +411,7 @@ public class DmViewModel : ViewModelBase
             {
                 XLoc = pos.x,
                 YLoc = pos.y,
-                RelativeX = Rpos.x,
+                RelativeX = Rpos.x - (2 / TrueZoom) * MapHandler.TileSize(TrueZoom),
                 RelativeY = Rpos.y
             };
             // Add the token copy to the collection
@@ -420,7 +420,6 @@ public class DmViewModel : ViewModelBase
             TokensOnCanvas.Add(tokenCopy);
             Canvas.SetLeft(tokenCopy, tokenCopy.RelativeX);
             Canvas.SetTop(tokenCopy, tokenCopy.RelativeY);
-            Console.WriteLine($"Token added at X: {position.X}, Y: {position.Y}");
             tokenCopy.OnCavas = true;
             tokenCopy.RequestDelete += OnTokenRequestDelete;
             updateTokens();
@@ -429,11 +428,10 @@ public class DmViewModel : ViewModelBase
         {
             token.XLoc = pos.x;
             token.YLoc = pos.y;
-            token.RelativeX = Rpos.x;
+            token.RelativeX = Rpos.x - (2 / TrueZoom) * MapHandler.TileSize(TrueZoom);
             token.RelativeY = Rpos.y;
             Canvas.SetLeft(token, token.RelativeX);
             Canvas.SetTop(token, token.RelativeY);
-            Console.WriteLine($"Token moved at X: {position.X}, Y: {position.Y}");
             token.OnCavas = true;
             token.Pressed = false;
         }
@@ -466,7 +464,7 @@ public class DmViewModel : ViewModelBase
         foreach (Token token in TokensOnCanvas)
         {
             (double x, double y) pos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (token.XLoc, token.YLoc));
-            token.RelativeX = pos.x - (token.Scaling) / (TrueZoom / 8);
+            token.RelativeX = pos.x - (2 / TrueZoom) * MapHandler.TileSize(TrueZoom);
             token.RelativeY = pos.y;
             token.updateScaling(TrueZoom);
             Canvas.SetLeft(token, token.RelativeX);

@@ -66,4 +66,10 @@ public static class MapHandler
     {
         return Pipeline.WorldToScreenspace(x, y, zoom, worldPosition);
     }
+
+
+    public static float TileSize(float zoom)
+    {
+        return Pipeline.TileSize(zoom);
+    }
 }
