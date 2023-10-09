@@ -80,6 +80,7 @@ public class DmViewModel : ViewModelBase
     }
     private int _fogOfWarSize = 100;
     private bool _isFogOfWarVisible;
+    private bool _isFogSliderVisible;
     public bool _isLeftMouseDown;
 
     private int ObservableTokenCount => _observableTokenCount.Value;
@@ -143,6 +144,16 @@ public class DmViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _isFogOfWarVisible, value);
     }
 
+    public bool IsFogSliderVisible
+    {
+        get => _isFogSliderVisible;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _isFogSliderVisible, value);
+            IsFogOfWarVisible = true;
+        }
+    }
+
     private void AddFogRectangleAt(Point position)
     {
         if (!_isLeftMouseDown) return;
@@ -157,9 +168,13 @@ public class DmViewModel : ViewModelBase
             return;
         }
 
-        var shape = new FogOfWarShape((int)position.X - offset, (int)position.Y - offset, FogOfWarSize);
-        Canvas.SetLeft(shape, shape.XLoc);
-        Canvas.SetTop(shape, shape.YLoc);
+        (double x, double y) pos =
+            MapHandler.ScreenToWorldspace(X, Y, Zoom, ((int)position.X - offset, (int)position.Y - offset));
+        (double x, double y) rPos = MapHandler.WorldToScreenspace(X, Y, Zoom, (pos.x, pos.y));
+        FogOfWarShape shape = new(pos.x, pos.y, rPos.x, rPos.y, FogOfWarSize);
+        shape.updateSize(TrueZoom);
+        Canvas.SetLeft(shape, shape.RelativeX);
+        Canvas.SetTop(shape, shape.RelativeY);
         FogOfWarRectangles.Add(shape);
     }
 
@@ -204,8 +219,8 @@ public class DmViewModel : ViewModelBase
 
     private bool IsPointInsideRectangle(Point point, FogOfWarShape rect)
     {
-        return point.X >= rect.XLoc && point.X <= rect.XLoc + rect.Width &&
-               point.Y >= rect.YLoc && point.Y <= rect.YLoc + rect.Height;
+        return point.X >= rect.RelativeX && point.X <= rect.RelativeX + rect.Width &&
+               point.Y >= rect.RelativeY && point.Y <= rect.RelativeY + rect.Height;
     }
 
     // Toggles the visibility of the UI.
@@ -462,7 +477,7 @@ public class DmViewModel : ViewModelBase
         return false;
     }
 
-    public void updateTokens()
+    public void UpdateTokens()
     {
         foreach (Token token in TokensOnCanvas)
         {
@@ -472,6 +487,19 @@ public class DmViewModel : ViewModelBase
             token.updateScaling(TrueZoom);
             Canvas.SetLeft(token, token.RelativeX);
             Canvas.SetTop(token, token.RelativeY);
+        }
+    }
+
+    public void UpdateFOW()
+    {
+        foreach (FogOfWarShape shape in FogOfWarRectangles)
+        {
+            (double x, double y) pos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (shape.XLoc, shape.YLoc));
+            shape.RelativeX = pos.x;
+            shape.RelativeY = pos.y;
+            shape.updateSize(TrueZoom);
+            Canvas.SetLeft(shape, shape.RelativeX);
+            Canvas.SetTop(shape, shape.RelativeY);
         }
     }
     public void Pan(Point point)
@@ -492,7 +520,8 @@ public class DmViewModel : ViewModelBase
             MapHandler.Render(X, Y, TrueZoom);
             MapHandler.RebindSource(Map);
 
-            updateTokens();
+            UpdateTokens();
+            UpdateFOW();
         }
 
         _prevPoint = point;
@@ -518,6 +547,7 @@ public class DmViewModel : ViewModelBase
         MapHandler.Render(X, Y, TrueZoom);
         MapHandler.RebindSource(Map);
         this.RaisePropertyChanged(nameof(ZoomString));
-        updateTokens();
+        UpdateTokens();
+        UpdateFOW();
     }
 }

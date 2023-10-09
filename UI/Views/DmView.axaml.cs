@@ -58,7 +58,7 @@ public partial class DmView : UserControl
         var vm = DataContext as DmViewModel;
         var point = e.GetCurrentPoint(sender as Visual).Properties;
 
-        if (vm?.IsFogOfWarVisible == true)
+        if (vm?.IsFogSliderVisible == true)
         {
             var position = e.GetPosition(this);
             if (point.IsRightButtonPressed)
@@ -82,7 +82,7 @@ public partial class DmView : UserControl
         var vm = DataContext as DmViewModel;
         var point = e.GetCurrentPoint(sender as Visual).Properties;
 
-        if (vm?.IsFogOfWarVisible == true)
+        if (vm?.IsFogSliderVisible == true)
         {
             var position = e.GetPosition(this);
             if (point.IsRightButtonPressed)
@@ -111,7 +111,7 @@ public partial class DmView : UserControl
         var vm = DataContext as DmViewModel;
         var point = e.GetCurrentPoint(sender as Visual).Properties;
 
-        if (vm?.IsFogOfWarVisible == true)
+        if (vm?.IsFogSliderVisible == true)
         {
             var position = e.GetPosition(this);
             if (point.IsRightButtonPressed)
