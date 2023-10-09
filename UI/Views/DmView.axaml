@@ -39,8 +39,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <ContentPresenter Content="{Binding }"
-                                      Canvas.Left="{Binding XLoc}"
-                                      Canvas.Top="{Binding YLoc}" />
+                                      Canvas.Left="{Binding RelativeX}"
+                                      Canvas.Top="{Binding RelativeY}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
