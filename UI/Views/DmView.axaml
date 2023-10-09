@@ -61,14 +61,14 @@
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center"
                             VerticalAlignment="Center" MinWidth="200" IsVisible="{Binding IsUiVisible, Mode=TwoWay}">
                     <Button Classes="windowButtons" Command="{Binding  ToggleAddVisibility}">ADD</Button>
-                    <ToggleButton Name="ToggleFogOfWarPaintButton" Classes="openSlider"
-                                  IsChecked="{Binding IsFogOfWarVisible, Mode=TwoWay}">
+                    <ToggleButton Name="ToggleFogOfWarPaintButton" Classes="dmView"
+                                  IsChecked="{Binding IsFogSliderVisible, Mode=TwoWay}">
                         FOW
                     </ToggleButton>
                     <Slider Classes="DmSliders" Minimum="1" Maximum="200" Value="{Binding FogOfWarSize}"
-                            IsVisible="{Binding IsFogOfWarVisible}" />
+                            IsVisible="{Binding IsFogSliderVisible}" />
 
-                    <Button Classes="windowButtons" IsEnabled="False">NA</Button>
+                    <ToggleButton Classes="dmView" IsChecked="{Binding IsFogOfWarVisible, Mode=TwoWay}">TGL</ToggleButton>
                     <Button Classes="windowButtons" IsEnabled="False">NA</Button>
 
                 </StackPanel>

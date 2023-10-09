@@ -65,7 +65,7 @@
 
     <!-- DM View Toggle Fog of War -->
     <Styles>
-        <Style Selector="ToggleButton.openSlider">
+        <Style Selector="ToggleButton.dmView">
             <Setter Property="Width" Value="50" />
             <Setter Property="Height" Value="50" />
             <Setter Property="Background" Value="#5b737f" />
@@ -73,11 +73,11 @@
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
-        <Style Selector="ToggleButton.openSlider /template/ ContentPresenter">
+        <Style Selector="ToggleButton.dmView /template/ ContentPresenter">
             <Setter Property="Background" Value="#5b737f" />
             <Setter Property="Foreground" Value="#faf8f2" />
         </Style>
-        <Style Selector="ToggleButton.openSlider:pointerover /template/ ContentPresenter">
+        <Style Selector="ToggleButton.dmView:pointerover /template/ ContentPresenter">
             <Setter Property="Background" Value="#4e606c" />
         </Style>
         <Style Selector="Button.windowButtons:pressed /template/ ContentPresenter">

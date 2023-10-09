@@ -76,6 +76,7 @@ public class DmViewModel : ViewModelBase
     }
     private int _fogOfWarSize = 100;
     private bool _isFogOfWarVisible;
+    private bool _isFogSliderVisible;
     public bool _isLeftMouseDown;
 
     private int ObservableTokenCount => _observableTokenCount.Value;
@@ -137,6 +138,16 @@ public class DmViewModel : ViewModelBase
     {
         get => _isFogOfWarVisible;
         set => this.RaiseAndSetIfChanged(ref _isFogOfWarVisible, value);
+    }
+
+    public bool IsFogSliderVisible
+    {
+        get => _isFogSliderVisible;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _isFogSliderVisible, value);
+            IsFogOfWarVisible = true;
+        }
     }
 
     private void AddFogRectangleAt(Point position)
