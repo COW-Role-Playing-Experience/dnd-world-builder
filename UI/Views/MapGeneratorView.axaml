@@ -12,8 +12,7 @@
         <Grid RowDefinitions="2*,3*,2*" Background="#e2e8eb">
             <!-- Seed generation controls -->
             <StackPanel Grid.Column="0" Grid.Row="0" Spacing="5">
-                <Label HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center"
-                       VerticalContentAlignment="Center">
+                <Label Classes="textBoxValue">
                     X Size
                 </Label>
 
@@ -21,15 +20,13 @@
                          TextChanged="TextBoxWritten">
 
                 </TextBox>
-                <Label HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center"
-                       VerticalContentAlignment="Center">
+                <Label Classes="textBoxValue">
                     Y Size
                 </Label>
                 <TextBox Name="ySizeBox" MaxLength="3" Classes="mapGenTextbox"
                          TextChanged="TextBoxWritten">
                 </TextBox>
-                <Label HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center"
-                       VerticalContentAlignment="Center">
+                <Label Classes="textBoxValue">
                     Seed Value
                 </Label>
                 <TextBox Name="SeedTextBox" MaxLength="9" Classes="mapGenTextbox"
