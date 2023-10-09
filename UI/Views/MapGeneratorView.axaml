@@ -16,23 +16,23 @@
                     X Size
                 </Label>
 
-                <TextBox Name="xSizeBox" MaxLength="3" Classes="mapGenTextbox"
+                <TextBox Name="xSizeBox" MaxLength="3" Classes="mapGenTextbox" Watermark="Max = 400 | Min = 9"
                          TextChanged="TextBoxWritten">
 
                 </TextBox>
                 <Label Classes="textBoxValue">
                     Y Size
                 </Label>
-                <TextBox Name="ySizeBox" MaxLength="3" Classes="mapGenTextbox"
+                <TextBox Name="ySizeBox" MaxLength="3" Classes="mapGenTextbox" Watermark="Max = 400 | Min = 9"
                          TextChanged="TextBoxWritten">
                 </TextBox>
                 <Label Classes="textBoxValue">
                     Seed Value
                 </Label>
-                <TextBox Name="SeedTextBox" MaxLength="9" Classes="mapGenTextbox"
+                <TextBox Name="SeedTextBox" MaxLength="9" Classes="mapGenTextbox" Watermark="000000000"
                          TextChanged="TextBoxWritten">
                 </TextBox>
-                <Button Classes="mapGenButton" Click="GenerateSeed">Generate New Seed</Button>
+                <Button Classes="mapGenButton" Click="GenerateNewValues">Generate New Values</Button>
             </StackPanel>
 
             <!-- Theme selection -->
