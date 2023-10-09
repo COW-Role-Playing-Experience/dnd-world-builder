@@ -48,7 +48,13 @@
             <!-- Export/Host Game/Back buttons-->
             <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom">
                 <Button Name="MapGenButton" Classes="mapGenButton" Click="GenerateMap" IsEnabled="False">Generate New Map</Button>
-                <Button Classes="mapGenButton" Click="ExportMap">Export</Button>
+                <Button Classes="mapGenButton" Content="Export" Name="ExportButton" Click="ExportMap">
+                    <Button.Flyout>
+                        <Flyout Placement="Top">
+                            <TextBlock Text="Map exported successfully"/>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
                 <Button Classes="mapGenButton"
                         x:CompileBindings="False"
                         Command="{Binding $parent[Window].DataContext.DmView}">
@@ -66,6 +72,7 @@
         <Canvas Grid.Column="1">
             <Image x:Name="Map" Stretch="Uniform" />
         </Canvas>
+
 
     </Grid>
 </UserControl>
