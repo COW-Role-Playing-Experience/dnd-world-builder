@@ -1,80 +1,14 @@
 [
   {
     "id": 0,
-    "padding": 0.5,
-    "themeIds": [0, 1, 2, 3, 4],
-    "themeChances": [1, 0.9, 0.7, 0.5, 0.4]
-  },
-  {
-    "id": 1,
-    "padding": 0.5,
-    "themeIds": [0, 1, 2, 3],
-    "themeChances": [0.7, 0.3, 0.5, 0.2]
-  },
-  {
-    "id": 2,
-    "padding": 0.5,
-    "themeIds": [0, 1, 2, 5],
-    "themeChances": [1, 0.7, 0.5, 0.1]
-  },
-  {
-    "id": 3,
-    "padding": 0.5,
-    "themeIds": [0, 1, 2, 3],
-    "themeChances": [0.7, 0.3, 0.5, 0.2]
-  },
-  {
-    "id": 4,
-    "padding": 0.2,
-    "themeIds": [4],
-    "themeChances": [1]
-  },
-  {
-    "id": 5,
     "padding": 0,
-    "themeIds": [9, 21],
-    "themeChances": [0.05,0]
+    "themeIds": [0,1,2,3,4,5,6,7],
+    "themeChances": [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1]
   },
-    {
-    "id": 6,
-    "padding": 0.5,
-    "themeIds": [15, 14, 13, 12, 11],
-    "themeChances": [0.8, 0.6, 0.4, 0.2, 0]
-  },
-    {
-    "id": 7,
-    "padding": 0.5,
-    "themeIds": [8, 4],
-    "themeChances": [0.5, 0]
-  },
-    {
-    "id": 8,
-    "padding": 0.5,
-    "themeIds": [16, 17],
-    "themeChances": [0.5, 0]
-  },
-    {
-    "id": 9,
-    "padding": 0.3,
-    "themeIds": [7, 10],
-    "themeChances": [0.5, 0]
-  },
-    {
-    "id": 10,
-    "padding": 0.3,
-    "themeIds": [15, 16],
-    "themeChances": [0.5, 0]
-  },
-    {
-    "id": 11,
-    "padding": 0.5,
-    "themeIds": [6, 9, 18],
-    "themeChances": [0.5, 0.1, 0]
-  },
-    {
-    "id": 12,
-    "padding": 0,
-    "themeIds": [19, 20],
-    "themeChances": [0.5, 0]
-  }
+  {
+  "id": 1,
+  "padding": 0,
+  "themeIds": [8,9,10,11,12,13,14,15,16,17],
+  "themeChances": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+}
 ]
