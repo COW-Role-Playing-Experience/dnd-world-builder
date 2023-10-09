@@ -216,18 +216,18 @@
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="BorderBrush" Value="#6E8894" />
             <Setter Property="CornerRadius" Value="0" />
-            <Setter Property="Foreground" Value="#f4f6f7" />
-            <Setter Property="Background" Value="#5b737f" />
+
         </Style>
 
-        <Style Selector="TextBox.mapGenTextbox:empty /template/ Border">
+        <Style Selector="TextBox.mapGenTextbox:empty">
+            <Setter Property="Foreground" Value="#5b737f" />
             <Setter Property="Background" Value="#e2e8eb" />
+
         </Style>
         <Style Selector="TextBox.mapGenTextbox:pointerover /template/ Border">
             <Setter Property="Background" Value="#e2e8eb" />
         </Style>
         <Style Selector="TextBox.mapGenTextbox:focus /template/ Border">
-            <Setter Property="Background" Value="#5b737f" />
         </Style>
 
     </Styles>
@@ -257,7 +257,7 @@
             <Setter Property="Foreground" Value="#e2e8eb" />
         </Style>
 
-        <!-- Textbox Options Cave -->
+        <!-- Combobox Options Cave -->
 
         <Style Selector="ComboBox.mapGenCombobox[SelectedItem=Cave]">
             <Setter Property="Background" Value="#5a726d" />
@@ -271,7 +271,7 @@
             <Setter Property="Background" Value="#3b4a48" />
         </Style>
 
-        <!-- Textbox Options Dungeon -->
+        <!-- Combobox Options Dungeon -->
 
         <Style Selector="ComboBox.mapGenCombobox[SelectedItem=Dungeon]">
             <Setter Property="Background" Value="#837285" />
