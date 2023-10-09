@@ -31,7 +31,7 @@ public class MapGeneratorViewModel : ViewModelBase
         MapHandler.MapSeed = randomNumber;
     }
 
-    public void SeedBoxWritten(object sender, TextChangedEventArgs e)
+    public void TextBoxWritten(object sender, TextChangedEventArgs e)
     {
         TextBox textBox = (TextBox)sender;
         string text = textBox.Text;
@@ -43,7 +43,18 @@ public class MapGeneratorViewModel : ViewModelBase
         }
         else
         {
-            MapHandler.MapSeed = result;
+            switch (textBox.Name)
+            {
+                case "xSizeBox":
+                    MapHandler.XSize = result;
+                    break;
+                case "ySizeBox":
+                    MapHandler.YSize = result;
+                    break;
+                case "SeedTextBox":
+                    MapHandler.MapSeed = result;
+                    break;
+            }
         }
     }
 

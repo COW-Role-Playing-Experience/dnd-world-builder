@@ -67,8 +67,10 @@ public partial class MapGeneratorView : UserControl
         MapHandler.GenerateMap(map);
     }
 
-    private void SeedBoxWritten(object sender, TextChangedEventArgs e)
+    private void TextBoxWritten(object sender, TextChangedEventArgs e)
     {
-        (DataContext as MapGeneratorViewModel)?.SeedBoxWritten(sender, e);
+        (DataContext as MapGeneratorViewModel)?.TextBoxWritten(sender, e);
     }
+
+
 }
