@@ -16,6 +16,7 @@ using static System.Net.Mime.MediaTypeNames;
 using Avalonia.Controls.ApplicationLifetimes;
 using System.Diagnostics;
 using Avalonia;
+using Image = Avalonia.Controls.Image;
 
 namespace UI.ViewModels;
 
@@ -51,12 +52,10 @@ public class MapGeneratorViewModel : ViewModelBase
             {
                 case "xSizeBox":
                     MapHandler.XSize = result > 400 ? 400 : result;
-                    MapHandler.XSize = result < 9 ? 9 : result;
                     textBox.Text = MapHandler.XSize.ToString();
                     break;
                 case "ySizeBox":
                     MapHandler.YSize = result > 400 ? 400 : result;
-                    MapHandler.YSize = result < 9 ? 9 : result;
                     textBox.Text = MapHandler.YSize.ToString();
                     break;
                 case "SeedTextBox":
@@ -124,5 +123,15 @@ public class MapGeneratorViewModel : ViewModelBase
         var newMapPath = Path.Combine(mapsFolderPath, "map-" + MapHandler.MapSeed + ".jpg");
         new FileRenderPipeline(MapHandler.map, 96, FileRenderPipeline.JpegEncoder(newMapPath, 90)).Render();
         Console.WriteLine("File saved to " + newMapPath);
+    }
+
+    public void GenerateMap(Image map, TextBox seedTextBox, TextBox xSizeTextBox, TextBox ySizeTextBox)
+    {
+        MapHandler.XSize = MapHandler.XSize < 10 ? 9 : MapHandler.XSize;
+        MapHandler.YSize = MapHandler.YSize < 10 ? 9 : MapHandler.YSize;
+        seedTextBox.Text = MapHandler.MapSeed.ToString();
+        xSizeTextBox.Text = MapHandler.XSize.ToString();
+        ySizeTextBox.Text = MapHandler.YSize.ToString();
+        MapHandler.GenerateMap(map);
     }
 }

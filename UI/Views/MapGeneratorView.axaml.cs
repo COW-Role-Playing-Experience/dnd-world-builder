@@ -65,7 +65,10 @@ public partial class MapGeneratorView : UserControl
     private void GenerateMap(object sender, RoutedEventArgs e)
     {
         Image? map = this.FindControl<Image>("Map");
-        MapHandler.GenerateMap(map);
+        var SeedTextBox = this.FindControl<TextBox>("SeedTextBox");
+        var XSizeTextBox = this.FindControl<TextBox>("xSizeBox");
+        var YSizeTextBox = this.FindControl<TextBox>("ySizeBox");
+        (DataContext as MapGeneratorViewModel)?.GenerateMap(map, SeedTextBox, XSizeTextBox, YSizeTextBox);
     }
 
     private void TextBoxWritten(object sender, TextChangedEventArgs e)
