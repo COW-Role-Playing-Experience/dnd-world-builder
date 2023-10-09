@@ -403,16 +403,18 @@ public class DmViewModel : ViewModelBase
         (double x, double y) pos =
                 MapHandler.ScreenToWorldspace(X, Y, TrueZoom, (position.X - halfWidth, position.Y - halfHeight));
 
-        (double x, double y) Rpos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (pos.x, pos.y));
         // Create a copy of the original token
         if (!token.OnCavas)
         {
+            pos.x += 2 / TrueZoom - 1f / 2;
+            pos.y += 2 / TrueZoom - 1f / 2;
+            (double x, double y) Rpos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (pos.x, pos.y));
             var tokenCopy = new Token(token.Name, token.ImageBitMap)
             {
                 XLoc = pos.x,
                 YLoc = pos.y,
-                RelativeX = Rpos.x - (2 / TrueZoom) * MapHandler.TileSize(TrueZoom),
-                RelativeY = Rpos.y
+                RelativeX = Rpos.x - ((2 / TrueZoom) - token.Scaling / 2) * MapHandler.TileSize(TrueZoom),
+                RelativeY = Rpos.y //+ (4/TrueZoom - 1)
             };
             // Add the token copy to the collection
             tokenCopy.Width = 40;
@@ -422,13 +424,14 @@ public class DmViewModel : ViewModelBase
             Canvas.SetTop(tokenCopy, tokenCopy.RelativeY);
             tokenCopy.OnCavas = true;
             tokenCopy.RequestDelete += OnTokenRequestDelete;
-            updateTokens();
+            tokenCopy.updateScaling(TrueZoom);
         }
         else
         {
+            (double x, double y) Rpos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (pos.x, pos.y));
             token.XLoc = pos.x;
             token.YLoc = pos.y;
-            token.RelativeX = Rpos.x - (2 / TrueZoom) * MapHandler.TileSize(TrueZoom);
+            token.RelativeX = Rpos.x - ((2 / TrueZoom) - token.Scaling / 2) * MapHandler.TileSize(TrueZoom);
             token.RelativeY = Rpos.y;
             Canvas.SetLeft(token, token.RelativeX);
             Canvas.SetTop(token, token.RelativeY);
@@ -464,7 +467,7 @@ public class DmViewModel : ViewModelBase
         foreach (Token token in TokensOnCanvas)
         {
             (double x, double y) pos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (token.XLoc, token.YLoc));
-            token.RelativeX = pos.x - (2 / TrueZoom) * MapHandler.TileSize(TrueZoom);
+            token.RelativeX = pos.x - ((2 / TrueZoom) - token.Scaling / 2) * MapHandler.TileSize(TrueZoom);
             token.RelativeY = pos.y;
             token.updateScaling(TrueZoom);
             Canvas.SetLeft(token, token.RelativeX);
