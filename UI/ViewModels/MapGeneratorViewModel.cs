@@ -1,4 +1,3 @@
-
 using System;
 using Avalonia.Controls;
 using System.Windows.Input;
@@ -17,21 +16,27 @@ using static System.Net.Mime.MediaTypeNames;
 using Avalonia.Controls.ApplicationLifetimes;
 using System.Diagnostics;
 using Avalonia;
+using Image = Avalonia.Controls.Image;
 
 namespace UI.ViewModels;
 
-
 public class MapGeneratorViewModel : ViewModelBase
 {
-    public void GenerateSeed(TextBox SeedTextBox)
+    public void GenerateNewValues(TextBox SeedTextBox, TextBox XSizeTextBox, TextBox YSizeTextBox)
     {
         Random random = new Random();
-        int randomNumber = random.Next(1, 999999999);
-        SeedTextBox.Text = randomNumber.ToString();
-        MapHandler.MapSeed = randomNumber;
+        var randomNumberSeed = random.Next(1, 999999999);
+        var randomNumberX = random.Next(9, 400);
+        var randomNumberY = random.Next(9, 400);
+        SeedTextBox.Text = randomNumberSeed.ToString();
+        MapHandler.MapSeed = randomNumberSeed;
+        MapHandler.XSize = randomNumberX;
+        MapHandler.YSize = randomNumberY;
+        XSizeTextBox.Text = MapHandler.XSize.ToString();
+        YSizeTextBox.Text = MapHandler.YSize.ToString();
     }
 
-    public void SeedBoxWritten(object sender, TextChangedEventArgs e)
+    public void TextBoxWritten(object sender, TextChangedEventArgs e)
     {
         TextBox textBox = (TextBox)sender;
         string text = textBox.Text;
@@ -43,7 +48,20 @@ public class MapGeneratorViewModel : ViewModelBase
         }
         else
         {
-            MapHandler.MapSeed = result;
+            switch (textBox.Name)
+            {
+                case "xSizeBox":
+                    MapHandler.XSize = result > 400 ? 400 : result;
+                    textBox.Text = MapHandler.XSize.ToString();
+                    break;
+                case "ySizeBox":
+                    MapHandler.YSize = result > 400 ? 400 : result;
+                    textBox.Text = MapHandler.YSize.ToString();
+                    break;
+                case "SeedTextBox":
+                    MapHandler.MapSeed = result;
+                    break;
+            }
         }
     }
 
@@ -59,7 +77,6 @@ public class MapGeneratorViewModel : ViewModelBase
     //Dynamically add Themes to the map generator view, based on what folders exist in Assets\Data
     public void makeThemeBoxes(ComboBox themesBox)
     {
-
         //Get array of subdirectories
         string directoryPrefix = Directory.GetCurrentDirectory().Split(new[] { "UI" }, StringSplitOptions.None)[0];
         string dataDirectory = Path.Combine(directoryPrefix, "Assets", "data");
@@ -71,7 +88,10 @@ public class MapGeneratorViewModel : ViewModelBase
             if (subdirectory.Contains("-theme"))
             {
                 //Process and add theme name to ComboBox
-                string themeName = subdirectory.Split(new[] { "Assets" + Path.DirectorySeparatorChar + "data" + Path.DirectorySeparatorChar }, StringSplitOptions.None)[1];
+                string themeName =
+                    subdirectory.Split(
+                        new[] { "Assets" + Path.DirectorySeparatorChar + "data" + Path.DirectorySeparatorChar },
+                        StringSplitOptions.None)[1];
                 themeName = themeName.Split(new[] { "-" }, StringSplitOptions.None)[0];
                 string themeCapitalized = char.ToUpper(themeName[0]) + themeName.Substring(1);
                 themesBox.Items.Add(themeCapitalized);
@@ -99,9 +119,19 @@ public class MapGeneratorViewModel : ViewModelBase
                 Console.WriteLine($"Error creating directory: {ex.Message}");
             }
         }
+
         var newMapPath = Path.Combine(mapsFolderPath, "map-" + MapHandler.MapSeed + ".jpg");
         new FileRenderPipeline(MapHandler.map, 96, FileRenderPipeline.JpegEncoder(newMapPath, 90)).Render();
         Console.WriteLine("File saved to " + newMapPath);
     }
 
+    public void GenerateMap(Image map, TextBox seedTextBox, TextBox xSizeTextBox, TextBox ySizeTextBox)
+    {
+        MapHandler.XSize = MapHandler.XSize < 10 ? 9 : MapHandler.XSize;
+        MapHandler.YSize = MapHandler.YSize < 10 ? 9 : MapHandler.YSize;
+        seedTextBox.Text = MapHandler.MapSeed.ToString();
+        xSizeTextBox.Text = MapHandler.XSize.ToString();
+        ySizeTextBox.Text = MapHandler.YSize.ToString();
+        MapHandler.GenerateMap(map);
+    }
 }

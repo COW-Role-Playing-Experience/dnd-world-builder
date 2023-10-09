@@ -11,22 +11,43 @@
     <Grid ColumnDefinitions="250,Auto" Background="#f4f6f7">
         <Grid RowDefinitions="2*,3*,2*" Background="#e2e8eb">
             <!-- Seed generation controls -->
-            <StackPanel Grid.Column="0" Grid.Row="0">
-                <Button Name="MapGenButton" Classes="mapGenButton" Click="GenerateMap" IsEnabled="False">Generate From Seed</Button>
-                <TextBox Name="SeedTextBox" MaxLength="9" Classes="mapGenTextbox" TextChanged="SeedBoxWritten"></TextBox>
-                <Button Classes="mapGenButton" Click="GenerateSeed">Generate New Seed</Button>
+            <StackPanel Grid.Column="0" Grid.Row="0" Spacing="5">
+                <Label Classes="textBoxValue">
+                    X Size
+                </Label>
+
+                <TextBox Name="xSizeBox" MaxLength="3" Classes="mapGenTextbox" Watermark="Max = 400 | Min = 9"
+                         TextChanged="TextBoxWritten">
+
+                </TextBox>
+                <Label Classes="textBoxValue">
+                    Y Size
+                </Label>
+                <TextBox Name="ySizeBox" MaxLength="3" Classes="mapGenTextbox" Watermark="Max = 400 | Min = 9"
+                         TextChanged="TextBoxWritten">
+                </TextBox>
+                <Label Classes="textBoxValue">
+                    Seed Value
+                </Label>
+                <TextBox Name="SeedTextBox" MaxLength="9" Classes="mapGenTextbox" Watermark="000000000"
+                         TextChanged="TextBoxWritten">
+                </TextBox>
+                <Button Classes="mapGenButton" Click="GenerateNewValues">Generate New Values</Button>
             </StackPanel>
 
             <!-- Theme selection -->
-            <StackPanel Grid.Column="0" Grid.Row="1">
-                <ComboBox Classes="mapGenCombobox"  Name="ThemesBox" PlaceholderText="Theme" Height="50" Width="250"
+            <StackPanel Grid.Column="0" Grid.Row="1" Spacing="5" VerticalAlignment="Center">
+                <ComboBox Classes="mapGenCombobox" Name="ThemesBox" PlaceholderText="Theme" Height="50" Width="250"
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center" SelectionChanged="ThemeSelected">
                 </ComboBox>
+
+
             </StackPanel>
 
             <!-- Export/Host Game/Back buttons-->
             <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom">
+                <Button Name="MapGenButton" Classes="mapGenButton" Click="GenerateMap" IsEnabled="False">Generate New Map</Button>
                 <Button Classes="mapGenButton" Click="ExportMap">Export</Button>
                 <Button Classes="mapGenButton"
                         x:CompileBindings="False"
