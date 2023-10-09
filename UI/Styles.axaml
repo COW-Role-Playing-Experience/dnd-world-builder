@@ -34,6 +34,11 @@
         <Style Selector="Button.homeButton:pressed /template/ ContentPresenter">
             <Setter Property="Background" Value="#44525a" />
         </Style>
+        <Style Selector="Button.homeButton:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="#c9d4d8" />
+            <Setter Property="Foreground" Value="#44515a" />
+
+        </Style>
 
     </Styles>
 
