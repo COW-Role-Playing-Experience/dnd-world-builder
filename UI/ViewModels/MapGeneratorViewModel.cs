@@ -21,12 +21,18 @@ namespace UI.ViewModels;
 
 public class MapGeneratorViewModel : ViewModelBase
 {
-    public void GenerateSeed(TextBox SeedTextBox)
+    public void GenerateNewValues(TextBox SeedTextBox, TextBox XSizeTextBox, TextBox YSizeTextBox)
     {
         Random random = new Random();
-        int randomNumber = random.Next(1, 999999999);
-        SeedTextBox.Text = randomNumber.ToString();
-        MapHandler.MapSeed = randomNumber;
+        var randomNumberSeed = random.Next(1, 999999999);
+        var randomNumberX = random.Next(9, 400);
+        var randomNumberY = random.Next(9, 400);
+        SeedTextBox.Text = randomNumberSeed.ToString();
+        MapHandler.MapSeed = randomNumberSeed;
+        MapHandler.XSize = randomNumberX;
+        MapHandler.YSize = randomNumberY;
+        XSizeTextBox.Text = MapHandler.XSize.ToString();
+        YSizeTextBox.Text = MapHandler.YSize.ToString();
     }
 
     public void TextBoxWritten(object sender, TextChangedEventArgs e)
