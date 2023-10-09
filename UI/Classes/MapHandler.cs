@@ -1,5 +1,6 @@
 using System;
 using System.IO.Pipelines;
+using System.Runtime.Intrinsics.X86;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -21,6 +22,11 @@ public static class MapHandler
 
     public static String Theme { set; get; }
 
+    public static int XSize { set; get; } = 100;
+
+    public static int YSize { set; get; } = 100;
+
+
     public static void RebindBitmap(WriteableBitmap buffer)
     {
         Buffer = buffer;
@@ -37,15 +43,15 @@ public static class MapHandler
         ClearBitmap();
         Random rng = new Random(MapSeed);
         DataLoader.Random = rng;
-        int xSize = 200;
-        int ySize = 40;
-        MapBuilder map = new MapBuilder(xSize, ySize, rng, 0.8);
+
+        MapBuilder map = new MapBuilder(XSize, YSize, rng, 0.8);
         map.setTheme($"{DataLoader.RootPath}/data/" + Theme + "-theme/").initRoom();
         Pipeline.RebindBuilder(map); //bind the finished map to the renderer
-        Pipeline.Render(xSize / 2.0f, ySize / 2.0f, 1); //call once with the default to update bitmap
+        Pipeline.Render(XSize / 2.0f, YSize / 2.0f, 1); //call once with the default to update bitmap
         mapImage.Source = Buffer;
         MapHandler.map = map;
     }
+
 
     public static void RebindSource(Image mapImage)
     {
@@ -57,12 +63,14 @@ public static class MapHandler
         Pipeline.Render(x, y, zoom);
     }
 
-    public static (double x, double y) ScreenToWorldspace(double x, double y, float zoom, (double x, double y) screenPosition)
+    public static (double x, double y) ScreenToWorldspace(double x, double y, float zoom,
+        (double x, double y) screenPosition)
     {
         return Pipeline.ScreenToWorldspace(x, y, zoom, screenPosition);
     }
 
-    public static (double x, double y) WorldToScreenspace(double x, double y, float zoom, (double x, double y) worldPosition)
+    public static (double x, double y) WorldToScreenspace(double x, double y, float zoom,
+        (double x, double y) worldPosition)
     {
         return Pipeline.WorldToScreenspace(x, y, zoom, worldPosition);
     }
