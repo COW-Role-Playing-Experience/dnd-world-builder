@@ -105,7 +105,7 @@ namespace UI.Classes
 
         public void updateScaling(double zoom)
         {
-            Size = 10 * Scaling * zoom;
+            Size = MapHandler.TileSize((float)zoom) * Scaling/* * zoom*/;
             Zoom = zoom;
             Border outerBorder = (Border)Children[0];
             Border border = (Border)outerBorder.Child;

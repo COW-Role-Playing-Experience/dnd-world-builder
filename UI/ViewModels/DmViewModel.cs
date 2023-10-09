@@ -26,7 +26,7 @@ namespace UI.ViewModels;
 /// </summary>
 public class DmViewModel : ViewModelBase
 {
-    private const float PanFactor = 0.1f;
+    private float PanFactor => MapHandler.TileSize(TrueZoom);
     private const int MinZoom = 0;
     private const int MaxZoom = 6;
 
@@ -514,8 +514,8 @@ public class DmViewModel : ViewModelBase
         }
         if (_prevPoint != null)
         {
-            X = (float)(X - (point.X - _prevPoint.Value.X) * PanFactor / TrueZoom);
-            Y = (float)(Y - (point.Y - _prevPoint.Value.Y) * PanFactor / TrueZoom);
+            X = (float)(X - (point.X - _prevPoint.Value.X) / PanFactor);
+            Y = (float)(Y - (point.Y - _prevPoint.Value.Y) / PanFactor);
             MapHandler.ClearBitmap();
             MapHandler.Render(X, Y, TrueZoom);
             MapHandler.RebindSource(Map);
