@@ -1,5 +1,3 @@
-
-
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -17,17 +15,18 @@ namespace UI.Views;
 public partial class MapGeneratorView : UserControl
 {
     private Canvas _canvas;
+
     public MapGeneratorView()
     {
         InitializeComponent();
         DataContext = new MapGeneratorViewModel();
         initialiseThemesBox();
         MapHandler.RebindBitmap(new WriteableBitmap(
-                new PixelSize(1920, 1080),
-                new Vector(96, 96),
-                Avalonia.Platform.PixelFormat.Rgba8888,
-                AlphaFormat.Unpremul
-                ));
+            new PixelSize(1920, 1080),
+            new Vector(96, 96),
+            Avalonia.Platform.PixelFormat.Rgba8888,
+            AlphaFormat.Unpremul
+        ));
     }
 
     private void InitializeComponent()
@@ -50,10 +49,12 @@ public partial class MapGeneratorView : UserControl
     }
 
 
-    private void GenerateSeed(object sender, RoutedEventArgs e)
+    private void GenerateNewValues(object sender, RoutedEventArgs e)
     {
-        TextBox SeedTextBox = this.FindControl<TextBox>("SeedTextBox");
-        (DataContext as MapGeneratorViewModel)?.GenerateSeed(SeedTextBox);
+        var SeedTextBox = this.FindControl<TextBox>("SeedTextBox");
+        var XSizeTextBox = this.FindControl<TextBox>("xSizeBox");
+        var YSizeTextBox = this.FindControl<TextBox>("ySizeBox");
+        (DataContext as MapGeneratorViewModel)?.GenerateNewValues(SeedTextBox, XSizeTextBox, YSizeTextBox);
     }
 
     private void ExportMap(object sender, RoutedEventArgs e)
@@ -64,11 +65,14 @@ public partial class MapGeneratorView : UserControl
     private void GenerateMap(object sender, RoutedEventArgs e)
     {
         Image? map = this.FindControl<Image>("Map");
-        MapHandler.GenerateMap(map);
+        var SeedTextBox = this.FindControl<TextBox>("SeedTextBox");
+        var XSizeTextBox = this.FindControl<TextBox>("xSizeBox");
+        var YSizeTextBox = this.FindControl<TextBox>("ySizeBox");
+        (DataContext as MapGeneratorViewModel)?.GenerateMap(map, SeedTextBox, XSizeTextBox, YSizeTextBox);
     }
 
-    private void SeedBoxWritten(object sender, TextChangedEventArgs e)
+    private void TextBoxWritten(object sender, TextChangedEventArgs e)
     {
-        (DataContext as MapGeneratorViewModel)?.SeedBoxWritten(sender, e);
+        (DataContext as MapGeneratorViewModel)?.TextBoxWritten(sender, e);
     }
 }
