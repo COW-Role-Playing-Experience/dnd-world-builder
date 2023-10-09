@@ -27,7 +27,7 @@
 
                     <!-- Button to Join Game -->
                     <Button Classes="homeButton" MinHeight="80" MinWidth="80" x:CompileBindings="False"
-                            Command="{Binding $parent[Window].DataContext.PlayerView}">
+                            Command="{Binding $parent[Window].DataContext.PlayerView}" IsEnabled="False">
                         Join
                     </Button>
                 </StackPanel>
