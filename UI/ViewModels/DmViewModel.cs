@@ -36,8 +36,8 @@ public class DmViewModel : ViewModelBase
     private double _uiButtonOpacity = 1.0;
     private int _tokenCount = 0;
     private Image _map;
-    private float _x = 100;
-    private float _y = 20;
+    private float _x;
+    private float _y;
     private Point? _prevPoint = null;
     private bool _panClicked = false;
 
