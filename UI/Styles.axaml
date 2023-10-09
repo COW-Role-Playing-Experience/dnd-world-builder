@@ -221,20 +221,18 @@
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="BorderBrush" Value="#6E8894" />
             <Setter Property="CornerRadius" Value="0" />
-            <Setter Property="Foreground" Value="#f4f6f7" />
-            <Setter Property="Background" Value="#5b737f" />
+            <Setter Property="Background" Value="#e2e8eb" />
         </Style>
-
-        <Style Selector="TextBox.mapGenTextbox:empty /template/ Border">
+        <Style Selector="TextBox.mapGenTextbox:empty">
             <Setter Property="Background" Value="#e2e8eb" />
         </Style>
         <Style Selector="TextBox.mapGenTextbox:pointerover /template/ Border">
-            <Setter Property="Background" Value="#e2e8eb" />
+            <Setter Property="Background" Value="#c9d4d8" />
+
         </Style>
         <Style Selector="TextBox.mapGenTextbox:focus /template/ Border">
-            <Setter Property="Background" Value="#5b737f" />
+            <Setter Property="Background" Value="#c9d4d8" />
         </Style>
-
     </Styles>
 
     <!-- Map Generator Combobox -->
@@ -262,7 +260,7 @@
             <Setter Property="Foreground" Value="#e2e8eb" />
         </Style>
 
-        <!-- Textbox Options Cave -->
+        <!-- Combobox Options Cave -->
 
         <Style Selector="ComboBox.mapGenCombobox[SelectedItem=Cave]">
             <Setter Property="Background" Value="#5a726d" />
@@ -276,12 +274,10 @@
             <Setter Property="Background" Value="#3b4a48" />
         </Style>
 
-        <!-- Textbox Options Dungeon -->
-
+        <!-- Combobox Options Dungeon -->
         <Style Selector="ComboBox.mapGenCombobox[SelectedItem=Dungeon]">
             <Setter Property="Background" Value="#837285" />
             <Setter Property="Foreground" Value="#e2e8eb" />
-
         </Style>
         <Style Selector="ComboBox.mapGenCombobox:pointerover[SelectedItem=Dungeon] /template/ Border">
             <Setter Property="Background" Value="#6c5c6d" />
@@ -289,7 +285,17 @@
         <Style Selector="ComboBox.mapGenCombobox:dropdownopen[SelectedItem=Dungeon] /template/ Border">
             <Setter Property="Background" Value="#584b59" />
         </Style>
+    </Styles>
+    <!-- Labels Map Maker -->
 
+    <Styles>
+        <Style Selector="Label.textBoxValue">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="#363d43" />
+        </Style>
     </Styles>
 
 
