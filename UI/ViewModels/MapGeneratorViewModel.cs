@@ -1,4 +1,3 @@
-
 using System;
 using Avalonia.Controls;
 using System.Windows.Input;
@@ -19,7 +18,6 @@ using System.Diagnostics;
 using Avalonia;
 
 namespace UI.ViewModels;
-
 
 public class MapGeneratorViewModel : ViewModelBase
 {
@@ -46,10 +44,14 @@ public class MapGeneratorViewModel : ViewModelBase
             switch (textBox.Name)
             {
                 case "xSizeBox":
-                    MapHandler.XSize = result;
+                    MapHandler.XSize = result > 400 ? 400 : result;
+                    MapHandler.XSize = result < 9 ? 9 : result;
+                    textBox.Text = MapHandler.XSize.ToString();
                     break;
                 case "ySizeBox":
-                    MapHandler.YSize = result;
+                    MapHandler.YSize = result > 400 ? 400 : result;
+                    MapHandler.YSize = result < 9 ? 9 : result;
+                    textBox.Text = MapHandler.YSize.ToString();
                     break;
                 case "SeedTextBox":
                     MapHandler.MapSeed = result;
@@ -70,7 +72,6 @@ public class MapGeneratorViewModel : ViewModelBase
     //Dynamically add Themes to the map generator view, based on what folders exist in Assets\Data
     public void makeThemeBoxes(ComboBox themesBox)
     {
-
         //Get array of subdirectories
         string directoryPrefix = Directory.GetCurrentDirectory().Split(new[] { "UI" }, StringSplitOptions.None)[0];
         string dataDirectory = Path.Combine(directoryPrefix, "Assets", "data");
@@ -82,7 +83,10 @@ public class MapGeneratorViewModel : ViewModelBase
             if (subdirectory.Contains("-theme"))
             {
                 //Process and add theme name to ComboBox
-                string themeName = subdirectory.Split(new[] { "Assets" + Path.DirectorySeparatorChar + "data" + Path.DirectorySeparatorChar }, StringSplitOptions.None)[1];
+                string themeName =
+                    subdirectory.Split(
+                        new[] { "Assets" + Path.DirectorySeparatorChar + "data" + Path.DirectorySeparatorChar },
+                        StringSplitOptions.None)[1];
                 themeName = themeName.Split(new[] { "-" }, StringSplitOptions.None)[0];
                 string themeCapitalized = char.ToUpper(themeName[0]) + themeName.Substring(1);
                 themesBox.Items.Add(themeCapitalized);
@@ -110,9 +114,9 @@ public class MapGeneratorViewModel : ViewModelBase
                 Console.WriteLine($"Error creating directory: {ex.Message}");
             }
         }
+
         var newMapPath = Path.Combine(mapsFolderPath, "map-" + MapHandler.MapSeed + ".jpg");
         new FileRenderPipeline(MapHandler.map, 96, FileRenderPipeline.JpegEncoder(newMapPath, 90)).Render();
         Console.WriteLine("File saved to " + newMapPath);
     }
-
 }
