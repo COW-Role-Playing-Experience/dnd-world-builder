@@ -8,8 +8,8 @@ public class MapBuilder
 {
     private RoomTile[,] tiles;
     private List<MetaTile> roomMetaTiles;
-    private int xSize;
-    private int ySize;
+    public int xSize { get; private set; }
+    public int ySize { get; private set; }
     private Random rng;
     private RoomTheme[] roomThemes;
     private Connector[] connectors;
