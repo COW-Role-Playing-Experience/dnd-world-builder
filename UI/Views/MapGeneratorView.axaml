@@ -16,14 +16,14 @@
                     X Size
                 </Label>
 
-                <TextBox Name="xSizeBox" MaxLength="3" Classes="mapGenTextbox" Watermark="Max = 400 | Min = 9"
+                <TextBox Name="xSizeBox" MaxLength="3" Classes="mapGenTextbox" Watermark="Max = 100 | Min = 9"
                          TextChanged="TextBoxWritten">
 
                 </TextBox>
                 <Label Classes="textBoxValue">
                     Y Size
                 </Label>
-                <TextBox Name="ySizeBox" MaxLength="3" Classes="mapGenTextbox" Watermark="Max = 400 | Min = 9"
+                <TextBox Name="ySizeBox" MaxLength="3" Classes="mapGenTextbox" Watermark="Max = 100 | Min = 9"
                          TextChanged="TextBoxWritten">
                 </TextBox>
                 <Label Classes="textBoxValue">
