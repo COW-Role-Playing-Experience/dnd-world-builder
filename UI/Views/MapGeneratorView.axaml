@@ -47,7 +47,7 @@
 
             <!-- Export/Host Game/Back buttons-->
             <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom">
-                <Button Name="MapGenButton" Classes="mapGenButton" Click="GenerateMap" IsEnabled="False">Generate New Map</Button>
+                <Button Name="MapGenButton" Classes="mapGenButton" Click="GenerateMap" IsEnabled="False">Generate Map</Button>
                 <Button Classes="mapGenButton" Content="Export" Name="ExportButton" Click="ExportMap">
                     <Button.Flyout>
                         <Flyout Placement="Top">

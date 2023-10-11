@@ -47,7 +47,7 @@ public static class MapHandler
         MapBuilder map = new MapBuilder(XSize, YSize, rng, 0.8);
         map.setTheme($"{DataLoader.RootPath}/data/" + Theme + "-theme/").initRoom();
         Pipeline.RebindBuilder(map); //bind the finished map to the renderer
-        Pipeline.Render(XSize / 2.0f, YSize / 2.0f, 1); //call once with the default to update bitmap
+        Pipeline.Render(90, 65, 0.7f); //call once with the default to update bitmap
         mapImage.Source = Buffer;
         MapHandler.map = map;
     }
