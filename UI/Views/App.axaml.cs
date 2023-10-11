@@ -25,7 +25,7 @@ namespace UI
             }
 
             // Initialize DevTools
-            this.AttachDevTools();
+            // this.AttachDevTools();
 
             base.OnFrameworkInitializationCompleted();
         }
