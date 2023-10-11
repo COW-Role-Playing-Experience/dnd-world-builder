@@ -21,16 +21,16 @@ public class MapBuilder
         this.ySize = ySize;
         this.rng = rng;
         this.expectedPopulation = expectedPopulation % 1;
-        this.tiles = new RoomTile[xSize, ySize];
+        this.tiles = new RoomTile[100, 100];
         this.emptyTilesMap();
         this.roomMetaTiles = new List<MetaTile>();
     }
 
     private void emptyTilesMap()
     {
-        for (int x = 0; x < this.xSize; x++)
+        for (int x = 0; x < tiles.GetLength(0); x++)
         {
-            for (int y = 0; y < this.ySize; y++)
+            for (int y = 0; y < tiles.GetLength(1); y++)
             {
                 RoomTile tile = new RoomTile(x, y, (string?)null);
                 tiles[x, y] = tile;

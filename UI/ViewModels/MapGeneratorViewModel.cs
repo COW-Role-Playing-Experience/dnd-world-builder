@@ -22,12 +22,15 @@ namespace UI.ViewModels;
 
 public class MapGeneratorViewModel : ViewModelBase
 {
+    private const int MAX_MAP_SIZE = 100;
+    private const int MIN_MAP_SIZE = 9;
+
     public void GenerateNewValues(TextBox SeedTextBox, TextBox XSizeTextBox, TextBox YSizeTextBox)
     {
         Random random = new Random();
         var randomNumberSeed = random.Next(1, 999999999);
-        var randomNumberX = random.Next(9, 400);
-        var randomNumberY = random.Next(9, 400);
+        var randomNumberX = random.Next(MIN_MAP_SIZE, MAX_MAP_SIZE);
+        var randomNumberY = random.Next(MIN_MAP_SIZE, MAX_MAP_SIZE);
         SeedTextBox.Text = randomNumberSeed.ToString();
         MapHandler.MapSeed = randomNumberSeed;
         MapHandler.XSize = randomNumberX;
@@ -51,11 +54,11 @@ public class MapGeneratorViewModel : ViewModelBase
             switch (textBox.Name)
             {
                 case "xSizeBox":
-                    MapHandler.XSize = result > 400 ? 400 : result;
+                    MapHandler.XSize = result > MAX_MAP_SIZE ? MAX_MAP_SIZE : result;
                     textBox.Text = MapHandler.XSize.ToString();
                     break;
                 case "ySizeBox":
-                    MapHandler.YSize = result > 400 ? 400 : result;
+                    MapHandler.YSize = result > MAX_MAP_SIZE ? MAX_MAP_SIZE : result;
                     textBox.Text = MapHandler.YSize.ToString();
                     break;
                 case "SeedTextBox":
@@ -127,8 +130,8 @@ public class MapGeneratorViewModel : ViewModelBase
 
     public void GenerateMap(Image map, TextBox seedTextBox, TextBox xSizeTextBox, TextBox ySizeTextBox)
     {
-        MapHandler.XSize = MapHandler.XSize < 10 ? 9 : MapHandler.XSize;
-        MapHandler.YSize = MapHandler.YSize < 10 ? 9 : MapHandler.YSize;
+        MapHandler.XSize = MapHandler.XSize < MIN_MAP_SIZE ? MIN_MAP_SIZE : MapHandler.XSize;
+        MapHandler.YSize = MapHandler.YSize < MIN_MAP_SIZE ? MIN_MAP_SIZE : MapHandler.YSize;
         seedTextBox.Text = MapHandler.MapSeed.ToString();
         xSizeTextBox.Text = MapHandler.XSize.ToString();
         ySizeTextBox.Text = MapHandler.YSize.ToString();
