@@ -26,14 +26,18 @@ namespace UI.ViewModels;
 /// </summary>
 public class DmViewModel : ViewModelBase
 {
+    private float PanFactor => MapHandler.TileSize(TrueZoom);
+    private const int MinZoom = 0;
+    private const int MaxZoom = 6;
+
     // Private fields for UI state and token count.
     private bool _isUiVisible = true;
     private bool _isAddVisible;
     private double _uiButtonOpacity = 1.0;
     private int _tokenCount = 0;
     private Image _map;
-    private float _x = 100;
-    private float _y = 20;
+    private float _x;
+    private float _y;
     private Point? _prevPoint = null;
     private bool _panClicked = false;
 
@@ -414,16 +418,18 @@ public class DmViewModel : ViewModelBase
         (double x, double y) pos =
                 MapHandler.ScreenToWorldspace(X, Y, TrueZoom, (position.X - halfWidth, position.Y - halfHeight));
 
-        (double x, double y) Rpos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (pos.x, pos.y));
         // Create a copy of the original token
         if (!token.OnCavas)
         {
+            pos.x += 2 / TrueZoom - 1f / 2;
+            pos.y += 2 / TrueZoom - 1f / 2;
+            (double x, double y) Rpos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (pos.x, pos.y));
             var tokenCopy = new Token(token.Name, token.ImageBitMap)
             {
                 XLoc = pos.x,
                 YLoc = pos.y,
-                RelativeX = Rpos.x,
-                RelativeY = Rpos.y
+                RelativeX = Rpos.x - ((2 / TrueZoom) - token.Scaling / 2) * MapHandler.TileSize(TrueZoom),
+                RelativeY = Rpos.y //+ (4/TrueZoom - 1)
             };
             // Add the token copy to the collection
             tokenCopy.Width = 40;
@@ -431,19 +437,19 @@ public class DmViewModel : ViewModelBase
             TokensOnCanvas.Add(tokenCopy);
             Canvas.SetLeft(tokenCopy, tokenCopy.RelativeX);
             Canvas.SetTop(tokenCopy, tokenCopy.RelativeY);
-            Console.WriteLine($"Token added at X: {position.X}, Y: {position.Y}");
             tokenCopy.OnCavas = true;
             tokenCopy.RequestDelete += OnTokenRequestDelete;
+            tokenCopy.updateScaling(TrueZoom);
         }
         else
         {
+            (double x, double y) Rpos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (pos.x, pos.y));
             token.XLoc = pos.x;
             token.YLoc = pos.y;
-            token.RelativeX = Rpos.x;
+            token.RelativeX = Rpos.x - ((2 / TrueZoom) - token.Scaling / 2) * MapHandler.TileSize(TrueZoom);
             token.RelativeY = Rpos.y;
             Canvas.SetLeft(token, token.RelativeX);
             Canvas.SetTop(token, token.RelativeY);
-            Console.WriteLine($"Token moved at X: {position.X}, Y: {position.Y}");
             token.OnCavas = true;
             token.Pressed = false;
         }
@@ -476,7 +482,7 @@ public class DmViewModel : ViewModelBase
         foreach (Token token in TokensOnCanvas)
         {
             (double x, double y) pos = MapHandler.WorldToScreenspace(X, Y, TrueZoom, (token.XLoc, token.YLoc));
-            token.RelativeX = pos.x - (token.Scaling) / (TrueZoom / 8);
+            token.RelativeX = pos.x - ((2 / TrueZoom) - token.Scaling / 2) * MapHandler.TileSize(TrueZoom);
             token.RelativeY = pos.y;
             token.updateScaling(TrueZoom);
             Canvas.SetLeft(token, token.RelativeX);
@@ -508,8 +514,8 @@ public class DmViewModel : ViewModelBase
         }
         if (_prevPoint != null)
         {
-            X = (float)(X - (point.X - _prevPoint.Value.X));
-            Y = (float)(Y - (point.Y - _prevPoint.Value.Y));
+            X = (float)(X - (point.X - _prevPoint.Value.X) / PanFactor);
+            Y = (float)(Y - (point.Y - _prevPoint.Value.Y) / PanFactor);
             MapHandler.ClearBitmap();
             MapHandler.Render(X, Y, TrueZoom);
             MapHandler.RebindSource(Map);
@@ -526,6 +532,14 @@ public class DmViewModel : ViewModelBase
         _panClicked = false;
         _prevPoint = null;
     }
+
+    public void OnScrollWheel(int scrollValue)
+    {
+        if (scrollValue > 0 && _zoom <= MinZoom || scrollValue < 0 && _zoom >= MaxZoom) return;
+        Zoom -= scrollValue;
+        OnZoom();
+    }
+
     public void OnZoom()
     {
         WriteableBitmap buffer = MapHandler.Buffer;
@@ -533,6 +547,7 @@ public class DmViewModel : ViewModelBase
         MapHandler.Render(X, Y, TrueZoom);
         MapHandler.RebindSource(Map);
         this.RaisePropertyChanged(nameof(ZoomString));
+        UpdateTokens();
         UpdateFOW();
     }
 }

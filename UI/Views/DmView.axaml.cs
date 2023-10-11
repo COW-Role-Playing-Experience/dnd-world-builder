@@ -22,6 +22,8 @@ public partial class DmView : UserControl
         var map = this.FindControl<Image>("Map");
         MapHandler.RebindSource(map);
         (DataContext as DmViewModel).Map = map;
+        (DataContext as DmViewModel).X = MapHandler.XSize / 2.0f;
+        (DataContext as DmViewModel).Y = MapHandler.YSize / 2.0f;
     }
 
     private void InitializeComponent()
@@ -98,6 +100,11 @@ public partial class DmView : UserControl
         {
             Panning_Moved(sender, e);
         }
+    }
+
+    private void FogOfWarControl_OnPointerZoomed(object sender, PointerWheelEventArgs e)
+    {
+        (DataContext as DmViewModel).OnScrollWheel(-Convert.ToInt32(e.Delta.Y));
     }
 
 
