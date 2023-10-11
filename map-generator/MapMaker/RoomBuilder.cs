@@ -143,8 +143,8 @@ public class RoomBuilder
 
     private bool checkTilesEmptyOrAvailable(int x, int y, int width, int height)
     {
-        int gridWidth = this.gridTiles.GetLength(0);
-        int gridHeight = this.gridTiles.GetLength(1);
+        int gridWidth = mapBuilder.xSize;
+        int gridHeight = mapBuilder.ySize;
 
         for (int i = x; i < x + width; i++)
         {
