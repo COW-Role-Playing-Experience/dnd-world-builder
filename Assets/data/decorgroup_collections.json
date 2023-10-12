@@ -67,6 +67,16 @@
     "pillar": {
         "pillar_1": 1
     },
+    "scattered_rubble": {
+        "scattered_rubble_1": 1,
+        "scattered_rubble_2": 1,
+        "scattered_rubble_3": 1
+    },
+    "scattered_debris": {
+        "scattered_debris_1": 1,
+        "scattered_debris_2": 1,
+        "scattered_debris_3": 1
+    },
     "ALL": {
         "corpses" : 1,
         "rubble" : 1,
@@ -78,13 +88,17 @@
         "barrels" : 1,
         "chest" : 1,
         "firepit" : 1,
-        "pillar" : 1
+        "pillar" : 1,
+        "scattered_debris": 1,
+        "scattered_rubble": 1
     },
     "Cave": {
         "corpses" : 4,
         "rubble" : 8,
         "treasure" : 1,
         "barrels" : 2,
-        "chest" : 1
+        "chest" : 1,
+        "scattered_debris": 2,
+        "scattered_rubble": 2
     }
 }

@@ -9,6 +9,7 @@ using Avalonia.Platform;
 using map_generator.JsonLoading;
 using map_generator.RenderPipeline;
 using UI.Classes;
+using Avalonia.Controls.Primitives;
 
 namespace UI.Views;
 
@@ -76,5 +77,13 @@ public partial class MapGeneratorView : UserControl
     private void TextBoxWritten(object sender, TextChangedEventArgs e)
     {
         (DataContext as MapGeneratorViewModel)?.TextBoxWritten(sender, e);
+    }
+
+    private void MapFillChanged(object sender, RangeBaseValueChangedEventArgs e)
+    {
+        if (sender is Slider slider)
+        {
+            (DataContext as MapGeneratorViewModel)?.setMapFill((float)slider.Value);
+        }
     }
 }
