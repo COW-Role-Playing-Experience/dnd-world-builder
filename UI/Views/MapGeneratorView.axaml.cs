@@ -68,7 +68,9 @@ public partial class MapGeneratorView : UserControl
         var SeedTextBox = this.FindControl<TextBox>("SeedTextBox");
         var XSizeTextBox = this.FindControl<TextBox>("xSizeBox");
         var YSizeTextBox = this.FindControl<TextBox>("ySizeBox");
-        (DataContext as MapGeneratorViewModel)?.GenerateMap(map, SeedTextBox, XSizeTextBox, YSizeTextBox);
+        var exportButton = this.FindControl<Button>("ExportButton");
+        var hostButton = this.FindControl<Button>("HostGameButton");
+        (DataContext as MapGeneratorViewModel)?.GenerateMap(map, SeedTextBox, XSizeTextBox, YSizeTextBox, exportButton, hostButton);
     }
 
     private void TextBoxWritten(object sender, TextChangedEventArgs e)
