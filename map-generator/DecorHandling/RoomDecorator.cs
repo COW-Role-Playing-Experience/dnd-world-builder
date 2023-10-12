@@ -17,6 +17,7 @@ public class RoomDecorator
 
     public static float idealDecorPercent = 0.3f; //ideally we want 30% of the room, at a minimum, to be metaTiles
 
+    public static readonly float maxPlacementAttempts = 30; //the number of times you will choose a decor group to attempt to place
     public RoomDecorator(int xOrigin, int yOrigin, int xSize, int ySize, Random random)
     {
         this._random = random;
@@ -44,6 +45,7 @@ public class RoomDecorator
     {
         int idealOccupiedTiles = (int)(idealDecorPercent * freeTiles);
         int occupiedTiles = 0;
+        int placementAttemptNumber = 0;
 
         List<MetaTile> metaTiles = new List<MetaTile>();
 
@@ -57,7 +59,18 @@ public class RoomDecorator
             List<(int, int)> positions = FindValidPlacements(toPlace, traversalMap);
 
             // If the tile was unable to be placed
-            if (positions.Count == 0) break;
+            if (positions.Count == 0)
+            {
+                placementAttemptNumber++;
+                if (placementAttemptNumber > maxPlacementAttempts)
+                {
+                    break; //if you've tried many times to place decor and none of it has worked
+                }
+                else
+                {
+                    continue; //if you can't place this decor, try again with a new decor
+                }
+            }
 
             occupiedTiles += toPlace.Width * toPlace.Height;
 
