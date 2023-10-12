@@ -1,11 +1,6 @@
 using System;
-using System.IO.Pipelines;
-using System.Runtime.Intrinsics.X86;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using map_generator.JsonLoading;
 using map_generator.MapMaker;
 using map_generator.RenderPipeline;
@@ -18,7 +13,7 @@ public static class MapHandler
     public static AvaloniaRenderPipeline Pipeline { set; get; }
     public static WriteableBitmap Buffer { set; get; }
 
-    public static MapBuilder map { set; get; }
+    public static MapBuilder? map { set; get; }
 
     public static String Theme { set; get; }
 

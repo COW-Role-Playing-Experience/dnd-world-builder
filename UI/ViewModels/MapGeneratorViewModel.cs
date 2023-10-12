@@ -128,7 +128,7 @@ public class MapGeneratorViewModel : ViewModelBase
         Console.WriteLine("File saved to " + newMapPath);
     }
 
-    public void GenerateMap(Image map, TextBox seedTextBox, TextBox xSizeTextBox, TextBox ySizeTextBox)
+    public void GenerateMap(Image map, TextBox seedTextBox, TextBox xSizeTextBox, TextBox ySizeTextBox, Button exportButton, Button hostButton)
     {
         MapHandler.XSize = MapHandler.XSize < MIN_MAP_SIZE ? MIN_MAP_SIZE : MapHandler.XSize;
         MapHandler.YSize = MapHandler.YSize < MIN_MAP_SIZE ? MIN_MAP_SIZE : MapHandler.YSize;
@@ -136,5 +136,7 @@ public class MapGeneratorViewModel : ViewModelBase
         xSizeTextBox.Text = MapHandler.XSize.ToString();
         ySizeTextBox.Text = MapHandler.YSize.ToString();
         MapHandler.GenerateMap(map);
+        exportButton.IsEnabled = true;
+        hostButton.IsEnabled = true;
     }
 }
