@@ -33,6 +33,11 @@
                          TextChanged="TextBoxWritten">
                 </TextBox>
                 <Button Classes="mapGenButton" Click="GenerateNewValues">Generate New Values</Button>
+                <Label Classes="textBoxValue">
+                    Decor fill percentage
+                </Label>
+                <Slider Name="MapFillSlider" Minimum="0" Maximum="1.0" ValueChanged="MapFillChanged"
+                        IsSnapToTickEnabled="True" TickFrequency="0.1" Value = "0.3" IsDirectionReversed="False"/>
             </StackPanel>
 
             <!-- Theme selection -->

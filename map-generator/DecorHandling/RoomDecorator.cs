@@ -15,7 +15,7 @@ public class RoomDecorator
     private bool[,] occupancyMap;
     private int freeTiles;
 
-    private static readonly float idealDecorPercent = 0.3f; //ideally we want 30% of the room, at a minimum, to be metaTiles
+    public static float idealDecorPercent = 0.3f; //ideally we want 30% of the room, at a minimum, to be metaTiles
 
     public RoomDecorator(int xOrigin, int yOrigin, int xSize, int ySize, Random random)
     {

@@ -17,6 +17,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using System.Diagnostics;
 using Avalonia;
 using Image = Avalonia.Controls.Image;
+using map_generator.DecorHandling;
 
 namespace UI.ViewModels;
 
@@ -138,5 +139,10 @@ public class MapGeneratorViewModel : ViewModelBase
         MapHandler.GenerateMap(map);
         exportButton.IsEnabled = true;
         hostButton.IsEnabled = true;
+    }
+
+    public void setMapFill(float mapFill)
+    {
+        RoomDecorator.idealDecorPercent = mapFill;
     }
 }
