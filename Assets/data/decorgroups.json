@@ -532,7 +532,7 @@
                 "name": "table_wooden",
                 "x": 2.32,
                 "y": 1.72,
-                "rotation": 0
+                "rotation": 90
             },
             {
                 "name": "chair_wooden",
@@ -575,7 +575,7 @@
                 "name": "table_wooden",
                 "x": 2.333333333333333,
                 "y": 1.0,
-                "rotation": 0
+                "rotation": 90
             },
             {
                 "name": "chair_wooden",
@@ -625,7 +625,7 @@
                 "name": "table_wooden",
                 "x": 2.5,
                 "y": 1.5,
-                "rotation": 0
+                "rotation": 90
             },
             {
                 "name": "chair_fancy",
@@ -1211,79 +1211,313 @@
     },
     {
         "name": "pillar_1",
-        "width": 4,
-        "height": 9,
+        "width": 6,
+        "height": 10,
         "elements": [
             {
-                "name": "pillar_light",
-                "x": 3.5,
-                "y": 6.5,
-                "rotation": 0
-            },
-            {
-                "name": "pillar_light",
-                "x": 3.5,
-                "y": 4.5,
-                "rotation": 0
-            },
-            {
-                "name": "pillar_light",
-                "x": 0.5,
-                "y": 6.5,
-                "rotation": 0
-            },
-            {
-                "name": "pillar_light",
-                "x": 0.5,
-                "y": 4.5,
-                "rotation": 0
-            },
-            {
-                "name": "pillar_light",
-                "x": 3.5,
-                "y": 8.5,
-                "rotation": 0
-            },
-            {
-                "name": "pillar_light",
-                "x": 0.5,
-                "y": 8.5,
-                "rotation": 0
-            },
-            {
-                "name": "pillar_light",
-                "x": 3.5,
-                "y": 2.5,
-                "rotation": 0
-            },
-            {
-                "name": "pillar_light",
-                "x": 0.5,
-                "y": 2.5,
-                "rotation": 0
-            },
-            {
                 "name": "Images/Decor/Chest/Treasure_Chest_Wood_Red_A2_Coins_Silver_1x1",
-                "x": 2.0,
+                "x": 3.0,
                 "y": 1.5,
                 "rotation": 0
             },
             {
                 "name": "Images/Decor/Fire/Campfire_A_Lit_1x1",
-                "x": 3.25,
+                "x": 4.25,
                 "y": 1.25,
                 "rotation": 0
             },
             {
                 "name": "Images/Decor/Fire/Campfire_A_Lit_1x1",
-                "x": 0.75,
+                "x": 1.75,
                 "y": 1.25,
                 "rotation": 0
             },
             {
                 "name": "Images/Decor/Corpse/Guard_Corpse_Blue_B_Bloody_1x2",
-                "x": 2.0,
+                "x": 3.0,
                 "y": 3.25,
+                "rotation": 345
+            },
+            {
+                "name": "Images/Decor/Pillar/Pillar_Stone_Volcanic_A2_Green_1x1",
+                "x": 4.46,
+                "y": 8.58,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Pillar/Pillar_Stone_Volcanic_A2_Green_1x1",
+                "x": 4.5600000000000005,
+                "y": 6.48,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Pillar/Pillar_Stone_Volcanic_A2_Green_1x1",
+                "x": 1.54,
+                "y": 2.5,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Pillar/Pillar_Stone_Volcanic_A2_Green_1x1",
+                "x": 4.58,
+                "y": 2.5,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Pillar/Pillar_Stone_Volcanic_A2_Green_1x1",
+                "x": 1.48,
+                "y": 8.5,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Pillar/Pillar_Stone_Volcanic_A2_Green_1x1",
+                "x": 1.48,
+                "y": 6.46,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Pillar/Pillar_Stone_Volcanic_A2_Green_1x1",
+                "x": 1.52,
+                "y": 4.5,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Pillar/Pillar_Stone_Volcanic_A2_Green_1x1",
+                "x": 4.54,
+                "y": 4.52,
+                "rotation": 0
+            }
+        ]
+    },
+    {
+        "name": "scattered_rubble_1",
+        "width": 10,
+        "height": 9,
+        "elements": [
+            {
+                "name": "rubble_high",
+                "x": 5.98,
+                "y": 7.0,
+                "rotation": 327
+            },
+            {
+                "name": "rubble_high",
+                "x": 7.72,
+                "y": 3.5,
+                "rotation": 246
+            },
+            {
+                "name": "rubble_high",
+                "x": 2.62,
+                "y": 5.2,
+                "rotation": 33
+            },
+            {
+                "name": "rubble_medium",
+                "x": 4.86,
+                "y": 4.2,
+                "rotation": 252
+            },
+            {
+                "name": "rubble_medium",
+                "x": 5.14,
+                "y": 1.44,
+                "rotation": 342
+            }
+        ]
+    },
+    {
+        "name": "scattered_rubble_2",
+        "width": 8,
+        "height": 10,
+        "elements": [
+            {
+                "name": "rubble_high",
+                "x": 4.46,
+                "y": 7.06,
+                "rotation": 51
+            },
+            {
+                "name": "rubble_high",
+                "x": 5.94,
+                "y": 3.26,
+                "rotation": 228
+            },
+            {
+                "name": "rubble_high",
+                "x": 1.8199999999999998,
+                "y": 4.22,
+                "rotation": 306
+            },
+            {
+                "name": "rubble_low",
+                "x": 4.86,
+                "y": 1.28,
+                "rotation": 0
+            },
+            {
+                "name": "rubble_low",
+                "x": 6.52,
+                "y": 5.36,
+                "rotation": 0
+            },
+            {
+                "name": "rubble_low",
+                "x": 5.68,
+                "y": 9.34,
+                "rotation": 0
+            },
+            {
+                "name": "rubble_low",
+                "x": 1.3599999999999999,
+                "y": 7.06,
+                "rotation": 0
+            }
+        ]
+    },
+    {
+        "name": "scattered_rubble_3",
+        "width": 8,
+        "height": 9,
+        "elements": [
+            {
+                "name": "rubble_high",
+                "x": 4.66,
+                "y": 6.78,
+                "rotation": 60
+            },
+            {
+                "name": "rubble_high",
+                "x": 4.62,
+                "y": 2.22,
+                "rotation": 261
+            },
+            {
+                "name": "rubble_medium",
+                "x": 6.6,
+                "y": 4.56,
+                "rotation": 291
+            },
+            {
+                "name": "rubble_medium",
+                "x": 1.76,
+                "y": 5.5,
+                "rotation": 315
+            },
+            {
+                "name": "rubble_low",
+                "x": 1.56,
+                "y": 3.38,
+                "rotation": 108
+            },
+            {
+                "name": "rubble_low",
+                "x": 3.48,
+                "y": 4.66,
+                "rotation": 18
+            }
+        ]
+    },
+    {
+        "name": "scattered_debris_1",
+        "width": 8,
+        "height": 8,
+        "elements": [
+            {
+                "name": "Images/Decor/Corpse/Guard_Corpse_Yellow_C_1x2",
+                "x": 4.4,
+                "y": 3.62,
+                "rotation": 75
+            },
+            {
+                "name": "Images/Decor/Corpse/Helmet_Kettle_A3_Bloody_1x1",
+                "x": 7.06,
+                "y": 2.44,
+                "rotation": 318
+            },
+            {
+                "name": "Images/Decor/Weaponry/Shield_Metal_Rusty_C_1x1",
+                "x": 4.76,
+                "y": 4.38,
+                "rotation": 87
+            },
+            {
+                "name": "Images/Decor/Weaponry/Morningstar_A_04_1x1",
+                "x": 4.38,
+                "y": 2.68,
+                "rotation": 75
+            },
+            {
+                "name": "rubble_high",
+                "x": 6.12,
+                "y": 5.58,
+                "rotation": 222
+            },
+            {
+                "name": "rubble_high",
+                "x": 2.42,
+                "y": 2.38,
+                "rotation": 45
+            }
+        ]
+    },
+    {
+        "name": "scattered_debris_2",
+        "width": 7,
+        "height": 6,
+        "elements": [
+            {
+                "name": "rubble_low",
+                "x": 5.84,
+                "y": 1.42,
+                "rotation": 45
+            },
+            {
+                "name": "rubble_low",
+                "x": 3.0,
+                "y": 5.08,
+                "rotation": 333
+            },
+            {
+                "name": "chair_broken",
+                "x": 1.44,
+                "y": 2.5,
+                "rotation": 294
+            }
+        ]
+    },
+    {
+        "name": "scattered_debris_3",
+        "width": 9,
+        "height": 8,
+        "elements": [
+            {
+                "name": "Images/Decor/Rubble/Rubble_Pile_Stone_Slate_D8_1x1",
+                "x": 7.6,
+                "y": 1.36,
+                "rotation": 0
+            },
+            {
+                "name": "Images/Decor/Rubble/Rubble_Pile_Stone_Slate_D8_1x1",
+                "x": 1.52,
+                "y": 2.7,
+                "rotation": 318
+            },
+            {
+                "name": "Images/Decor/Rubble/Rubble_Pile_Stone_Slate_D8_1x1",
+                "x": 5.02,
+                "y": 6.7,
+                "rotation": 15
+            },
+            {
+                "name": "Images/Decor/Rubble/Rubble_Pile_Stone_Slate_D8_1x1",
+                "x": 1.3599999999999999,
+                "y": 4.8,
+                "rotation": 318
+            },
+            {
+                "name": "Images/Decor/Barrel/Barrel_Lid_Wood_Dark_B2_1x1",
+                "x": 4.16,
+                "y": 3.72,
                 "rotation": 345
             }
         ]
