@@ -71,7 +71,9 @@ public class MapGeneratorViewModel : ViewModelBase
 
     public void SelectTheme(ComboBox themeBox, Button mapGenButton)
     {
-        string selectedTheme = (String)themeBox.SelectedItem;
+        ComboBoxItem temp = (ComboBoxItem)themeBox.SelectedItem;
+        string selectedTheme = temp.Content.ToString();
+
         selectedTheme = selectedTheme.ToLower();
         MapHandler.Theme = selectedTheme;
         mapGenButton.IsEnabled = true;
@@ -98,7 +100,13 @@ public class MapGeneratorViewModel : ViewModelBase
                         StringSplitOptions.None)[1];
                 themeName = themeName.Split(new[] { "-" }, StringSplitOptions.None)[0];
                 string themeCapitalized = char.ToUpper(themeName[0]) + themeName.Substring(1);
-                themesBox.Items.Add(themeCapitalized);
+
+                var item = new ComboBoxItem
+                {
+                    Content = themeCapitalized,
+                    Classes = { "themeComboBoxItem" }
+                };
+                themesBox.Items.Add(item);
             }
         }
     }
