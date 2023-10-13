@@ -18,8 +18,8 @@
 
                 <TextBox Name="xSizeBox" MaxLength="3" Classes="mapGenTextbox" Watermark="Max = 100 | Min = 9"
                          TextChanged="TextBoxWritten">
-
                 </TextBox>
+
                 <Label Classes="textBoxValue">
                     Y Size
                 </Label>
@@ -42,12 +42,8 @@
 
             <!-- Theme selection -->
             <StackPanel Grid.Column="0" Grid.Row="1" Spacing="5" VerticalAlignment="Center">
-                <ComboBox Classes="mapGenCombobox" Name="ThemesBox" PlaceholderText="Theme" Height="50" Width="250"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center" SelectionChanged="ThemeSelected">
+                <ComboBox Classes="mapGenCombobox" Name="ThemesBox" PlaceholderText="Theme" SelectionChanged="ThemeSelected">
                 </ComboBox>
-
-
             </StackPanel>
 
             <!-- Export/Host Game/Back buttons-->
@@ -56,7 +52,7 @@
                 <Button Classes="mapGenButton" Content="Export" Name="ExportButton" Click="ExportMap" IsEnabled="False">
                     <Button.Flyout>
                         <Flyout Placement="Top">
-                            <TextBlock Text="Map exported successfully"/>
+                            <TextBlock Text="Map exported successfully" />
                         </Flyout>
                     </Button.Flyout>
                 </Button>
