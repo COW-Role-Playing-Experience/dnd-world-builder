@@ -249,42 +249,16 @@
         </Style>
 
         <Style Selector="ComboBox.mapGenCombobox:pointerover /template/ Border">
-            <Setter Property="Background" Value="#e2e8eb" />
+            <Setter Property="Background" Value="#d5dfe2" />
         </Style>
         <Style Selector="ComboBox.mapGenCombobox:dropdownopen /template/ Border">
             <Setter Property="Background" Value="#e2e8eb" />
         </Style>
 
-        <Style Selector="ComboBox.mapGenCombobox[SelectedItem=Cave]">
-            <Setter Property="Background" Value="#6E8894" />
-            <Setter Property="Foreground" Value="#e2e8eb" />
+        <Style Selector="ComboBoxItem.themeComboBoxItem /template/ ContentPresenter">
+            <Setter Property="CornerRadius" Value="0" />
         </Style>
 
-        <!-- Combobox Options Cave -->
-
-        <Style Selector="ComboBox.mapGenCombobox[SelectedItem=Cave]">
-            <Setter Property="Background" Value="#5a726d" />
-            <Setter Property="Foreground" Value="#e2e8eb" />
-
-        </Style>
-        <Style Selector="ComboBox.mapGenCombobox:pointerover[SelectedItem=Cave] /template/ Border">
-            <Setter Property="Background" Value="#475a57" />
-        </Style>
-        <Style Selector="ComboBox.mapGenCombobox:dropdownopen[SelectedItem=Cave] /template/ Border">
-            <Setter Property="Background" Value="#3b4a48" />
-        </Style>
-
-        <!-- Combobox Options Dungeon -->
-        <Style Selector="ComboBox.mapGenCombobox[SelectedItem=Dungeon]">
-            <Setter Property="Background" Value="#837285" />
-            <Setter Property="Foreground" Value="#e2e8eb" />
-        </Style>
-        <Style Selector="ComboBox.mapGenCombobox:pointerover[SelectedItem=Dungeon] /template/ Border">
-            <Setter Property="Background" Value="#6c5c6d" />
-        </Style>
-        <Style Selector="ComboBox.mapGenCombobox:dropdownopen[SelectedItem=Dungeon] /template/ Border">
-            <Setter Property="Background" Value="#584b59" />
-        </Style>
     </Styles>
     <!-- Labels Map Maker -->
 
