@@ -33,15 +33,17 @@
                          TextChanged="TextBoxWritten">
                 </TextBox>
                 <Button Classes="mapGenButton" Click="GenerateNewValues">Generate New Values</Button>
+
+
+            <!-- Theme selection -->
+
+            <StackPanel Spacing="5" VerticalAlignment="Center" >
                 <Label Classes="textBoxValue">
                     Decor fill percentage
                 </Label>
-                <Slider Name="MapFillSlider" Minimum="0" Maximum="1.0" ValueChanged="MapFillChanged"
-                        IsSnapToTickEnabled="True" TickFrequency="0.1" Value = "0.3" IsDirectionReversed="False"/>
+                <Slider Classes="DmSliders" Name="MapFillSlider" Minimum="0" Maximum="1.0" ValueChanged="MapFillChanged"
+                        IsSnapToTickEnabled="True" TickFrequency="0.1" Value = "0.3"/>
             </StackPanel>
-
-            <!-- Theme selection -->
-            <StackPanel Grid.Column="0" Grid.Row="1" Spacing="5" VerticalAlignment="Center">
                 <ComboBox Classes="mapGenCombobox" Name="ThemesBox" PlaceholderText="Theme" SelectionChanged="ThemeSelected">
                 </ComboBox>
             </StackPanel>
