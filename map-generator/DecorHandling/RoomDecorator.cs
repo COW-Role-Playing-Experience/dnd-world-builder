@@ -20,7 +20,7 @@ public class RoomDecorator
     public static readonly float maxPlacementAttempts = 30; //the number of times you will choose a decor group to attempt to place
     public RoomDecorator(int xOrigin, int yOrigin, int xSize, int ySize, Random random)
     {
-        this._random = random;
+        this._random = new Random(random.Next());
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
         this.xSize = xSize;
@@ -31,7 +31,7 @@ public class RoomDecorator
 
     public RoomDecorator(int xOrigin, int yOrigin, bool[,] occupancyMap, Random random)
     {
-        this._random = random;
+        this._random = new Random(random.Next());
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
         this.xSize = occupancyMap.GetLength(0);
