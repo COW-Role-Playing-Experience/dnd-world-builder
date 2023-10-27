@@ -100,5 +100,8 @@
         "chest" : 1,
         "scattered_debris": 2,
         "scattered_rubble": 2
+    },
+    "NONE": {
+        "empty": 1
     }
 }
