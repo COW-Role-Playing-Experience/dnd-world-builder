@@ -1,0 +1,74 @@
+[
+    {
+      "id": 0,
+      "minWidth": 5,
+      "maxWidth": 5,
+      "minHeight": 5,
+      "maxHeight": 5,
+      "connectorIds": [0, 0, 0, 0],
+      "minConnectors": 4,
+      "maxConnectors": 4,
+      "floorTexture": "Images/Floor/Wooden_Flooring_L_03",
+      "decorGroup": "treasure"
+    },
+    {
+        "id": 1,
+        "minWidth": 5,
+        "maxWidth": 5,
+        "minHeight": 5,
+        "maxHeight": 5,
+        "connectorIds": [0, 0, 0, 0],
+        "minConnectors": 4,
+        "maxConnectors": 4,
+        "floorTexture": "Images/Floor/Acid_A_07",
+        "decorGroup": "rubble"
+      },
+      {
+        "id": 2,
+        "minWidth": 5,
+        "maxWidth": 5,
+        "minHeight": 5,
+        "maxHeight": 5,
+        "connectorIds": [0, 0, 0, 0],
+        "minConnectors": 4,
+        "maxConnectors": 4,
+        "floorTexture": "Images/Floor/Cobblestone_Square_A_02",
+        "decorGroup": "corpses"
+      },
+    {
+        "id": 3,
+        "minWidth": 5,
+        "maxWidth": 5,
+        "minHeight": 5,
+        "maxHeight": 5,
+        "connectorIds": [0, 0, 0, 0],
+        "minConnectors": 4,
+        "maxConnectors": 4,
+        "floorTexture": "Images/Floor/Forest_Floor_Leaves_A_01",
+        "decorGroup": "NONE"
+    },
+    {
+        "id": 4,
+        "minWidth": 5,
+        "maxWidth": 5,
+        "minHeight": 5,
+        "maxHeight": 5,
+        "connectorIds": [0, 0, 0, 0],
+        "minConnectors": 4,
+        "maxConnectors": 4,
+        "floorTexture": "Images/Floor/Water_Opaque_A_01",
+        "decorGroup": "barrels"
+    },
+    {
+        "id": 5,
+        "minWidth": 5,
+        "maxWidth": 5,
+        "minHeight": 5,
+        "maxHeight": 5,
+        "connectorIds": [0, 0, 0, 0],
+        "minConnectors": 4,
+        "maxConnectors": 4,
+        "floorTexture": "Images/Floor/Grate_Metal_D_05",
+        "decorGroup": "dining"
+    }
+  ]

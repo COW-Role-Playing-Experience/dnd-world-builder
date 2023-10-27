@@ -1521,5 +1521,12 @@
                 "rotation": 345
             }
         ]
+    },
+    {
+        "name": "empty",
+        "width": 1,
+        "height": 1,
+        "elements": [
+        ]
     }
 ]
