@@ -9,7 +9,7 @@ Contributors:
 |[Nathan Bridge-Earney](https://github.com/nathanbridgeearney)| UI UX, Multiplayer|
 |[David Lindsay](https://github.com/DavidLindsayV)| Assets, UI UX, Map Maker|
 |[Anfri Hayward](https://github.com/AnfriH)| Map Maker, Game Engine
-|[Shae West](https://github.com/Ofthemasses/dnd-world-builder/commits?author=westshae)| Map Maker, UI UX|
+|[Shae West](https://github.com/westshae)| Map Maker, UI UX|
 
 ## Description
 
