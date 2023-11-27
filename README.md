@@ -4,12 +4,12 @@ Contributors:
 
 |Name|Roles|
 |---|---|
-|@leongjia1| Project manager, Quality Controller, Multiplayer|
-|@metcalfinl| Quality Controller, Map Maker|
-|@bridgenath1| UI UX, Multiplayer|
-|@lindsadavi2| Assets, UI UX, Map Maker|
-|@haywarmatt| Map Maker, Game Engine
-|@westshae| Map Maker, UI UX|
+|[Jia-Wei Leong](https://github.com/JWL16038)| Project manager, Quality Controller, Multiplayer|
+|[Finlay Metcalfe](https://github.com/Ofthemasses)| Quality Controller, Map Maker|
+|[Nathan Bridge-Earney](https://github.com/nathanbridgeearney)| UI UX, Multiplayer|
+|[David Lindsay](https://github.com/DavidLindsayV)| Assets, UI UX, Map Maker|
+|[Anfri Hayward](https://github.com/AnfriH)| Map Maker, Game Engine
+|[Shae West](https://github.com/Ofthemasses/dnd-world-builder/commits?author=westshae)| Map Maker, UI UX|
 
 ## Description
 
